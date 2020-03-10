@@ -1,0 +1,11 @@
+{
+  "name": "MindScribr",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^8.1.1"
+  }
+}

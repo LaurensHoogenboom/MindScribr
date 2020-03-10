@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: rgb(65,125,214);
+    --blue-dark: rgb(57,112,191);
+    --white: rgb(255,255,255);
+    --grey-lightest: rgb(250,250,250);
+    --grey: rgb(112,112,112);
+    --shadow: rgba(0,0,0,0.16);
+}
+
+p, a, label, h1, h2, h3, td, input {
+    font-family: OpenSans;
+    color: var(--grey);
+}
+
+a {
+    text-decoration: none;
+}
+
+
+header {
+    height: 120px;
+    width: 100%;
+}
+
+header nav {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    grid-gap: 40px;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    padding: 0px 40px;
+}
+
+header nav a {
+    color: var(--white);
+}
+
+header nav .logo {
+    box-shadow: 0px 1px 1px var(--shadow);
+}
+
+header nav .tabbar {
+    align-self: flex-end;
+}
+
+header .toolbar {
+    height: 60px;
+    width: 100%;
+    background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
+    box-shadow: 0px 1px 1px var(--shadow);
+    padding: 0px 40px;
+}
+
+.tabbar a {
+    display: inline-block;
+    padding: 9px 10px;
+}
+
+.tabbar a.current {
+    background-color: var(--white);
+    padding: 9px 20px;
+    border-radius: 4px 4px 0px 0px;
+    color: var(--blue);
+    box-shadow: 0px -1px 2px var(--shadow);
+}
+
+
+
+@font-face {
+    font-family: OpenSans;
+    src: url(../fonts/OpenSans-Regular.woff);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: url(../fonts/OpenSans-Italic.woff);
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: url(../fonts/OpenSans-Bold.woff);
+    font-weight: bold;
+    font-style: normal;
+}
