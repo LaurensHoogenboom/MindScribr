@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>MindScribr</title>
+  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <img src="../../icon.svg" class="logo">
+      <div class="tabbar">
+        <a href="clients/">Cliënten</a>
+        <a href="therapists/">Therapeuten</a>
+        <a href="settings/">Instellingen</a>
+      </div>
+      <div class="userMenu">
+        <a href="#">Laurens</a>
+        <div class="avatar" style="background-image: url(../../users/Laurens/profile.jpg)"></div>
+      </div>
+    </nav>
+    
+    <div class="toolbar" id="mainToolbar">
+      
+    </div>
+  </header>
+
+  <main>
+    <div id="mainContent">
+      
+    </div>
+  </main>
+
+  <script>
+    require('../js/app.js')
+  </script>
+</body>
+
+</html>

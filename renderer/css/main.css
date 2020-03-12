@@ -8,14 +8,15 @@
     --blue: rgb(65,125,214);
     --blue-dark: rgb(57,112,191);
     --white: rgb(255,255,255);
-    --white-tranparent: rgba(255,255,255,0.3);
+    --white-tranparent: rgba(255,255,255,0.1);
     --grey-lightest: rgb(250,250,250);
+    --grey-lighter: rgb(240,240,240);
     --grey: rgb(112,112,112);
-    --grey-lighter: rgb(220,220,220);
+    --grey-light: rgb(220,220,220);
     --shadow: rgba(0,0,0,0.16);
 }
 
-p, a, label, h1, h2, h3, td, input {
+p, a, label, h1, h2, h3, td, input, select {
     font-family: OpenSans;
     color: var(--grey);
     font-size: 16px;
@@ -26,10 +27,74 @@ a {
     outline: none;
 }
 
+.icon {
+    font-family: Icons;
+    font-size: 15px;
+}
+
+.tableWrapper {
+    width: 100%;
+    border-bottom: 16px solid var(--grey-lighter);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+table thead {
+    background-color: var(--grey-lighter);
+}
+
+table thead tr td, table tbody tr td {
+    padding: 9px 20px;
+}
+
+table tbody tr td {
+    border-bottom: 1px solid var(--grey-lighter);
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table tr td:first-child {
+    padding-left: 40px;
+}
+
+table tr td:last-child {
+    padding-right: 40px;
+}
+
+table.menuTable {
+    table-layout: initial;
+    margin-bottom: 40px;
+}
+
+table.menuTable thead {
+    background: none;
+}
+
+table.menuTable thead tr td {
+    font-size: 19px;
+    padding-bottom: 29px;
+}
+
+table.menuTable tbody {
+    border-radius: 15px;
+}
+
+table.menuTable tbody tr:nth-child(odd) {
+    background-color: var(--grey-lightest);
+}
 
 header {
-    height: 120px;
+    height: 100px;
     width: 100%;
+    position: relative;
 }
 
 header nav {
@@ -62,7 +127,12 @@ header nav .userMenu {
     grid-gap: 20px;
 }
 
-header .toolbar {
+main #mainContent {
+    padding: 40px;
+    min-height: calc(100vh - 100px);
+}
+
+.toolbar {
     display: grid;
     grid-template-columns: max-content 1fr max-content;
     height: 40px;
@@ -72,14 +142,31 @@ header .toolbar {
     padding: 5px 40px;
 }
 
-main .mainContent {
-    padding: 40px;
+.toolbar.bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px -1px 1px var(--shadow);
 }
+
+.toolbar .center {
+    justify-self: center;
+}
+
+.toolbar .left > div, .toolbar .left input, .toolbar .left select {
+ margin-right: 20px;
+}
+
+.toolbar .right > div, .toolbar .right input, .toolbar .right select {
+    margin-left: 20px;
+   }
 
 .tabbar a {
     display: inline-block;
     padding: 9px 10px;
     border-radius: 4px 4px 0px 0px;
+    transition: background-color 0.2s;
 }
 
 .tabbar a.current {
@@ -93,30 +180,41 @@ main .mainContent {
     background-color: var(--white-tranparent);
 }
 
+.tabbar a.current:hover {
+    background-color: var(--white);
+}
+
 .switch {
     border-radius: 15px;
     background-color: white;
-    overflow: hidden;
-    box-shadow: 0px 0px 2px var(--shadow);
+    border: 1px solid var(--grey-light);
+    float: left;
 }
 
 .switch a {
-    display: inline-block;
+    display: block;
     padding: 4px 20px;
-    border-right: 1px solid var(--grey-lighter);
+    border-left: 1px solid var(--grey-light);
+    transition: background-color 0.2s;
+    float: left;
 }
 
 .switch a:hover {
     background-color: var(--grey-lightest);
 }
 
-.switch a:last-child {
-    border-right: none;
-}
-
 .switch a.current {
     background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    border: none;
     color: var(--white);
+}
+
+.switch a:first-child {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.switch a:last-child {
+    border-radius: 0px 15px 15px 0px;
 }
 
 .avatar {
@@ -128,58 +226,33 @@ main .mainContent {
     background-position: 50%;
 }
 
-.select {
-    display: flex;
-    grid-template-columns: 1fr max-content;
+select {
+    border-radius: 15px;
+    padding: 2px 20px;
+    border: 1px solid var(--grey-light);
+    outline: none;
 }
 
-.select .options {
-    background-color: var(--white);
-    box-shadow: 0px 0px 2px var(--shadow);
-    border-radius: 16px 0px 0px 16px;
+select.placeHolder {
+    color: var(--grey-light);
 }
 
-.select .options.expand {
-    border-radius: 16px 0px 4px 4px;
-}
-
-.select a {
-    display: block;
-    height: 30px;
-    padding: 4px 20px;
-    min-width: 150px;
-    transition: all 0.2s;
-}
-
-.select a:hover {
-    background-color: var(--grey-lightest);
-}
-
-.select a:not(.current) {
-    height: 0;
-    overflow: hidden;
-    padding: 0px 20px;
-}
-
-.select .options.expand a:not(.current) {
-    height: 30px;
-    padding: 4px 20px;
-}
-
-.select .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    min-width: 30px;
-    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
-    border-radius: 0px 15px 15px 0px;
+select option {
+    color: var(--grey);
 }
 
 .chevron {
     position: relative;
     height: 10px;
     width: 20px;
+}
+
+.chevron.left {
+    transform: rotate(90deg);
+}
+
+.chevron.right {
+    transform: rotate(-90deg);
 }
 
 .chevron span {
@@ -211,6 +284,90 @@ main .mainContent {
     transform: translateY(-50%) rotate(45deg);
 }
 
+.button {
+    min-height: 30px;
+    min-width: 30px;
+    border-radius: 15px;
+    padding: 4px 20px;
+    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    color: var(--white);
+}
+
+.button.square, .button.circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.button.grey {
+    background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
+    color: var(--grey)
+}
+
+.button .icon {
+    color: var(--white);
+    filter: drop-shadow(0px 3px 6px var(--shadow));
+}
+
+.button .chevron {
+    filter: drop-shadow(0px 3px 6px var(--shadow));
+}
+
+input {
+    outline: none;
+    border: 1px solid var(--grey-light);
+    border-radius: 15px;
+    background-color: white;
+}
+
+input[type="text"] {
+    height: 30px;
+    padding: 4px 20px;
+}
+
+::placeholder {
+    color: var(--grey-light);
+    font-style: italic;
+}
+
+.buttonInput {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+}
+
+.buttonInput input {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.buttonInput .button {
+    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    border-radius: 0px 15px 15px 0px;
+    padding: 0;
+    max-height: 30px;
+}
+
+.pager {
+    display: grid;
+    grid-template-columns: 30px 30px 30px;
+    border: 1px solid var(--grey-light);
+    border-radius: 15px;
+}
+
+.pager .button {
+    border-radius: 0;
+}
+
+.pager .button:first-child {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.pager .button:last-child {
+    border-radius: 0px 15px 15px 0px;
+}
+
 @font-face {
     font-family: OpenSans;
     src: url(../fonts/OpenSans-Regular.woff);
@@ -230,4 +387,9 @@ main .mainContent {
     src: url(../fonts/OpenSans-Bold.woff);
     font-weight: bold;
     font-style: normal;
+}
+
+@font-face {
+    font-family: Icons;
+    src: url(../fonts/Icons.woff);
 }

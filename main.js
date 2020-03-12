@@ -13,7 +13,7 @@ function createWindow() {
 
     console.log( 'fire')
     
-    mainWindow.loadFile('./renderer/views/index.html')
+    mainWindow.loadFile('./renderer/views/layout.html')
 }
 
 //When the app is initialized open the windows
