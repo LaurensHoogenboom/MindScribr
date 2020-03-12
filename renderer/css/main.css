@@ -11,14 +11,15 @@
     --white-tranparent: rgba(255,255,255,0.1);
     --grey-lightest: rgb(250,250,250);
     --grey-lighter: rgb(240,240,240);
-    --grey: rgb(112,112,112);
     --grey-light: rgb(220,220,220);
+    --grey: rgb(180,180,180);
+    --grey-dark: rgb(112,112,112);
     --shadow: rgba(0,0,0,0.16);
 }
 
 p, a, label, h1, h2, h3, td, input, select {
     font-family: OpenSans;
-    color: var(--grey);
+    color: var(--grey-dark);
     font-size: 16px;
 }
 
@@ -78,23 +79,54 @@ table.menuTable thead {
     background: none;
 }
 
+table.menuTable .icon {
+    font-size: 30px;
+}
+
 table.menuTable thead tr td {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    align-items: center;
+    grid-gap: 20px;
     font-size: 19px;
     padding-bottom: 29px;
 }
 
 table.menuTable tbody {
     border-radius: 15px;
+    box-shadow: 0px 1px 1px var(--shadow);
 }
 
 table.menuTable tbody tr:nth-child(odd) {
     background-color: var(--grey-lightest);
 }
 
+table.menuTable tbody tr td:last-child {
+    color: var(--grey);
+}
+
+table.menuTable tbody tr:first-child td:first-child {
+    border-radius: 15px 0px 0px 0px;
+}
+
+table.menuTable tbody tr:first-child td:last-child {
+    border-radius: 15px 0px 0px 0px;
+}
+
+table.menuTable tbody tr:last-child td:first-child {
+    border-radius: 0px 0px 0px 15px;
+}
+
+table.menuTable tbody tr:last-child td:last-child {
+    border-radius: 0px 0px 15px 0px;
+}
+
 header {
     height: 100px;
     width: 100%;
     position: relative;
+    position: sticky;
+    top: 0;
 }
 
 header nav {
@@ -193,9 +225,9 @@ main #mainContent {
 
 .switch a {
     display: block;
-    padding: 4px 20px;
+    padding: 2px 20px;
     border-left: 1px solid var(--grey-light);
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     float: left;
 }
 
@@ -238,7 +270,7 @@ select.placeHolder {
 }
 
 select option {
-    color: var(--grey);
+    color: var(--grey-dark);
 }
 
 .chevron {
@@ -304,7 +336,7 @@ select option {
 
 .button.grey {
     background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
-    color: var(--grey)
+    color: var(--grey-dark)
 }
 
 .button .icon {
@@ -329,7 +361,7 @@ input[type="text"] {
 }
 
 ::placeholder {
-    color: var(--grey-light);
+    color: var(--grey);
     font-style: italic;
 }
 
@@ -356,8 +388,10 @@ input[type="text"] {
     border-radius: 15px;
 }
 
-.pager .button {
+.pager .button.square {
     border-radius: 0;
+    height: 28px;
+    min-height: initial;
 }
 
 .pager .button:first-child {
