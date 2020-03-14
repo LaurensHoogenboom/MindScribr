@@ -16,7 +16,7 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
 
 //data table handler
 
-$(document).on('click', '.dataTable tr', function () {
+$(document).on('click', '.actionTable tr', function () {
     var action = $(this).closest('table').data('action');
 
     loadPage(action);
@@ -110,4 +110,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('clients/reports/');
+loadPage('clients/data/');
