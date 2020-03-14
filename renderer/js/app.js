@@ -110,4 +110,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('clients/data/');
+loadPage('clients/');
