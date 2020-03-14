@@ -11,8 +11,6 @@ function createWindow() {
         }
     })
 
-    console.log( 'fire')
-    
     mainWindow.loadFile('./renderer/views/layout.html')
 }
 

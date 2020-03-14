@@ -6,7 +6,7 @@ const fs = require('fs')
 
 //switch
 
-$(document).on('click', '.switch a', function () {
+$(document).on('click', '.switch:not(.subSectionNav) a', function () {
     $(this).parent().find('a').each(function () {
         $(this).removeClass('current')
     })
@@ -14,9 +14,24 @@ $(document).on('click', '.switch a', function () {
     $(this).addClass('current');
 })
 
+//data table handler
+
+$(document).on('click', '.dataTable tr', function () {
+    var action = $(this).closest('table').data('action');
+
+    loadPage(action);
+})
+
+//dropdown table handler
+
+$(document).on('click', '.tableWrapper.dropdown .title', function () {
+    $(this).closest('.tableWrapper').toggleClass('visible')
+    $(this).closest('.tableWrapper').find('.chevron').toggleClass('right')
+})
+
 //link handler
 
-$('a').click(function (e) {
+$(document).on('click', 'a', function (e) {
     e.preventDefault();
 
     var link = $(this).attr('href');
@@ -29,13 +44,30 @@ $('a').click(function (e) {
     }
 })
 
-//set current section
+//set tabbar
 
 function setSectionTabbar(link) {
     var currentSection = link.split('/')[0].toLowerCase();
 
     $('header nav .tabbar a').each(function () {
         var linkSection = $(this).attr('href').split('/')[0].toLowerCase();
+
+        if (linkSection === currentSection) {
+            $(this).addClass('current');
+        }
+        else {
+            $(this).removeClass('current');
+        }
+    })
+}
+
+//set subsection navigation
+
+function setSubSectionTabbar(link) {
+    var currentSection = link.split('/')[1].toLowerCase();
+
+    $('.toolbar .switch.subSectionNav a').each(function () {
+        var linkSection = $(this).attr('href').split('/')[1].toLowerCase();
 
         if (linkSection === currentSection) {
             $(this).addClass('current');
@@ -62,13 +94,15 @@ function loadPage(pageLocation) {
             });
 
             setSectionTabbar(pageLocation);
-            
+
             fs.access(toolbarFile, (error) => {
                 if (error) {
                     console.log('This section or page has not any toolbar.')
                 } else {
                     fs.readFile(toolbarFile, 'utf8', function (error, contents) {
-                        $('#mainToolbar').html(contents);
+                        $.when($('#mainToolbar').html(contents)).then(function() {
+                            setSubSectionTabbar(pageLocation);
+                        })
                     });
                 }
             })
@@ -76,4 +110,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('clients/');
+loadPage('clients/main/');

@@ -5,27 +5,44 @@
 }
 
 :root {
-    --blue: rgb(65,125,214);
-    --blue-dark: rgb(57,112,191);
-    --white: rgb(255,255,255);
-    --white-tranparent: rgba(255,255,255,0.1);
-    --grey-lightest: rgb(250,250,250);
-    --grey-lighter: rgb(240,240,240);
-    --grey-light: rgb(220,220,220);
-    --grey: rgb(180,180,180);
-    --grey-dark: rgb(112,112,112);
-    --shadow: rgba(0,0,0,0.16);
+    --blue: rgb(65, 125, 214);
+    --blue-dark: rgb(57, 112, 191);
+    --white: rgb(255, 255, 255);
+    --white-tranparent: rgba(255, 255, 255, 0.1);
+    --grey-lightest: rgb(250, 250, 250);
+    --grey-lighter: rgb(240, 240, 240);
+    --grey-light: rgb(220, 220, 220);
+    --grey: rgb(180, 180, 180);
+    --grey-dark: rgb(112, 112, 112);
+    --shadow: rgba(0, 0, 0, 0.16);
+    --orange: rgb(232, 183, 114);
+    --orange-dark: rgb(209, 166, 103);
 }
 
 p, a, label, h1, h2, h3, td, input, select {
     font-family: OpenSans;
     color: var(--grey-dark);
     font-size: 16px;
+    font-weight: 400;
 }
 
 a {
     text-decoration: none;
     outline: none;
+}
+
+h1 {
+    font-family: OpenSans;
+    font-size: 47px;
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 19px;
 }
 
 .icon {
@@ -38,6 +55,7 @@ a {
     border-bottom: 16px solid var(--grey-lighter);
     border-radius: 16px;
     overflow: hidden;
+    margin-bottom: 40px;
 }
 
 table {
@@ -121,6 +139,49 @@ table.menuTable tbody tr:last-child td:last-child {
     border-radius: 0px 0px 15px 0px;
 }
 
+.tableWrapper.dropdown {
+    border-radius: 15px;
+    box-shadow: 0px 1px 1px var(--shadow);
+    border-bottom: none;
+}
+
+.tableWrapper.dropdown table {
+    table-layout: auto;
+}
+
+.tableWrapper.dropdown .title {
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    padding: 9px 40px;
+    cursor: pointer;
+}
+
+.tableWrapper.dropdown .title p {
+    color: var(--white);
+}
+
+.tableWrapper.dropdown .title .actions {
+    justify-self: end;
+}
+
+.tableWrapper.dropdown .title.orange {
+    background: linear-gradient(to bottom, var(--orange), var(--orange-dark));
+}
+
+.tableWrapper.dropdown.visible table {
+    display: table;
+}
+
+.tableWrapper.dropdown table {
+    display: none;
+}
+
+.tableWrapper.dropdown table tr td.maxContent {
+    width: 1%;
+}
+
 header {
     height: 100px;
     width: 100%;
@@ -166,7 +227,8 @@ main #mainContent {
 
 .toolbar {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-gap: 40px;
     height: 40px;
     width: 100%;
     background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
@@ -186,13 +248,21 @@ main #mainContent {
     justify-self: center;
 }
 
-.toolbar .left > div, .toolbar .left input, .toolbar .left select {
- margin-right: 20px;
+.toolbar .left {
+    justify-self: start;
 }
 
-.toolbar .right > div, .toolbar .right input, .toolbar .right select {
+.toolbar .right {
+    justify-self: end;
+}
+
+.toolbar .left>div, .toolbar .left input, .toolbar .left select {
+    margin-right: 20px;
+}
+
+.toolbar .right>div, .toolbar .right input, .toolbar .right select {
     margin-left: 20px;
-   }
+}
 
 .tabbar a {
     display: inline-block;
@@ -221,6 +291,44 @@ main #mainContent {
     background-color: white;
     border: 1px solid var(--grey-light);
     float: left;
+}
+
+.mainInfoBlocks {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    grid-gap: 40px;
+    width: 100%;
+    margin-bottom: 40px;
+    overflow: auto;
+}
+
+.mainInfoBlocks .block {
+    background-color: white;
+    border: 1px solid var(--grey-light);
+    border-radius: 15px;
+    padding: 20px 40px;
+}
+
+.mainInfoBlocks .block h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.mainInfoBlocks .block .info {
+    display: inline-block;
+    margin-right: 80px;
+    text-align: center;
+}
+
+.mainInfoBlocks .block .info:last-child {
+    margin-right: 0px;
+}
+
+.mainInfoBlocks .block .info .icon {
+    display: block;
+    font-size: 33px;
+    color: var(--grey-dark);
+    padding-bottom: 9px;
 }
 
 .switch a {
@@ -277,6 +385,7 @@ select option {
     position: relative;
     height: 10px;
     width: 20px;
+    transition: transform 0.2s;
 }
 
 .chevron.left {
@@ -316,6 +425,31 @@ select option {
     transform: translateY(-50%) rotate(45deg);
 }
 
+.cross {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    position: relative;
+}
+
+.cross span {
+    display: block;
+    position: absolute;
+    background-color: var(--grey-dark);
+    height: 2px;
+    width: 18px;
+    top: 50%;
+    left: 50%;
+}
+
+.cross span:first-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.cross span:last-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
 .button {
     min-height: 30px;
     min-width: 30px;
@@ -346,6 +480,24 @@ select option {
 
 .button .chevron {
     filter: drop-shadow(0px 3px 6px var(--shadow));
+}
+
+.sectionNavButton {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+}
+
+.sectionNavButton .button {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.sectionNavButton label {
+    display: inline-block;
+    padding: 2px 20px;
+    border-radius: 0px 15px 15px 0px;
+    background-color: var(--white);
+    border: 1px solid var(--grey-light);
+    cursor: pointer;
 }
 
 input {
@@ -404,22 +556,29 @@ input[type="text"] {
 
 @font-face {
     font-family: OpenSans;
+    src: url(../fonts/OpenSans-Light.woff);
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: OpenSans;
     src: url(../fonts/OpenSans-Regular.woff);
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: OpenSans;
     src: url(../fonts/OpenSans-Italic.woff);
-    font-weight: normal;
+    font-weight: 400;
     font-style: italic;
 }
 
 @font-face {
     font-family: OpenSans;
     src: url(../fonts/OpenSans-Bold.woff);
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
 }
 
