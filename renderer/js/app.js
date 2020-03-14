@@ -76,4 +76,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('settings/');
+loadPage('clients/');
