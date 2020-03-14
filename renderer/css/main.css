@@ -60,7 +60,7 @@ h3 {
 
 table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
 }
 
@@ -227,7 +227,7 @@ main #mainContent {
 
 .toolbar {
     display: grid;
-    grid-template-columns: 1fr max-content 1fr;
+    grid-template-columns: minmax(max-content, 1fr) max-content minmax(max-content, 1fr);
     grid-gap: 40px;
     height: 40px;
     width: 100%;
@@ -254,6 +254,20 @@ main #mainContent {
 
 .toolbar .right {
     justify-self: end;
+}
+
+.toolbar .right > *, .toolbar .right section > * {
+    float: left;
+}
+
+.toolbar .right section {
+    border-left: 1px solid var(--grey-light);
+    margin-left: 20px;
+}
+
+.toolbar .right section:first-of-type {
+    border-left: none;
+    margin-left: 0;
 }
 
 .toolbar .left>div, .toolbar .left input, .toolbar .left select {
@@ -524,6 +538,7 @@ input[type="text"] {
 
 .buttonInput input {
     border-radius: 15px 0px 0px 15px;
+    max-width: 180px;
 }
 
 .buttonInput .button {
