@@ -16,7 +16,7 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
 
 //data table handler
 
-$(document).on('click', '.actionTable tr', function () {
+$(document).on('click', '.actionTable tbody tr', function () {
     var action = $(this).closest('table').data('action');
 
     loadPage(action);
@@ -24,10 +24,14 @@ $(document).on('click', '.actionTable tr', function () {
 
 //dropdown table handler
 
-$(document).on('click', '.tableWrapper.dropdown .title', function () {
+$(document).on('click', '.tableWrapper.dropdown .title', function (e) {
     $(this).closest('.tableWrapper').toggleClass('visible')
-    $(this).closest('.tableWrapper').find('.chevron').toggleClass('right')
-})
+    $(this).closest('.tableWrapper .title').children('.chevron').toggleClass('right')
+});
+
+$(document).on('click', '.tableWrapper.dropdown .title .button', function (e) {
+    return false;
+});
 
 //link handler
 
@@ -100,9 +104,27 @@ function loadPage(pageLocation) {
                     console.log('This section or page has not any toolbar.')
                 } else {
                     fs.readFile(toolbarFile, 'utf8', function (error, contents) {
-                        $.when($('#mainToolbar').html(contents)).then(function() {
-                            setSubSectionTabbar(pageLocation);
+                        $('#mainToolbar > *').animate({
+                            opacity: '0',
+                        }, {
+                            queue: false,
+                            duration: 100
                         })
+
+                        $('#mainToolbar').animate({
+                            padding: '5px 20px 5px 60px'
+                        }, {
+                            queue: false,
+                            duration: 100
+                        })
+
+                        setTimeout(function () {
+                            $('#mainToolbar').css('padding', '5px 40px')
+
+                            $.when($('#mainToolbar').html(contents)).then(function () {
+                                setSubSectionTabbar(pageLocation);
+                            })
+                        }, 150)
                     });
                 }
             })
