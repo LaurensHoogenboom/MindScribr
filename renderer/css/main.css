@@ -476,7 +476,7 @@ main #mainContent {
     background-position: center;
 }
 
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1550px) {
     .mainInfoBlocks {
         display: grid;
         grid-template-columns: minmax(max-content, 1fr) minmax(max-content, 1fr);
