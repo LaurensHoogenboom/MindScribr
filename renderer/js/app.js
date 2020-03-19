@@ -141,4 +141,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('clients/reports/detail/');
+loadPage('clients/');
