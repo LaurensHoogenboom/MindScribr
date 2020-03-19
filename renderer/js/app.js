@@ -14,7 +14,16 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
     $(this).addClass('current');
 })
 
-//data table handler
+//input grid input description
+
+$(document).on('mouseover', '.inputGrid .input .title .actions .infoButton', function() {
+    $(this).closest('.input').find('.description').addClass('visible');
+    console.log('fire');
+}).on('mouseout', '.inputGrid .input .title .actions .infoButton', function() {
+    $(this).closest('.input').find('.description').removeClass('visible');
+})
+
+//action table
 
 $(document).on('click', '.actionTable tbody tr', function () {
     var action = $(this).closest('table').data('action');
@@ -22,9 +31,9 @@ $(document).on('click', '.actionTable tbody tr', function () {
     loadPage(action);
 })
 
-//dropdown table handler
+//dropdown table
 
-$(document).on('click', '.tableWrapper.dropdown .title', function (e) {
+$(document).on('click', '.tableWrapper.dropdown > .title', function (e) {
     $(this).closest('.tableWrapper').toggleClass('visible')
     $(this).closest('.tableWrapper .title').children('.chevron').toggleClass('right')
 });
@@ -33,7 +42,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .button', function (e) {
     return false;
 });
 
-//link handler
+//link
 
 $(document).on('click', 'a', function (e) {
     e.preventDefault();
@@ -48,7 +57,7 @@ $(document).on('click', 'a', function (e) {
     }
 })
 
-//set tabbar
+//tabbar
 
 function setSectionTabbar(link) {
     var currentSection = link.split('/')[0].toLowerCase();
@@ -65,7 +74,7 @@ function setSectionTabbar(link) {
     })
 }
 
-//set subsection navigation
+//subsection navigation
 
 function setSubSectionTabbar(link) {
     var currentSection = link.split('/')[1].toLowerCase();
@@ -132,4 +141,4 @@ function loadPage(pageLocation) {
     });
 }
 
-loadPage('clients/');
+loadPage('clients/reports/detail/');

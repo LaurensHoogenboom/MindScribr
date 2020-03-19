@@ -129,6 +129,10 @@ table tr td.input label, table tr td.input input, table tr td.input select {
     width: 100%;
 }
 
+table tr td.input {
+    vertical-align: top;
+}
+
 table tr td.input label {
     padding-bottom: 9px;
 }
@@ -200,6 +204,21 @@ table.menuTable tbody tr:last-child td:last-child {
     border-radius: 0px 0px 15px 0px;
 }
 
+table.listTable tr td {
+    border-bottom: none;
+}
+
+table.listTable tr td:first-child {
+    font-weight: bold;
+    padding: 5px 20px 5px 0px;
+    width: 1%;
+    white-space: nowrap;
+}
+
+table.listTable tr td:last-child {
+    padding: 5px 20px 5px 20px;
+}
+
 .tableWrapper .toolbar {
     height: initial;
     width: 100%;
@@ -214,7 +233,7 @@ table.menuTable tbody tr:last-child td:last-child {
     border-bottom: none;
 }
 
-.tableWrapper.dropdown table, .tableWrapper.dropdown .toolbar {
+.tableWrapper.dropdown table, .tableWrapper.dropdown .toolbar, .tableWrapper.dropdown .inputGrid {
     display: none;
     table-layout: auto;
 }
@@ -223,7 +242,11 @@ table.menuTable tbody tr:last-child td:last-child {
     display: table;
 }
 
-.tableWrapper.dropdown .title {
+.tableWrapper.dropdown.visible .inputGrid {
+    display: grid;
+}
+
+.tableWrapper.dropdown > .title {
     display: grid;
     grid-template-columns: 1fr max-content 1fr;
     align-items: center;
@@ -236,18 +259,18 @@ table.menuTable tbody tr:last-child td:last-child {
     top: 0;
 }
 
-.tableWrapper.dropdown .title .actions .section {
+.tableWrapper.dropdown > .title .actions .section {
     margin-left: 20px;
     border-left: 1px solid var(--grey-light);
     float: left;
 }
 
-.tableWrapper.dropdown .title .actions .section:first-child {
+.tableWrapper.dropdown > .title .actions .section:first-child {
     margin-left: 0px;
     border-left: none;
 }
 
-.tableWrapper.dropdown .title .actions .button {
+.tableWrapper.dropdown > .title .actions .button {
     float: left;
     margin-left: 20px;
 }
@@ -260,15 +283,15 @@ table.menuTable tbody tr:last-child td:last-child {
     color: var(--white);
 }
 
-.tableWrapper.dropdown .title p {
+.tableWrapper.dropdown > .title p {
     color: var(--white);
 }
 
-.tableWrapper.dropdown .title .actions {
+.tableWrapper.dropdown > .title .actions {
     justify-self: end;
 }
 
-.tableWrapper.dropdown.orange .title {
+.tableWrapper.dropdown.orange > .title {
     background: var(--orange);
 }
 
@@ -276,6 +299,93 @@ table.menuTable tbody tr:last-child td:last-child {
     background-color: var(--orange-dark);
 }
 
+.inputGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 40px;
+    grid-gap: 20px;
+}
+
+.inputGrid > * {
+    padding-right: 20px;
+}
+
+.inputGrid .input {
+    padding-bottom: 5px;
+}
+
+.inputGrid .input.wide {
+    grid-column: span 2;
+}
+
+.inputGrid .input input, .inputGrid .input select, .inputGrid .input textarea { 
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.inputGrid .input textarea {
+    resize: vertical;
+}
+
+.inputGrid .input > .title {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    padding-bottom: 9px;
+    align-items: center;
+}
+
+.inputGrid .input > .title .actions {
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.inputGrid .input > .title .actions > * {
+    margin-left: 20px;
+}
+
+.inputGrid .input:hover > .title .actions {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.inputGrid .input > .title .actions input[type="checkbox"] + label::before {
+    margin-right: 0;
+}
+
+.inputGrid .input .description {
+    border-radius: 0px 0px 15px 15px;
+    padding: 0 20px;
+    background-color: var(--grey-lighter);
+    margin-top: -15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.inputGrid .input .description.visible {
+    max-height: 105px;
+    padding: 19px 20px 6px 20px;
+}
+
+.inputGrid .data {
+    grid-column: 1 / 5;
+}
+
+@media only screen and (max-width: 1550px) {
+    .inputGrid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .inputGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
 
 header {
@@ -319,7 +429,7 @@ header nav .userMenu {
 main #mainContent {
     padding: 40px;
     height: calc(100vh - 100px);
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .toolbar {
@@ -706,7 +816,7 @@ select option {
     background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
     color: var(--grey-dark);
     border: 1px solid var(--grey-light);
-    padding: 2px 20px;
+    padding: 3px 20px 1px 20px;
 }
 
 .button.grey:hover {
@@ -759,9 +869,12 @@ input {
     background-color: white;
 }
 
-input[type="text"], input[type="date"] {
+input[type="text"], input[type="date"], textarea {
     height: 30px;
     padding: 4px 20px;
+    font-family: OpenSans;
+    font-size: 16px;
+    color: var(--grey-dark)
 }
 
 textarea {
@@ -779,9 +892,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] + label {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    grid-gap: 10px;
+    display: flex;
     align-items: center;
 }
 
@@ -798,6 +909,7 @@ input[type="checkbox"] + label::before {
     transition: all 0.2s;
     font-family: Icons;
     font-size: 13px;
+    margin-right: 10px;
 }
 
 input[type="checkbox"]:checked + label::before {
@@ -830,11 +942,11 @@ input[type="checkbox"]:checked + label::before {
 
 .pager {
     display: grid;
-    grid-template-columns: 30px 30px 30px;
+    grid-template-columns: 30px max-content 30px;
     border-radius: 15px;
 }
 
-.pager .button.square {
+.pager .button {
     border-radius: 0;
     min-height: initial;
 }
