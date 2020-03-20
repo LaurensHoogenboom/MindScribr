@@ -1,7 +1,6 @@
 $ = window.jQuery = require('jquery');
 
 const { ipcRenderer } = require('electron')
-const user = require('./user')
 const fs = require('fs')
 
 //switch
@@ -94,9 +93,14 @@ function setSubSectionTabbar(link) {
 //load page
 
 function loadPage(pageLocation) {
-    var folderPath = `./renderer/views/${pageLocation}`;
-    var indexFile = folderPath + 'index.html';
-    var toolbarFile = folderPath + 'toolbar.html';
+    var htmlPath = `./renderer/views/${pageLocation}`;
+    var jsPath = `./renderer/js/`
+
+    var indexFile = htmlPath + 'index.html';
+    var toolbarFile = htmlPath + 'toolbar.html';
+
+    var controllerName = pageLocation.split('/')[0].toLowerCase();
+    var controllerFile = `${jsPath}${controllerName}.js`
 
     fs.access(indexFile, (error) => {
         if (error) {
@@ -135,6 +139,16 @@ function loadPage(pageLocation) {
                             })
                         }, 150)
                     });
+                }
+            })
+
+            fs.access(controllerFile, (error) => {
+                if (error) {
+                    console.log('This section or page does not have a controller')
+                } else {
+                    let {initialize} = require(`./${controllerName}`)
+
+                    initialize(pageLocation)
                 }
             })
         }

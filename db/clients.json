@@ -1,0 +1,36 @@
+{
+  "clients": [
+    {
+      "PersonalDetails": {
+        "FirstName": "John",
+        "LastName": "Doe",
+        "NickName": "Mad",
+        "BSNNumber": "123.456.789",
+        "GeneralPractitioner": "J. Smith",
+        "MainOccupation": "Woodcarver"
+      },
+      "ContactInformation": {
+        "Adres": {}
+      },
+      "Therapy": {},
+      "FinanceDetails": {},
+      "id": 1584639131903
+    },
+    {
+      "PersonalDetails": {
+        "FirstName": "John",
+        "LastName": "Doe",
+        "NickName": "Mad",
+        "BSNNumber": "123.456.789",
+        "GeneralPractitioner": "J. Smith",
+        "MainOccupation": "Woodcarver"
+      },
+      "ContactInformation": {
+        "Adres": {}
+      },
+      "Therapy": {},
+      "FinanceDetails": {},
+      "id": 1584684689168
+    }
+  ]
+}
