@@ -1,6 +1,6 @@
 class Client {  constructor(firstName, lastName, nickName, bsnNumber, mainOccupation, 
     generalPractitioner, dateOfBirth, email, phone, street, postalCode, city, totalSessions, usedSessions, trajectType, mainTherapist, therapyStatus, mainDiagnosis, insurer, 
-    policyNumber, uzoviNumber, invoiceType) {
+    policyNumber, uzoviNumber, invoiceType, fileId, notes) {
 
     this.PersonalDetails = {
         FirstName : firstName,
@@ -15,7 +15,7 @@ class Client {  constructor(firstName, lastName, nickName, bsnNumber, mainOccupa
     this.ContactInformation = {
         Email : email,
         Phone : phone,
-        Adres : {
+        Address : {
             Street : street,
             PostalCode : postalCode,
             City : city
@@ -23,12 +23,13 @@ class Client {  constructor(firstName, lastName, nickName, bsnNumber, mainOccupa
     }
         
     this.Therapy = {
+        FileId : fileId,
         TotalSessions: totalSessions,
         UsedSessions : usedSessions,
         TrajectType : trajectType,
         MainTherapist : mainTherapist,
         Status : therapyStatus,
-        MainDiagnosis : mainDiagnosis
+        MainDiagnosis : mainDiagnosis,
     }
 
     this.FinanceDetails = {
@@ -36,6 +37,10 @@ class Client {  constructor(firstName, lastName, nickName, bsnNumber, mainOccupa
         PolicyNumber : policyNumber,
         UZOVINumber : uzoviNumber,
         InvoiceType : invoiceType
+    }
+
+    this.Notes = {
+        Notes: notes 
     }
 }}
 

@@ -10,32 +10,11 @@
           <td>E-mailadres</td>
           <td>Telefoonnummer</td>
           <td>Status</td>
-          <Td>Meldingen</Td>
+          <td>Meldingen</td>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>D-123.456.789</td>
-          <td>J.D.</td>
-          <td>John "Mad" Doe</td>
-          <td>05/07/1987</td>
-          <td>Zwijndrecht</td>
-          <td>j.doe@internet.usa</td>
-          <td>(+31) 6 22 85 48 00</td>
-          <td>In behandeling</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>D-123.456.789</td>
-          <td>J.D.</td>
-          <td>John "Mad" Doe</td>
-          <td>05/07/1987</td>
-          <td>Zwijndrecht</td>
-          <td>j.doe@internet.usa</td>
-          <td>(+31) 6 22 85 48 00</td>
-          <td>In behandeling</td>
-          <td>-</td>
-        </tr>
+      <tbody id="clients-table">
+
       </tbody>
     </table>
   </div>
@@ -70,3 +49,9 @@
       <option>25</option>
     </select>
   </div>
+
+  <script>
+      require('../js/clients.js')
+
+      getClients()
+  </script>

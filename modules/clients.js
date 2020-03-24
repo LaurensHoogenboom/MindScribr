@@ -1,13 +1,15 @@
+//modules
 const db = require('electron-db');
 const { app, BrowserWindow } = require("electron");
 const path = require('path')
 const {Client} = require('../db/models')
+const appRoot = require('app-root-path');
 
-const location = path.join(__dirname, 'db')
+//db location
+const location = path.join(appRoot.toString(), 'db')
 
+//initiate a new client database
 exports.createDatabase = () => {
-    // This will save the database in the same directory as the application.
-
     db.createTable('clients', location, (succ, msg) => {
         // succ - boolean, tells if the call is successful
         if (succ) {
@@ -18,6 +20,7 @@ exports.createDatabase = () => {
     })
 }
 
+//seed test data into the database
 exports.seedPreviewData = () => {
     let newClient = new Client (
         'John',
@@ -36,5 +39,13 @@ exports.seedPreviewData = () => {
     }
 }
 
+//get all clients from the database
+exports.get = (callback) => {
+    db.getAll('clients', location, (succ, data) => {
+        if (succ) {
+            callback(data)
+        }
+    })
+}
 
 

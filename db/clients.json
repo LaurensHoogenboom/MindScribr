@@ -7,12 +7,16 @@
         "NickName": "Mad",
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
-        "MainOccupation": "Woodcarver"
+        "MainOccupation": "Woodcarver",
+        "DateOfBirth" : "02/07/1987"
       },
+      "Notes": {},
       "ContactInformation": {
-        "Adres": {}
+        "Address": {}
       },
-      "Therapy": {},
+      "Therapy": {
+        "FileId" : "D-987.654.321"
+      },
       "FinanceDetails": {},
       "id": 1584639131903
     },
@@ -23,12 +27,16 @@
         "NickName": "Mad",
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
-        "MainOccupation": "Woodcarver"
+        "MainOccupation": "Woodcarver",
+        "DateOfBirth" : "02/07/1987"
       },
+      "Notes": {},
       "ContactInformation": {
-        "Adres": {}
+        "Address": {}
       },
-      "Therapy": {},
+      "Therapy": {
+        "FileId" : "D-123.456.789"
+      },
       "FinanceDetails": {},
       "id": 1584684689168
     }

@@ -26,6 +26,9 @@ $(document).on('mouseover', '.inputGrid .input .title .actions .infoButton', fun
 
 $(document).on('click', '.actionTable tbody tr', function () {
     var action = $(this).closest('table').data('action');
+    window.actionData = {
+        id: $(this).data('id')
+    }
 
     loadPage(action);
 })
@@ -93,13 +96,13 @@ function setSubSectionTabbar(link) {
 //load page
 
 function loadPage(pageLocation) {
-    var htmlPath = `./renderer/views/${pageLocation}`;
+    var htmlPath = `./renderer/views/${pageLocation}`
     var jsPath = `./renderer/js/`
 
-    var indexFile = htmlPath + 'index.html';
-    var toolbarFile = htmlPath + 'toolbar.html';
+    var indexFile = htmlPath + 'index.html'
+    var toolbarFile = htmlPath + 'toolbar.html'
 
-    var controllerName = pageLocation.split('/')[0].toLowerCase();
+    var controllerName = pageLocation.split('/')[0].toLowerCase()
     var controllerFile = `${jsPath}${controllerName}.js`
 
     fs.access(indexFile, (error) => {
@@ -109,8 +112,6 @@ function loadPage(pageLocation) {
             fs.readFile(indexFile, 'utf8', function (error, contents) {
                 $('#mainContent').html(contents);
             });
-
-            setSectionTabbar(pageLocation);
 
             fs.access(toolbarFile, (error) => {
                 if (error) {
@@ -139,16 +140,6 @@ function loadPage(pageLocation) {
                             })
                         }, 150)
                     });
-                }
-            })
-
-            fs.access(controllerFile, (error) => {
-                if (error) {
-                    console.log('This section or page does not have a controller')
-                } else {
-                    let {initialize} = require(`./${controllerName}`)
-
-                    initialize(pageLocation)
                 }
             })
         }
