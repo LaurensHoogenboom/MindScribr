@@ -113,6 +113,8 @@ function loadPage(pageLocation) {
                 $('#mainContent').html(contents);
             });
 
+            setSectionTabbar(pageLocation);
+
             fs.access(toolbarFile, (error) => {
                 if (error) {
                     console.log('This section or page has not any toolbar.')
