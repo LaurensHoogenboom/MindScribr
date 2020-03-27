@@ -29,7 +29,7 @@ app.on('window-all-closed', ()=> {
     }
 })
 
-//Reopen the window using the doc on Mac OS
+//Reopen the window using the dock on Mac OS
 app.on('activate', ()=> {
     if (BrowserWindow.getAllWindows.length === 0) {
         createWindow()
@@ -39,8 +39,27 @@ app.on('activate', ()=> {
 //---- clients
 //get
 
-ipcMain.on('clients-request', (e, content) => {
-    clients.get(clients => {
+ipcMain.on('clients-request', (e, where) => {
+    clients.get(where, (clients) => {
         e.sender.send('clients-retrieve', clients)
     })
+})
+
+//get detail
+ipcMain.on('client-detail-request', (e, where) => {
+    //client detail object
+    let details = {
+        client: '',
+        therapists: '',
+        notifications: '',
+        todo: ''
+    }
+
+    //request client details
+    clients.get(where, (client) => {
+        details.client = client
+    })
+
+    //return detail object
+    e.sender.send('client-detail-retrieve', details)
 })

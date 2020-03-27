@@ -1,23 +1,23 @@
 <div class="tableWrapper">
-    <table class="actionTable" data-action="clients/main/">
-      <thead>
-        <tr>
-          <td>Dossier</td>
-          <td>Initialen</td>
-          <td>Naam</td>
-          <td>Geboortedatum</td>
-          <td>Woonplaats</td>
-          <td>E-mailadres</td>
-          <td>Telefoonnummer</td>
-          <td>Status</td>
-          <td>Meldingen</td>
-        </tr>
-      </thead>
-      <tbody id="clients-table">
+  <table class="actionTable" data-action="clients/main/">
+    <thead>
+      <tr>
+        <td>Dossier</td>
+        <td>Initialen</td>
+        <td>Naam</td>
+        <td>Geboortedatum</td>
+        <td>Woonplaats</td>
+        <td>E-mailadres</td>
+        <td>Telefoonnummer</td>
+        <td>Status</td>
+        <td>Meldingen</td>
+      </tr>
+    </thead>
+    <tbody id="clients-table">
 
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>
 </div>
 
 <div class="toolbar bottom">
@@ -49,9 +49,10 @@
       <option>25</option>
     </select>
   </div>
+</div>
 
-  <script>
-      require('../js/clients.js')
+<script>
+  var clients = require('../js/clients.js')
 
-      getClients()
-  </script>
+  clients.list()
+</script>

@@ -15,16 +15,24 @@
         "Address": {}
       },
       "Therapy": {
-        "FileId" : "D-987.654.321"
+        "FileId" : "D-987.654.321",
+        "TotalSessions" : "75",
+        "UsedSessions" : "35",
+        "TrajectType": {
+          "Title": "Basis | Intensief",
+          "Code": "108.302"
+        },
+        "Status": "In behandeling",
+        "MainDiagnosis": "Niet vastgesteld"
       },
       "FinanceDetails": {},
       "id": 1584639131903
     },
     {
       "PersonalDetails": {
-        "FirstName": "John",
-        "LastName": "Doe",
-        "NickName": "Mad",
+        "FirstName": "Peter",
+        "LastName": "McArthur",
+        "NickName": "",
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
@@ -35,7 +43,15 @@
         "Address": {}
       },
       "Therapy": {
-        "FileId" : "D-123.456.789"
+        "FileId" : "D-123.456.789",
+        "TotalSessions" : "75",
+        "UsedSessions" : "35",
+        "TrajectType": {
+          "Title": "Basis | Intensief",
+          "Code": "108.302"
+        },
+        "Status": "In behandeling",
+        "MainDiagnosis": "PTSS"
       },
       "FinanceDetails": {},
       "id": 1584684689168

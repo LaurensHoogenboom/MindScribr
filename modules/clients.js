@@ -3,7 +3,7 @@ const db = require('electron-db');
 const { app, BrowserWindow } = require("electron");
 const path = require('path')
 const {Client} = require('../db/models')
-const appRoot = require('app-root-path');
+const appRoot = require('app-root-path')
 
 //db location
 const location = path.join(appRoot.toString(), 'db')
@@ -40,12 +40,23 @@ exports.seedPreviewData = () => {
 }
 
 //get all clients from the database
-exports.get = (callback) => {
-    db.getAll('clients', location, (succ, data) => {
-        if (succ) {
-            callback(data)
-        }
-    })
+exports.get = (where, callback) => {
+    //if there are any where conditions
+    if (where) {
+        db.getRows('clients', location, where, (succ, data) => {
+            if (succ) {
+                callback(data)
+            }
+        })
+    }
+    //else select all clients
+    else {
+        db.getAll('clients', location, (succ, data) => {
+            if (succ) {
+                callback(data)
+            }
+        })
+    }
 }
 
 
