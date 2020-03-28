@@ -1,0 +1,44 @@
+{
+  "notes": [
+    {
+      "DateTime": "2020-03-28T09:43:24.670Z",
+      "CreatedBy": "",
+      "Type": "task",
+      "AttachedTo": 1584639131903,
+      "Receiver": "",
+      "Title": "Mail sturen",
+      "Description": "Afspraak van vorigeweek maandag kon niet doorgaan.",
+      "id": 1585380939551
+    },
+    {
+      "DateTime": "2020-03-28T09:43:24.670Z",
+      "CreatedBy": "",
+      "Type": "notification",
+      "AttachedTo": 1584639131903,
+      "Receiver": "",
+      "Title": "Afspraak geanuleerd",
+      "Description": "De afspraak van 05/04/2020",
+      "id": 1585381012202
+    },
+    {
+      "DateTime": "2020-03-28T09:43:24.670Z",
+      "CreatedBy": "",
+      "Type": "task",
+      "AttachedTo": 1584684689168,
+      "Receiver": "",
+      "Title": "Mail sturen",
+      "Description": "Afspraak van vorigeweek maandag kon niet doorgaan.",
+      "id": 1585380939551
+    },
+    {
+      "DateTime":"2020-03-28T09:43:24.670Z",
+      "CreatedBy": "",
+      "Type": "notification",
+      "AttachedTo": 1584684689168,
+      "Receiver": "",
+      "Title": "Afspraak geanuleerd",
+      "Description": "De afspraak van 05/04/2020",
+      "id": 1585381012202
+    }
+  ]
+}

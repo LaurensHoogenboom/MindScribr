@@ -54,5 +54,7 @@
 <script>
   var clients = require('../js/clients.js')
 
-  clients.list()
+  document.addEventListener('page-loaded', function() {
+    clients.list()
+  })
 </script>

@@ -26,6 +26,8 @@ module.exports = {
 ipcRenderer.on('clients-retrieve', (e, content) => {
     let clientsTable = document.getElementById('clients-table')
 
+    $(clientsTable).html('');
+
     content.forEach(client => {
         let name;
 
@@ -97,7 +99,85 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     $('.mainInfoBlocks #contact-info-mail').attr('href', `mailto:${detail.client[0].ContactInformation.Email}`)
     $('.mainInfoBlocks #contact-info-phone').attr('href', `tel:${detail.client[0].ContactInformation.Phone}`)
 
-    console.log('2')
+    let taskCount = 0
+    let noticationCount = 0
+
+    //notes
+    detail.notes.forEach(note => {
+        //convert date to string
+        const date = new Date(note.DateTime)
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+        const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+        const year = date.getFullYear()
+        const timeString = `${day}/${month}/${year}`
+
+        //apend to todolist if task
+        if (note.Type === 'task') {
+            taskCount++
+
+            $('#notification-list')
+                .append(
+                    $('<tr>')
+                        .append(
+                            $('<td>').text(timeString).addClass('maxContent')
+                        )
+                        .append(
+                            $('<td>').text(note.Title)
+                        )
+                        .append(
+                            $('<td>').addClass('maxContent')
+                                .append(
+                                    $('<label>').addClass('cross')
+                                        .append(
+                                            $('<span>')
+                                        )
+                                        .append(
+                                            $('<span>')
+                                        )
+                                )
+                        )
+                )
+        }
+        //append to notification if notification
+        if (note.Type === 'notification') {
+            noticationCount++
+
+            $('#task-list')
+                .append(
+                    $('<tr>')
+                        .append(
+                            $('<td>').text(timeString).addClass('maxContent')
+                        )
+                        .append(
+                            $('<td>').text(note.Title)
+                        )
+                        .append(
+                            $('<td>').addClass('maxContent')
+                                .append(
+                                    $('<label>').addClass('cross')
+                                        .append(
+                                            $('<span>')
+                                        )
+                                        .append(
+                                            $('<span>')
+                                        )
+                                )
+                        )
+                )
+        }
+    })
+
+    if (noticationCount > 0) {
+        $('#notification-list-title').text(`Meldingen: (${noticationCount})`)
+    }
+
+    if (taskCount > 0) {
+        $('#task-list-title').text(`Taken: (${noticationCount})`)
+    }
+
+    document.addEventListener('toolbar-loaded', function () {
+        $('#clientDetailBack label').text(name)
+    })
 })
 
 

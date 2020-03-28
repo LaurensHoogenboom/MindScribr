@@ -8,16 +8,16 @@
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
-        "DateOfBirth" : "02/07/1987"
+        "DateOfBirth": "02/07/1987"
       },
       "Notes": {},
       "ContactInformation": {
         "Address": {}
       },
       "Therapy": {
-        "FileId" : "D-987.654.321",
-        "TotalSessions" : "75",
-        "UsedSessions" : "35",
+        "FileId": "D-987.654.321",
+        "TotalSessions": "75",
+        "UsedSessions": "35",
         "TrajectType": {
           "Title": "Basis | Intensief",
           "Code": "108.302"
@@ -36,16 +36,16 @@
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
-        "DateOfBirth" : "02/07/1987"
+        "DateOfBirth": "02/07/1987"
       },
       "Notes": {},
       "ContactInformation": {
         "Address": {}
       },
       "Therapy": {
-        "FileId" : "D-123.456.789",
-        "TotalSessions" : "75",
-        "UsedSessions" : "35",
+        "FileId": "D-123.456.789",
+        "TotalSessions": "75",
+        "UsedSessions": "35",
         "TrajectType": {
           "Title": "Basis | Intensief",
           "Code": "108.302"

@@ -55,8 +55,6 @@ $(document).on('click', 'a', function (e) {
 
     var link = $(this).attr('href');
 
-    console.log(link)
-
     if ($(this).attr('target') === '_blank') {
         window.location.href = link;
     } else if (link.includes('mailto') || link.includes('phone')) {
@@ -114,13 +112,14 @@ function loadPage(pageLocation) {
 
     //paths to page files
     var htmlPath = `./renderer/views/${pageLocation}`
-    var jsPath = `./renderer/js/`
 
     //page files
     var indexFile = htmlPath + 'index.html'
     var toolbarFile = htmlPath + 'toolbar.html'
-    var controllerFile = jsPath + pageLocation.split('/')[0] + '.js';
 
+    //events
+    let pageLoaded = new Event('page-loaded')
+    let toolbarLoaded = new Event('toolbar-loaded')
 
     //check if page content exist
     fs.access(indexFile, (error) => {
@@ -129,7 +128,11 @@ function loadPage(pageLocation) {
         } else {
             //set page content
             fs.readFile(indexFile, 'utf8', function (error, contents) {
-                $('#mainContent').html(contents)
+                $.when($('#mainContent').html(contents)).then(
+
+                    //page is ready for modification
+                    document.dispatchEvent(pageLoaded)
+                )
             });
 
             //update main navigation
@@ -165,7 +168,10 @@ function loadPage(pageLocation) {
 
                     $.when($('#mainToolbar').html(contents)).then(function () {
                         //update sub navigation
-                        setSubSectionTabbar(pageLocation);
+                        setSubSectionTabbar(pageLocation)
+                        
+                        //toolbar is ready for modification
+                        document.dispatchEvent(toolbarLoaded)
                     })
                 }, 150)
             });

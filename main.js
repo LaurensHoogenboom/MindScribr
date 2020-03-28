@@ -1,6 +1,7 @@
 //Modules
 const {app, BrowserWindow, ipcMain} = require('electron')
 const clients = require('./modules/clients')
+const notes = require('./modules/notes')
 const uuid = require('uuid').v4
 const path = require('path');
 
@@ -19,7 +20,6 @@ function createWindow() {
 
 //When the app is initialized open the windows
 app.whenReady().then(createWindow)
-
 
 //Close the app when all windows are closed
 app.on('window-all-closed', ()=> {
@@ -51,13 +51,20 @@ ipcMain.on('client-detail-request', (e, where) => {
     let details = {
         client: '',
         therapists: '',
-        notifications: '',
-        todo: ''
+        notes: ''
     }
 
     //request client details
     clients.get(where, (client) => {
         details.client = client
+    })
+
+    notesWhere = {
+        AttachedTo: where.id
+    }
+
+    notes.get(notesWhere, (notes) => {
+        details.notes = notes
     })
 
     //return detail object
