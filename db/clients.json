@@ -22,6 +22,16 @@
           "Title": "Basis | Intensief",
           "Code": "108.302"
         },
+        "Therapists": [
+          {
+            "id": 1585549518132,
+            "relation": "Hoofdbehandelaar"
+          },
+          {
+            "id": 1585542481325,
+            "relation": "Therapeut"
+          }
+        ],
         "Status": "In behandeling",
         "MainDiagnosis": "Niet vastgesteld"
       },
@@ -50,6 +60,16 @@
           "Title": "Basis | Intensief",
           "Code": "108.302"
         },
+        "Therapists": [
+          {
+            "id": 1585549518132,
+            "relation": "Hoofdbehandelaar"
+          },
+          {
+            "id": 1585542481325,
+            "relation": "Therapeut"
+          }
+        ],
         "Status": "In behandeling",
         "MainDiagnosis": "PTSS"
       },

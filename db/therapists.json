@@ -1,0 +1,40 @@
+{
+  "therapists": [
+    {
+      "Personal": {
+        "FirstName": "Alexa",
+        "LastName": "Johnson",
+        "NickName": "",
+        "DateOfBirth": "22/05/1954"
+      },
+      "Employment": {
+        "JobType": "Therapist",
+        "DateOfEmployment": "2020-03-30T06:25:18.131Z",
+        "Status": "active"
+      },
+      "Account": {},
+      "Contact": {
+        "Address": {}
+      },
+      "id": 1585549518132
+    },
+    {
+      "Personal": {
+        "FirstName": "William",
+        "LastName": "Anderson",
+        "NickName": "Bill",
+        "DateOfBirth": "22/05/1987"
+      },
+      "Employment": {
+        "JobType": "Therapist",
+        "DateOfEmployment": "2020-03-30T06:25:18.131Z",
+        "Status": "active"
+      },
+      "Account": {},
+      "Contact": {
+        "Address": {}
+      },
+      "id": 1585542481325
+    }
+  ]
+}

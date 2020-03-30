@@ -1,6 +1,6 @@
 class Client {
     constructor(firstName, lastName, nickName, bsnNumber, mainOccupation,
-        generalPractitioner, dateOfBirth, email, phone, street, postalCode, city, totalSessions, usedSessions, mainTherapist, therapyStatus, mainDiagnosis, insurer,
+        generalPractitioner, dateOfBirth, email, phone, street, postalCode, city, totalSessions, usedSessions, therapists, therapyStatus, mainDiagnosis, insurer,
         policyNumber, uzoviNumber, invoiceType, fileId, notes, trajectTitle, trajectCode) {
 
         this.PersonalDetails = {
@@ -31,7 +31,7 @@ class Client {
                 Title: trajectTitle,
                 Code: trajectCode
             },
-            MainTherapist: mainTherapist,
+            Therapists: therapists,
             Status: therapyStatus,
             MainDiagnosis: mainDiagnosis,
         }
@@ -45,6 +45,40 @@ class Client {
 
         this.Notes = {
             Notes: notes
+        }
+    }
+}
+
+class Therapist {
+    constructor(firstName, lastName, nickName, dateOfBirth, jobType, dateOfEmployment, status, workingDays, accountType, username, password, email, phone, street, postalCode, city) {
+        this.Personal = {
+            FirstName: firstName,
+            LastName: lastName,
+            NickName: nickName,
+            DateOfBirth: dateOfBirth
+        }
+
+        this.Employment = {
+            JobType: jobType,
+            DateOfEmployment: dateOfEmployment,
+            WorkingDays: workingDays,
+            Status: status
+        }
+
+        this.Account = {
+            Type: accountType,
+            Password: password,
+            Username: username
+        }
+
+        this.Contact = {
+            Email: email,
+            Phone: phone,
+            Address: {
+                Street: street,
+                PostalCode: postalCode,
+                City: city
+            }
         }
     }
 }
@@ -65,3 +99,4 @@ class Note {
 
 exports.Client = Client
 exports.Note = Note
+exports.Therapist = Therapist

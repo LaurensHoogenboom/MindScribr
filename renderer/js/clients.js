@@ -121,7 +121,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                 highPriorityTask = true
             }
 
-            $('#notification-list')
+            $('#task-list')
                 .append(
                     $('<tr>')
                         .append(
@@ -144,6 +144,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                         )
                 )
         }
+
         //append to notification if notification
         if (note.Type === 'notification') {
             noticationCount++
@@ -152,7 +153,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                 highPriorityNotification = true
             }
 
-            $('#task-list')
+            $('#notification-list')
                 .append(
                     $('<tr>')
                         .append(
@@ -182,7 +183,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     }
 
     if (taskCount > 0) {
-        $('#task-list-title').text(`Taken: (${noticationCount})`)
+        $('#task-list-title').text(`Taken: (${taskCount})`)
     }
 
     if (highPriorityNotification) {
@@ -196,6 +197,40 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     document.addEventListener('toolbar-loaded', function () {
         $('#clientDetailBack label').text(name)
     })
+
+    //therapists
+    let therapistCount = 0
+
+    detail.therapists.forEach(therapist => {
+        therapistCount++
+
+        $('#therapist-list')
+        .append(
+            $('<tr>')
+            .append(
+                $('<td>').text(`${therapist.Personal.FirstName} ${therapist.Personal.LastName}`).addClass('maxContent')
+            )
+            .append(
+                $('<td>').text(therapist.Relation)
+            )
+            .append(
+                $('<td>').addClass('maxContent')
+                .append(
+                    $('<label>').addClass('cross')
+                    .append(
+                        $('<span>')
+                    )
+                    .append(
+                        $('<span>')
+                    )
+                )
+            )
+        )
+    })
+
+    if (therapistCount > 0) {
+        $('#therapist-list-title').text(`Toegewezen aan (${therapistCount})`)
+    }
 })
 
 

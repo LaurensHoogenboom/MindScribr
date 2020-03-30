@@ -2,6 +2,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const clients = require('./modules/clients')
 const notes = require('./modules/notes')
+const therapists = require('./modules/therapists')
 const uuid = require('uuid').v4
 const path = require('path');
 
@@ -50,7 +51,7 @@ ipcMain.on('client-detail-request', (e, where) => {
     //client detail object
     let details = {
         client: '',
-        therapists: '',
+        therapists: [],
         notes: ''
     }
 
@@ -59,12 +60,28 @@ ipcMain.on('client-detail-request', (e, where) => {
         details.client = client
     })
 
+    //request related notes
     notesWhere = {
         AttachedTo: where.id
     }
 
     notes.get(notesWhere, (notes) => {
         details.notes = notes
+    })
+
+    //request related therapist
+    therpistIdList = details.client[0].Therapy.Therapists
+
+    therpistIdList.forEach(unknownTherapist => {
+        where = {
+            id: unknownTherapist.id
+        }
+
+        therapists.get(where, therapist => {
+            therapist[0].Relation = unknownTherapist.relation
+
+            details.therapists.push(therapist[0])
+        })
     })
 
     //return detail object
