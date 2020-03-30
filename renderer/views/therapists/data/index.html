@@ -15,27 +15,7 @@
     </div>
 
     <table>
-        <tbody>
-            <tr>
-                <td class="maxContent">Naam</td>
-                <td>Alexa Johnson</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Geboortedatum</td>
-                <td>02/05/1987</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Functie</td>
-                <td>GZ - psycholoog</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Accounttype</td>
-                <td>Basis</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Indiensttreding</td>
-                <td>03/04/1999</td>
-            </tr>
+        <tbody id="therapist-personal-data">
         </tbody>
     </table>
 </div>
@@ -57,19 +37,7 @@
     </div>
 
     <table>
-        <tbody>
-            <tr>
-                <td class="maxContent">Status</td>
-                <td>Actief</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Aantal Cliënten</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Werkdagen</td>
-                <td>Ma,di,wo</td>
-            </tr>
+        <tbody id="therapist-employment-data">
         </tbody>
     </table>
 </div>
@@ -81,7 +49,7 @@
             <span></span>
         </div>
         <p>
-            Werkstatus
+            Account
         </p>
         <div class="actions">
             <a class="button grey">
@@ -91,15 +59,35 @@
     </div>
 
     <table>
-        <tbody>
-            <tr>
-                <td class="maxContent">Contact</td>
-                <td>a.johnson@internet.usa</td>
-            </tr>
-            <tr>
-                <td class="maxContent">Telefoonnummer</td>
-                <td>+31 (0) 6 22 85 48 00</td>
-            </tr>
+        <tbody id="therapist-account-data">
         </tbody>
     </table>
 </div>
+
+<div class="tableWrapper dropdown">
+    <div class="title">
+        <div class="chevron right">
+            <span></span>
+            <span></span>
+        </div>
+        <p>
+            Contact
+        </p>
+        <div class="actions">
+            <a class="button grey">
+                Bewerken
+            </a>
+        </div>
+    </div>
+
+    <table>
+        <tbody id="therapist-contact-data">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var therapists = require('../js/therapists.js')
+
+    therapists.data(window.actionData.parameters.therapist)
+</script>

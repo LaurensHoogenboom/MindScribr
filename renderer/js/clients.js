@@ -39,7 +39,7 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
 
         //build client table
         $(clientsTable).append(
-            $("<tr>").attr('data-id', client.id)
+            $("<tr>").attr('data-value', client.id).attr('data-label', 'client')
                 .append(
                     $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
                 )

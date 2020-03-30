@@ -42,8 +42,10 @@ $(document).on('mouseover', '.inputGrid .input .title .actions .infoButton', fun
 
 $(document).on('click', '.actionTable tbody tr', function () {
     var action = $(this).closest('table').data('action')
+    var dataValue = $(this).data('value')
+    var dataLabel = $(this).data('label')
 
-    window.actionData.parameters.id = $(this).data('id')
+    window.actionData.parameters[dataLabel] = dataValue
 
     loadPage(action);
 })

@@ -6,7 +6,7 @@ const fs = require('fs')
 
 //therapist utilities
 module.exports = {
-    //therapist list controller
+    //therapist list action
     list: () => {
         let where = {}
 
@@ -14,7 +14,7 @@ module.exports = {
         ipcRenderer.send('therapists-list-request', where)
     },
 
-    //main client detail controller
+    //therapist detail action
     main: (uuid) => {
         let where = {
             id: uuid
@@ -22,6 +22,16 @@ module.exports = {
 
         //request therapist details
         ipcRenderer.send('therapist-detail-request', where)
+    },
+
+    //therapist data action
+    data: (uuid) => {
+        let where = {
+            id: uuid
+        }
+
+        //request therapist data
+        ipcRenderer.send('therapist-data-request', where)
     }
 }
 
@@ -51,7 +61,7 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
 
         //build therapist table
         $(therapistsTable).append(
-            $("<tr>").attr('data-id', therapist.id)
+            $("<tr>").attr('data-label', 'therapist').attr('data-value', therapist.id)
                 .append(
                     $('<td>').text(name)
                 )
@@ -135,7 +145,7 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
         if (client.Therapy.Status === "Uitbehandeld") {
             doneClientCount++
         }
- 
+
         //search for clienttable
         let clientsTable = document.getElementById('clientsTable')
 
@@ -187,6 +197,143 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
     $('#current-client-count').text(currentClientsCount)
     $('#problem-client-count').text(problemClientCount)
     $('#done-client-count').text(doneClientCount)
+})
+
+ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
+    console.log(therapist)
+
+    //determine name
+    let name
+
+    if (therapist.Personal.NickName) {
+        name = `${therapist.Personal.FirstName} "${therapist.Personal.NickName}" ${therapist.Personal.LastName}`
+    } else {
+        name = `${therapist.Personal.FirstName} ${therapist.Personal.LastName}`
+    }
+
+    let address
+
+    if (therapist.Contact.Address.City) {
+        address = therapist.Contact.City
+        if (therapist.Contact.PostalCode && therapist.Contact.Street) {
+            address = `${therapist.Contact.Address.Street}<br>${therapist.Contact.Address.PostalCode}<br>${therapist.Contact.Address.City}`
+        } 
+    } else {
+        address = "-"
+    }
+
+    //tables
+    let personalTable = document.getElementById('therapist-personal-data')
+    let employmentTable = document.getElementById('therapist-employment-data')
+    let accountTable = document.getElementById('therapist-account-data')
+    let contactTable = document.getElementById('therapist-contact-data')
+
+    $(personalTable)
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Naam").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(name)
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Geboortedatum").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Personal.DateOfBirth ? therapist.Personal.DateOfBirth : "-")
+                )
+        )
+
+    $(employmentTable)
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Functie").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Employment.JobType ? therapist.Employment.JobType : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Werkdagen").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Employment.WorkingDays ? therapist.Employment.WorkingDays : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Status").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Employment.Status ? therapist.Employment.Status : "-")
+                )
+        )
+
+    $(accountTable)
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Gebruikersnaam").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Account.Username ? therapist.Account.Username : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Wachtwoord").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Account.Password ? therapist.Account.Password : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Type").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Account.Type ? therapist.Account.Type : "-")
+                )
+        )
+
+    $(contactTable)
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("E-mailadres").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Contact.Email ? therapist.Contact.Email : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Telefoonnummer").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(therapist.Contact.Phone ? therapist.Contact.Phone : "-")
+                )
+        )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Adres").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").html(address)
+                )
+        )
 })
 
 

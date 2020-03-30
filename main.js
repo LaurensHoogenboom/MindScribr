@@ -139,3 +139,11 @@ ipcMain.on('therapist-detail-request', (e, where) => {
     //return detail object
     e.sender.send('therapist-detail-retrieve', detail)
 }) 
+
+//data
+
+ipcMain.on('therapist-data-request', (e, where) => {
+    therapists.get(where, (therapist) => {
+        e.sender.send('therapist-data-retrieve', therapist[0])
+    })
+}) 
