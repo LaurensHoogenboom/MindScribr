@@ -1,20 +1,20 @@
 <div class="tableWrapper">
-    <table class="actionTable" data-action="therapists/main/">
-      <thead>
-        <tr>
-          <td>Naam</td>
-          <td>Functie</td>
-          <td>Accounttype</td>
-          <td>Geboortedatum</td>
-          <td>Laatst actief</td>
-          <td>Datum indienstreding</td>
-          <td>Werkdagen</td>
-        </tr>
-      </thead>
-      <tbody id="therapists-list">
-      </tbody>
-    </table>
-  </div>
+  <table class="actionTable" data-action="therapists/main/">
+    <thead>
+      <tr>
+        <td>Naam</td>
+        <td>Functie</td>
+        <td>Accounttype</td>
+        <td>Geboortedatum</td>
+        <td>Laatst actief</td>
+        <td>Datum indienstreding</td>
+        <td>Werkdagen</td>
+      </tr>
+    </thead>
+    <tbody id="therapists-list">
+    </tbody>
+  </table>
+</div>
 </div>
 
 <div class="toolbar bottom">
@@ -49,9 +49,6 @@
 
   <script>
     var therapists = require('../js/therapists.js')
-  
-    document.addEventListener('page-loaded', () => {
-      therapists.list()
-    })
+
+    therapists.list()
   </script>
-  

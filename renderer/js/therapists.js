@@ -114,143 +114,81 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
             $('#therapist-profile-picture').css('background-image', `url('${relativeProfilePictureLocation}')`);
         }
     })
-})
 
+    //clients
+    let upcomingClientsCount = 0
+    let currentClientsCount = 0
+    let problemClientCount = 0
+    let doneClientCount = 0
 
+    detail.clients.forEach(client => {
+        //count client type
+        if (client.Therapy.Status === "Aankomend") {
+            upcomingClientsCount++
+        }
+        if (client.Therapy.Status === "In behandeling") {
+            currentClientsCount++
+        }
+        if (client.Therapy.Status === "Aandacht vereist") {
+            problemClientCount++
+        }
+        if (client.Therapy.Status === "Uitbehandeld") {
+            doneClientCount++
+        }
+ 
+        //search for clienttable
+        let clientsTable = document.getElementById('clientsTable')
 
-//require client detail
-ipcRenderer.on('client-detail-retrieve', (e, detail) => {
+        //determine name
+        let name;
 
-
-
-    //notes
-    detail.notes.forEach(note => {
-        //convert date to string
-        const date = new Date(note.DateTime)
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-        const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-        const year = date.getFullYear()
-        const timeString = `${day}/${month}/${year}`
-
-        //apend to todolist if task
-        if (note.Type === 'task') {
-            taskCount++
-
-            if (note.Priority === 'high' && note.Status === 'todo') {
-                highPriorityTask = true
-            }
-
-            $('#task-list')
-                .append(
-                    $('<tr>')
-                        .append(
-                            $('<td>').text(timeString).addClass('maxContent')
-                        )
-                        .append(
-                            $('<td>').text(note.Title)
-                        )
-                        .append(
-                            $('<td>').addClass('maxContent')
-                                .append(
-                                    $('<label>').addClass('cross')
-                                        .append(
-                                            $('<span>')
-                                        )
-                                        .append(
-                                            $('<span>')
-                                        )
-                                )
-                        )
-                )
+        if (client.Personal.NickName) {
+            name = `${client.Personal.FirstName} "${client.Personal.NickName}" ${client.Personal.LastName}`
+        } else {
+            name = `${client.Personal.FirstName} ${client.Personal.LastName}`
         }
 
-        //append to notification if notification
-        if (note.Type === 'notification') {
-            noticationCount++
-
-            if (note.Priority === 'high' && note.Status === 'present') {
-                highPriorityNotification = true
-            }
-
-            $('#notification-list')
-                .append(
-                    $('<tr>')
-                        .append(
-                            $('<td>').text(timeString).addClass('maxContent')
-                        )
-                        .append(
-                            $('<td>').text(note.Title)
-                        )
-                        .append(
-                            $('<td>').addClass('maxContent')
-                                .append(
-                                    $('<label>').addClass('cross')
-                                        .append(
-                                            $('<span>')
-                                        )
-                                        .append(
-                                            $('<span>')
-                                        )
-                                )
-                        )
-                )
-        }
-    })
-
-    if (noticationCount > 0) {
-        $('#notification-list-title').text(`Meldingen: (${noticationCount})`)
-    }
-
-    if (taskCount > 0) {
-        $('#task-list-title').text(`Taken: (${taskCount})`)
-    }
-
-    if (highPriorityNotification) {
-        $('#notification-list-wrapper').addClass('orange')
-    }
-
-    if (highPriorityTask) {
-        $('#task-list-wrapper').addClass('orange')
-    }
-
-    document.addEventListener('toolbar-loaded', function () {
-        $('#clientDetailBack label').text(name)
-    })
-
-    //therapists
-    let therapistCount = 0
-
-    detail.therapists.forEach(therapist => {
-        therapistCount++
-
-        $('#therapist-list')
+        //add row to table
+        $(clientsTable)
             .append(
-                $('<tr>')
+                $("<tr>")
                     .append(
-                        $('<td>').text(`${therapist.Personal.FirstName} ${therapist.Personal.LastName}`).addClass('maxContent')
+                        $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
                     )
                     .append(
-                        $('<td>').text(therapist.Relation)
+                        $("<td>").text(`${client.Personal.FirstName.charAt(0).toUpperCase()}. ${client.Personal.LastName.charAt(0).toUpperCase()}.`)
                     )
                     .append(
-                        $('<td>').addClass('maxContent')
-                            .append(
-                                $('<label>').addClass('cross')
-                                    .append(
-                                        $('<span>')
-                                    )
-                                    .append(
-                                        $('<span>')
-                                    )
-                            )
+                        $("<td>").text(name)
+                    )
+                    .append(
+                        $("<td>").text(client.Personal.DateOfBirth ? client.Personal.DateOfBirth : "-")
+                    )
+                    .append(
+                        $("<td>").text(client.ContactInformation.Address.City ? client.ContactInformation.Address.City : "-")
+                    )
+                    .append(
+                        $("<td>").text(client.ContactInformation.Email ? client.ContactInformation.Email : "-")
+                    )
+                    .append(
+                        $("<td>").text(client.ContactInformation.Phone ? client.ContactInformation.Phone : "-")
+                    )
+                    .append(
+                        $("<td>").text(client.Therapy.Status ? client.Therapy.Status : "-")
+                    )
+                    .append(
+                        $("<td>").text(client.Therapy.Notes ? client.Therapy.Notes : "-")
                     )
             )
+
     })
 
-    if (therapistCount > 0) {
-        $('#therapist-list-title').text(`Toegewezen aan (${therapistCount})`)
-    }
+    $('#upcoming-client-count').text(upcomingClientsCount)
+    $('#current-client-count').text(currentClientsCount)
+    $('#problem-client-count').text(problemClientCount)
+    $('#done-client-count').text(doneClientCount)
 })
+
 
 
 

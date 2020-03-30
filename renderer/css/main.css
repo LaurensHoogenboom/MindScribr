@@ -52,19 +52,19 @@ h3 {
     font-size: 15px;
 }
 
-span.red {
+span.red, .typeNumbers span.red {
     color: var(--red);
 }
 
-span.green {
+span.green, .typeNumbers span.green {
     color: var(--green);
 }
 
-span.blue {
+span.blue, .typeNumbers span.blue {
     color: var(--blue);
 }
 
-span.orange {
+span.orange, .typeNumbers span.orange {
     color: var(--orange);
 }
 

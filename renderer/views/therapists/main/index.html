@@ -53,10 +53,10 @@
         </p>
         <div class="actions">
             <p class="typeNumbers">
-                <span title="Aankomend">2</span>
-                <span title="In behandeling" class="blue">3</span>
-                <span title="Aandacht vereist" class="red">1</span>
-                <span title="Uitbehandeld" class="green">5</span>
+                <span title="Aankomend" id="upcoming-client-count">2</span>
+                <span title="In behandeling" id="current-client-count" class="blue">3</span>
+                <span title="Aandacht vereist" id="problem-client-count" class="red">1</span>
+                <span title="Uitbehandeld" id="done-client-count" class="green">5</span>
             </p>
         </div>
     </div>
@@ -75,40 +75,7 @@
                 <Td>Meldingen</Td>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>D-123.456.789</td>
-                <td>J.D.</td>
-                <td>John "Mad" Doe</td>
-                <td>05/07/1987</td>
-                <td>Zwijndrecht</td>
-                <td>j.doe@internet.usa</td>
-                <td>(+31) 6 22 85 48 00</td>
-                <td>In behandeling</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>D-123.456.789</td>
-                <td>J.D.</td>
-                <td>John "Mad" Doe</td>
-                <td>05/07/1987</td>
-                <td>Zwijndrecht</td>
-                <td>j.doe@internet.usa</td>
-                <td>(+31) 6 22 85 48 00</td>
-                <td>In behandeling</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>D-123.456.789</td>
-                <td>J.D.</td>
-                <td>John "Mad" Doe</td>
-                <td>05/07/1987</td>
-                <td>Zwijndrecht</td>
-                <td>j.doe@internet.usa</td>
-                <td>(+31) 6 22 85 48 00</td>
-                <td>In behandeling</td>
-                <td>-</td>
-            </tr>
+        <tbody id="clientsTable">
         </tbody>
     </table>
 </div>
@@ -145,7 +112,5 @@
 <script>
     var therapists = require('../js/therapists.js')
 
-    document.addEventListener('page-loaded', () => {
-        therapists.main(window.actionData.parameters.id)
-    })
+    therapists.main(window.actionData.parameters.id)
 </script>
