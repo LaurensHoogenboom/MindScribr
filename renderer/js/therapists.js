@@ -35,6 +35,12 @@ module.exports = {
     }
 }
 
+const setBackButton = (title) => {
+    document.addEventListener('toolbar-loaded', () => {
+        $('#therpistsBackButton label').text(title)
+    })
+}
+
 //retrieve client list
 ipcRenderer.on('therapits-list-retrieve', (e, content) => {
     let therapistsTable = document.getElementById('therapists-list')
@@ -197,6 +203,9 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
     $('#current-client-count').text(currentClientsCount)
     $('#problem-client-count').text(problemClientCount)
     $('#done-client-count').text(doneClientCount)
+
+    //backbutton
+    setBackButton(name)
 })
 
 ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
@@ -334,7 +343,11 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").html(address)
                 )
         )
+
+    //backbutton
+    setBackButton(name)
 })
+
 
 
 
