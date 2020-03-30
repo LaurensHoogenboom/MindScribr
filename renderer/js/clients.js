@@ -22,6 +22,12 @@ module.exports = {
     }
 }
 
+const setBackButton = (title) => {
+    document.addEventListener('toolbar-loaded', function () {
+        $('#clientBackButton label').text(title)
+    })
+}
+
 //retrieve client list
 ipcRenderer.on('clients-retrieve', (e, content) => {
     let clientsTable = document.getElementById('clients-table')
@@ -194,10 +200,6 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
         $('#task-list-wrapper').addClass('orange')
     }
 
-    document.addEventListener('toolbar-loaded', function () {
-        $('#clientDetailBack label').text(name)
-    })
-
     //therapists
     let therapistCount = 0
 
@@ -231,6 +233,9 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     if (therapistCount > 0) {
         $('#therapist-list-title').text(`Toegewezen aan (${therapistCount})`)
     }
+
+    //backbutton
+    setBackButton(name)
 })
 
 
