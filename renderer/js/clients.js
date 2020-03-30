@@ -17,7 +17,7 @@ module.exports = {
             id: uuid
         }
 
-        //request client details
+        //request client detail
         ipcRenderer.send('client-detail-request', where)
     }
 }
@@ -31,10 +31,10 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
     content.forEach(client => {
         let name;
 
-        if (client.PersonalDetails.NickName) {
-            name = `${client.PersonalDetails.FirstName} "${client.PersonalDetails.NickName}" ${client.PersonalDetails.LastName}`
+        if (client.Personal.NickName) {
+            name = `${client.Personal.FirstName} "${client.Personal.NickName}" ${client.Personal.LastName}`
         } else {
-            name = `${client.PersonalDetails.FirstName} ${client.PersonalDetails.LastName}`
+            name = `${client.Personal.FirstName} ${client.Personal.LastName}`
         }
 
         //build client table
@@ -44,13 +44,13 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
                     $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
                 )
                 .append(
-                    $("<td>").text(`${client.PersonalDetails.FirstName.charAt(0).toUpperCase()}. ${client.PersonalDetails.LastName.charAt(0).toUpperCase()}.`)
+                    $("<td>").text(`${client.Personal.FirstName.charAt(0).toUpperCase()}. ${client.Personal.LastName.charAt(0).toUpperCase()}.`)
                 )
                 .append(
                     $("<td>").text(name)
                 )
                 .append(
-                    $("<td>").text(client.PersonalDetails.DateOfBirth ? client.PersonalDetails.DateOfBirth : "-")
+                    $("<td>").text(client.Personal.DateOfBirth ? client.Personal.DateOfBirth : "-")
                 )
                 .append(
                     $("<td>").text(client.ContactInformation.Address.City ? client.ContactInformation.Address.City : "-")
@@ -79,25 +79,25 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     //info
     let name;
 
-    if (detail.client[0].PersonalDetails.NickName) {
-        name = `${detail.client[0].PersonalDetails.FirstName} "${detail.client[0].PersonalDetails.NickName}" ${detail.client[0].PersonalDetails.LastName}`
+    if (detail.client.Personal.NickName) {
+        name = `${detail.client.Personal.FirstName} "${detail.client.Personal.NickName}" ${detail.client.Personal.LastName}`
     } else {
-        name = `${detail.client[0].PersonalDetails.FirstName} ${detail.client[0].PersonalDetails.LastName}`
+        name = `${detail.client.Personal.FirstName} ${detail.client.Personal.LastName}`
     }
 
     //name
     $('.mainInfoBlocks #client-info-name').text(name)
 
     //therapy
-    $('.mainInfoBlocks #client-info-sessions').text(`${detail.client[0].Therapy.UsedSessions} / ${detail.client[0].Therapy.TotalSessions}`)
-    $('.mainInfoBlocks #therapy-info-code').text(`${detail.client[0].Therapy.TrajectType.Code}`)
-    $('.mainInfoBlocks #therapy-info-title').text(`${detail.client[0].Therapy.TrajectType.Title}`)
-    $('.mainInfoBlocks #therapy-info-status').text(`${detail.client[0].Therapy.Status}`)
-    $('.mainInfoBlocks #therapy-info-diagnosis').text(`${detail.client[0].Therapy.MainDiagnosis}`)
+    $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions} / ${detail.client.Therapy.TotalSessions}`)
+    $('.mainInfoBlocks #therapy-info-code').text(`${detail.client.Therapy.TrajectType.Code}`)
+    $('.mainInfoBlocks #therapy-info-title').text(`${detail.client.Therapy.TrajectType.Title}`)
+    $('.mainInfoBlocks #therapy-info-status').text(`${detail.client.Therapy.Status}`)
+    $('.mainInfoBlocks #therapy-info-diagnosis').text(`${detail.client.Therapy.MainDiagnosis}`)
 
     //contact info
-    $('.mainInfoBlocks #contact-info-mail').attr('href', `mailto:${detail.client[0].ContactInformation.Email}`)
-    $('.mainInfoBlocks #contact-info-phone').attr('href', `tel:${detail.client[0].ContactInformation.Phone}`)
+    $('.mainInfoBlocks #contact-info-mail').attr('href', `mailto:${detail.client.ContactInformation.Email}`)
+    $('.mainInfoBlocks #contact-info-phone').attr('href', `tel:${detail.client.ContactInformation.Phone}`)
 
     let taskCount = 0
     let noticationCount = 0

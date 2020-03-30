@@ -6,11 +6,13 @@ const therapists = require('./modules/therapists')
 const uuid = require('uuid').v4
 const path = require('path');
 
+
 //Initialize Windows
 function createWindow() {
     let mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        frame: false,
         webPreferences: {
             nodeIntegration: true
         }
@@ -46,18 +48,18 @@ ipcMain.on('clients-request', (e, where) => {
     })
 })
 
-//get detail
+//detail
 ipcMain.on('client-detail-request', (e, where) => {
     //client detail object
-    let details = {
+    let detail = {
         client: '',
         therapists: [],
         notes: ''
     }
 
-    //request client details
+    //request client detail
     clients.get(where, (client) => {
-        details.client = client
+        detail.client = client[0]
     })
 
     //request related notes
@@ -66,11 +68,11 @@ ipcMain.on('client-detail-request', (e, where) => {
     }
 
     notes.get(notesWhere, (notes) => {
-        details.notes = notes
+        detail.notes = notes
     })
 
     //request related therapist
-    therpistIdList = details.client[0].Therapy.Therapists
+    therpistIdList = detail.client.Therapy.Therapists
 
     therpistIdList.forEach(unknownTherapist => {
         where = {
@@ -80,10 +82,60 @@ ipcMain.on('client-detail-request', (e, where) => {
         therapists.get(where, therapist => {
             therapist[0].Relation = unknownTherapist.relation
 
-            details.therapists.push(therapist[0])
+            detail.therapists.push(therapist[0])
         })
     })
 
     //return detail object
-    e.sender.send('client-detail-retrieve', details)
+    e.sender.send('client-detail-retrieve', detail)
 })
+
+//---- therapists
+//get
+
+ipcMain.on('therapists-list-request', (e, where) => {
+    therapists.get(where, (therapists) => {
+        e.sender.send('therapits-list-retrieve', therapists)
+    })
+})
+
+//detail
+
+ipcMain.on('therapist-detail-request', (e, where) => {
+    //therapist detail object
+    let detail = {
+        therapist: '',
+        clients: [],
+        activity: []
+    }
+
+    //request therapist detail
+    therapists.get(where, (therapist) => {
+        detail.therapist = therapist[0]
+    })
+
+    //request clients
+    let clientsWhere = ''
+    let potentialClients = ''
+
+    clients.get(clientsWhere, (clients) => {
+        potentialClients = clients 
+    })
+
+    potentialClients.forEach(client => {
+        var relatedClient = false
+
+        client.Therapy.Therapists.forEach(therapist => {
+            if (therapist.id === detail.therapist.id) {
+                relatedClient = true
+            }
+        })
+
+        if (relatedClient) {
+            detail.clients.push(client)
+        }
+    })
+
+    //return detail object
+    e.sender.send('therapist-detail-retrieve', detail)
+}) 

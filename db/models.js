@@ -3,7 +3,7 @@ class Client {
         generalPractitioner, dateOfBirth, email, phone, street, postalCode, city, totalSessions, usedSessions, therapists, therapyStatus, mainDiagnosis, insurer,
         policyNumber, uzoviNumber, invoiceType, fileId, notes, trajectTitle, trajectCode) {
 
-        this.PersonalDetails = {
+        this.Personal = {
             FirstName: firstName,
             LastName: lastName,
             NickName: nickName,

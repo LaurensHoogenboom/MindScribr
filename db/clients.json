@@ -1,7 +1,7 @@
 {
   "clients": [
     {
-      "PersonalDetails": {
+      "Personal": {
         "FirstName": "John",
         "LastName": "Doe",
         "NickName": "Mad",
@@ -39,7 +39,7 @@
       "id": 1584639131903
     },
     {
-      "PersonalDetails": {
+      "Personal": {
         "FirstName": "Peter",
         "LastName": "McArthur",
         "NickName": "",

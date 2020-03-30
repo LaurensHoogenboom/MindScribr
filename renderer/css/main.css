@@ -389,7 +389,7 @@ table.listTable tr td:last-child {
 
 
 header {
-    height: 100px;
+    height: 90px;
     width: 100%;
     position: relative;
     position: sticky;
@@ -398,10 +398,10 @@ header {
 
 header nav {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr max-content;
     grid-gap: 40px;
     align-items: center;
-    height: 60px;
+    height: 50px;
     width: 100%;
     background-color: var(--blue);
     padding: 0px 40px;
@@ -409,10 +409,6 @@ header nav {
 
 header nav a {
     color: var(--white);
-}
-
-header nav .logo {
-    box-shadow: 0px 1px 1px var(--shadow);
 }
 
 header nav .tabbar {
@@ -428,7 +424,7 @@ header nav .userMenu {
 
 main #mainContent {
     padding: 40px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 120px);
     overflow-y: scroll;
 }
 
@@ -527,13 +523,6 @@ main #mainContent {
     background-color: var(--white);
 }
 
-.switch {
-    border-radius: 15px;
-    background-color: white;
-    border: 1px solid var(--grey-light);
-    float: left;
-}
-
 .mainInfoBlocks {
     display: grid;
     grid-template-columns: minmax(max-content, 1fr) minmax(max-content, 1fr) minmax(max-content, 1fr);
@@ -588,6 +577,7 @@ main #mainContent {
     margin: -21px 0px -21px -41px;
     background-size: cover;
     background-position: center;
+    border: 1px solid var(--grey-light)
 }
 
 @media only screen and (max-width: 1550px) {
@@ -632,10 +622,18 @@ main #mainContent {
     padding: 4px
 }
 
+.switch {
+    border-radius: 15px;
+    background-color: white;
+    float: left;
+}
+
 .switch a {
     display: block;
-    padding: 2px 20px;
+    padding: 3px 20px;
+    border-top: 1px solid var(--grey-light);
     border-left: 1px solid var(--grey-light);
+    border-bottom: 1px solid var(--grey-light);
     transition: all 0.2s;
     float: left;
 }
@@ -645,9 +643,10 @@ main #mainContent {
 }
 
 .switch a.current {
-    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    background: var(--blue);
     border: none;
     color: var(--white);
+    border: 1px solid var(--blue-dark);
 }
 
 .switch a:first-child {
@@ -656,12 +655,13 @@ main #mainContent {
 
 .switch a:last-child {
     border-radius: 0px 15px 15px 0px;
+    border-right: 1px solid var(--grey-light);
 }
 
 .avatar {
-    height: 40px;
-    width: 40px;
-    border: 2px solid var(--white);
+    height: 30px;
+    width: 30px;
+    border: 1px solid var(--white);
     border-radius: 50%;
     background-size: cover;
     background-position: 50%;
@@ -795,8 +795,9 @@ select option {
     min-width: 30px;
     border-radius: 15px;
     padding: 4px 20px;
-    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
+    background-color: var(--blue);
     color: var(--white);
+    border: 1px solid var(--blue-dark); 
 }
 
 .button:hover {
@@ -934,7 +935,6 @@ input[type="checkbox"]:checked + label::before {
 }
 
 .buttonInput .button {
-    background: linear-gradient(to bottom, var(--blue), var(--blue-dark));
     border-radius: 0px 15px 15px 0px;
     padding: 0;
     max-height: 30px;
@@ -957,6 +957,13 @@ input[type="checkbox"]:checked + label::before {
 
 .pager .button:last-child {
     border-radius: 0px 15px 15px 0px;
+}
+
+/* window styles */
+
+.titlebar, .titlebar > * {
+    font-family: OpenSans;
+    font-weight: 400;
 }
 
 @font-face {

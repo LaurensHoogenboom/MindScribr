@@ -8,11 +8,15 @@
         "DateOfBirth": "22/05/1954"
       },
       "Employment": {
-        "JobType": "Therapist",
+        "JobType": "Therapeut",
         "DateOfEmployment": "2020-03-30T06:25:18.131Z",
         "Status": "active"
       },
-      "Account": {},
+      "Account": {
+        "Type": "Administrator",
+        "Password": "10522848",
+        "Username": "AlexaJohnson"
+      },
       "Contact": {
         "Address": {}
       },
@@ -26,11 +30,15 @@
         "DateOfBirth": "22/05/1987"
       },
       "Employment": {
-        "JobType": "Therapist",
+        "JobType": "Therapeut",
         "DateOfEmployment": "2020-03-30T06:25:18.131Z",
         "Status": "active"
       },
-      "Account": {},
+      "Account": {
+        "Type": "Standaard",
+        "Password": "10522848",
+        "Username": "WilliamAnderson"
+      },
       "Contact": {
         "Address": {}
       },

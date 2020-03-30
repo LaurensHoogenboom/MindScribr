@@ -11,16 +11,7 @@
           <td>Werkdagen</td>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Alexa Johnson</td>
-          <td>Psycholoog</td>
-          <td>Administrator</td>
-          <td>01/03/1995</td>
-          <td>2 minuten geleden</td>
-          <td>05/07/2019</td>
-          <td>mo,do,vr</td>
-        </tr>
+      <tbody id="therapists-list">
       </tbody>
     </table>
   </div>
@@ -55,3 +46,12 @@
       <option>25</option>
     </select>
   </div>
+
+  <script>
+    var therapists = require('../js/therapists.js')
+  
+    document.addEventListener('page-loaded', () => {
+      therapists.list()
+    })
+  </script>
+  

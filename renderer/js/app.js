@@ -1,7 +1,18 @@
+//jquery
 $ = window.jQuery = require('jquery');
 
+//modules
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
+const customTitlebar = require('custom-electron-titlebar')
+
+//initiate titlebar
+
+let MainTitlebar = new customTitlebar.Titlebar({
+    backgroundColor: customTitlebar.Color.fromHex('#417DD6'),
+})
+
+MainTitlebar.updateTitle('Mindscibr')
 
 //set global action data
 window.actionData = {

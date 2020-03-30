@@ -111,5 +111,7 @@
 <script>
     var clients = require('../js/clients.js')
 
-    clients.main(window.actionData.parameters.id)
+    document.addEventListener('page-loaded', () => {
+        clients.main(window.actionData.parameters.id)
+    })
 </script>
