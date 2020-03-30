@@ -101,6 +101,8 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
 
     let taskCount = 0
     let noticationCount = 0
+    let highPriorityTask = false
+    let highPriorityNotification = false
 
     //notes
     detail.notes.forEach(note => {
@@ -114,6 +116,10 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
         //apend to todolist if task
         if (note.Type === 'task') {
             taskCount++
+
+            if (note.Priority === 'high' && note.Status === 'todo') {
+                highPriorityTask = true
+            }
 
             $('#notification-list')
                 .append(
@@ -141,6 +147,10 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
         //append to notification if notification
         if (note.Type === 'notification') {
             noticationCount++
+
+            if (note.Priority === 'high' && note.Status === 'present') {
+                highPriorityNotification = true
+            }
 
             $('#task-list')
                 .append(
@@ -173,6 +183,14 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
 
     if (taskCount > 0) {
         $('#task-list-title').text(`Taken: (${noticationCount})`)
+    }
+
+    if (highPriorityNotification) {
+        $('#notification-list-wrapper').addClass('orange')
+    }
+
+    if (highPriorityTask) {
+        $('#task-list-wrapper').addClass('orange')
     }
 
     document.addEventListener('toolbar-loaded', function () {

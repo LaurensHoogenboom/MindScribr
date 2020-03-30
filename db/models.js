@@ -50,12 +50,14 @@ class Client {
 }
 
 class Note {
-    constructor(dateTime, createdBy, type, attachedTo, receiver, title, description) {
+    constructor(dateTime, createdBy, type, attachedTo, receiver, priority, status, title, description) {
         this.DateTime = dateTime,
         this.CreatedBy = createdBy,
         this.Type = type,
         this.AttachedTo = attachedTo,
         this.Receiver = receiver,
+        this.Priority = priority,
+        this.Status = status,
         this.Title = title,
         this.Description = description
     }

@@ -43,9 +43,6 @@ exports.seedPreviewData = () => {
 
 //get all clients from the database
 exports.get = (where, callback) => {
-
-    console.log(where)
-
     //if there are any where conditions
     if (where) {
         db.getRows('notes', location, where, (succ, data) => {

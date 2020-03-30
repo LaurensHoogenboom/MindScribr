@@ -6,6 +6,8 @@
       "Type": "task",
       "AttachedTo": 1584639131903,
       "Receiver": "",
+      "Priority": "normal",
+      "Status": "todo",
       "Title": "Mail sturen",
       "Description": "Afspraak van vorigeweek maandag kon niet doorgaan.",
       "id": 1585380939551
@@ -16,6 +18,8 @@
       "Type": "notification",
       "AttachedTo": 1584639131903,
       "Receiver": "",
+      "Priority": "normal",
+      "Status": "present",
       "Title": "Afspraak geanuleerd",
       "Description": "De afspraak van 05/04/2020",
       "id": 1585381012202
@@ -26,6 +30,8 @@
       "Type": "task",
       "AttachedTo": 1584684689168,
       "Receiver": "",
+      "Priority": "high",
+      "Status": "todo",
       "Title": "Mail sturen",
       "Description": "Afspraak van vorigeweek maandag kon niet doorgaan.",
       "id": 1585380939551
@@ -36,6 +42,8 @@
       "Type": "notification",
       "AttachedTo": 1584684689168,
       "Receiver": "",
+      "Priority": "high",
+      "Status": "present",
       "Title": "Afspraak geanuleerd",
       "Description": "De afspraak van 05/04/2020",
       "id": 1585381012202
