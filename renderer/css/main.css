@@ -794,7 +794,7 @@ select option {
     min-height: 30px;
     min-width: 30px;
     border-radius: 15px;
-    padding: 4px 20px;
+    padding: 2px 20px;
     background-color: var(--blue);
     color: var(--white);
     border: 1px solid var(--blue-dark); 
