@@ -1,11 +1,15 @@
 //Modules
-const {app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const clients = require('./modules/clients')
 const notes = require('./modules/notes')
 const therapists = require('./modules/therapists')
 const uuid = require('uuid').v4
-const path = require('path');
+const path = require('path')
+const appRoot = require('app-root-path')
+const db = require('electron-db')
 
+//db location
+const location = path.join(appRoot.toString(), 'db')
 
 //Initialize Windows
 function createWindow() {
@@ -25,7 +29,7 @@ function createWindow() {
 app.whenReady().then(createWindow)
 
 //Close the app when all windows are closed
-app.on('window-all-closed', ()=> {
+app.on('window-all-closed', () => {
     //If not on Mac OS
     if (process.platform !== 'darwin') {
         app.quit()
@@ -33,10 +37,59 @@ app.on('window-all-closed', ()=> {
 })
 
 //Reopen the window using the dock on Mac OS
-app.on('activate', ()=> {
+app.on('activate', () => {
     if (BrowserWindow.getAllWindows.length === 0) {
         createWindow()
     }
+})
+
+//---- data
+//update
+
+ipcMain.on('update-data', (e, updateData) => {
+    //get where object
+    let where = {
+        id: updateData.itemId
+    }
+
+    //the table where the data is stored
+    let tableName = updateData.tableName
+
+    //the object which is updated
+    let rowToUpdate
+
+    //require the object to be updated
+    db.getRows(tableName, location, where, (succ, data) => {
+        if (succ) {
+            rowToUpdate = data[0]
+        }
+    })
+
+    //iterate through the keys of the object
+    const updateKeys = (obj) => {
+        Object.keys(obj).forEach(key => {
+
+            //if the key is a value and matches the labelvalue update it, else iterate through the nested keys
+            if (typeof obj[key] !== 'object') {
+                if (key === updateData.valueLabel) {
+                    obj[key] = updateData.value
+                }
+            }
+            else if (typeof obj[key] === 'object') {
+                updateKeys(obj[key])
+            }
+        })
+    }
+
+    //call to update object function
+    updateKeys(rowToUpdate)
+
+    //update the database with the new object
+    db.updateRow(tableName, location, where, rowToUpdate, (succ, msg) => {
+        // log message for debug purposes
+        // console.log(succ)
+        // console.log(msg)
+    })
 })
 
 //---- clients
@@ -119,7 +172,7 @@ ipcMain.on('therapist-detail-request', (e, where) => {
     let potentialClients = ''
 
     clients.get(clientsWhere, (clients) => {
-        potentialClients = clients 
+        potentialClients = clients
     })
 
     potentialClients.forEach(client => {
@@ -138,7 +191,7 @@ ipcMain.on('therapist-detail-request', (e, where) => {
 
     //return detail object
     e.sender.send('therapist-detail-retrieve', detail)
-}) 
+})
 
 //data
 

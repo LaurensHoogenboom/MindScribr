@@ -61,6 +61,53 @@ $(document).on('click', '.tableWrapper.dropdown .title .button', function (e) {
     return false;
 });
 
+$(document).on('click', '.tableWrapper.dropdown .title .actions .button', function (e) {
+    let action = $(this).data('action')
+
+    if (action === "edit") {
+        dataFields = $(this).closest('.tableWrapper').find('table tbody .editable')
+
+        if ($(dataFields).length) {
+            dataFields.each(function (e) {
+                fieldValue = $(this).text().trim()
+
+                $(this).empty()
+
+                $(this).append(
+                    $("<input>").attr("type", "text").val(fieldValue)
+                )
+            })
+
+            $(this).text('Opslaan')
+            $(this).data('action', 'save')
+        }
+    }
+
+    if (action === "save") {
+        dataFields = $(this).closest('.tableWrapper').find('table tbody .editable')
+
+        dataFields.each(function (e) {
+            fieldValue = $(this).find("input").val()
+
+            let updateData = {
+                tableName: $(this).closest("tbody").data('table'),
+                itemId: $(this).closest("tbody").data('id'),
+                valueLabel: $(this).data('label'),
+                value: $(this).find("input").val()
+            }
+
+            ipcRenderer.send('update-data', updateData)
+
+            $(this).empty()
+
+            $(this).text(fieldValue)
+        })
+
+        $(this).text('Bewerken')
+        $(this).data('action', 'edit')
+    }
+})
+
 //link
 
 $(document).on('click', 'a', function (e) {
@@ -76,7 +123,7 @@ $(document).on('click', 'a', function (e) {
         let actionParameters = $(this).data('parameters')
 
         if (actionParameters) {
-            window.actionData.parameters = actionParameters; 
+            window.actionData.parameters = actionParameters;
         }
 
         loadPage(link)
@@ -182,7 +229,7 @@ function loadPage(pageLocation) {
                     $.when($('#mainToolbar').html(contents)).then(function () {
                         //update sub navigation
                         setSubSectionTabbar(pageLocation)
-                        
+
                         //toolbar is ready for modification
                         document.dispatchEvent(toolbarLoaded)
                     })
@@ -192,6 +239,7 @@ function loadPage(pageLocation) {
     })
 }
 
-loadPage('clients/')
+loadPage('therapists/')
+
 
 

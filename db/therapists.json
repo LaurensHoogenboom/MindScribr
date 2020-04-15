@@ -2,37 +2,16 @@
   "therapists": [
     {
       "Personal": {
-        "FirstName": "Alexa",
-        "LastName": "Johnson",
-        "NickName": "",
-        "DateOfBirth": "22/05/1954"
-      },
-      "Employment": {
-        "JobType": "Therapeut",
-        "DateOfEmployment": "2020-03-30T06:25:18.131Z",
-        "Status": "active"
-      },
-      "Account": {
-        "Type": "Administrator",
-        "Password": "10522848",
-        "Username": "AlexaJohnson"
-      },
-      "Contact": {
-        "Address": {}
-      },
-      "id": 1585549518132
-    },
-    {
-      "Personal": {
         "FirstName": "William",
         "LastName": "Anderson",
         "NickName": "Bill",
-        "DateOfBirth": "22/05/1987"
+        "DateOfBirth": "NaN/NaN/NaN"
       },
       "Employment": {
         "JobType": "Therapeut",
         "DateOfEmployment": "2020-03-30T06:25:18.131Z",
-        "Status": "active"
+        "Status": "active",
+        "WorkingDays": "Wo, Do"
       },
       "Account": {
         "Type": "Standaard",
@@ -43,6 +22,29 @@
         "Address": {}
       },
       "id": 1585542481325
+    },
+    {
+      "Personal": {
+        "FirstName": "Alexa",
+        "LastName": "Johnson",
+        "NickName": "",
+        "DateOfBirth": "1985-03-25T06:25:18.131Z"
+      },
+      "Employment": {
+        "JobType": "Therapeut",
+        "DateOfEmployment": "2020-03-30T06:25:18.131Z",
+        "Status": "active",
+        "WorkingDays": "Ma, Do, Vr"
+      },
+      "Account": {
+        "Type": "Administrator",
+        "Password": "10522848",
+        "Username": "AlexaJohnson"
+      },
+      "Contact": {
+        "Address": {}
+      },
+      "id": 1586945190927
     }
   ]
 }
