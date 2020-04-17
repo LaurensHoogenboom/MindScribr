@@ -5,11 +5,11 @@
         "FirstName": "William",
         "LastName": "Anderson",
         "NickName": "Bill",
-        "DateOfBirth": "NaN/NaN/NaN"
+        "DateOfBirth": "2020-04-17T00:00:00.000Z"
       },
       "Employment": {
         "JobType": "Therapeut",
-        "DateOfEmployment": "NaN/NaN/NaN",
+        "DateOfEmployment": "2020-04-17T00:00:00.000Z",
         "Status": "active",
         "WorkingDays": "Wo, Do"
       },
@@ -28,7 +28,7 @@
         "FirstName": "Alexa",
         "LastName": "Johnson",
         "NickName": "",
-        "DateOfBirth": "1985-03-25T06:25:18.131Z"
+        "DateOfBirth": "2020-04-17T00:00:00.000Z"
       },
       "Employment": {
         "JobType": "Therapeut",

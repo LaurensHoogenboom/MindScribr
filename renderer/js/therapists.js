@@ -41,7 +41,7 @@ const setBackButton = (title) => {
     })
 }
 
-//retrieve client list
+//retrieve therapist list
 ipcRenderer.on('therapits-list-retrieve', (e, content) => {
     let therapistsTable = document.getElementById('therapists-list')
 
@@ -50,16 +50,13 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
 
     content.forEach(therapist => {
         //determine therapist name
-        let name
-
-        if (therapist.Personal.NickName) {
-            name = `${therapist.Personal.FirstName} "${therapist.Personal.NickName}" ${therapist.Personal.LastName}`
-        } else {
-            name = `${therapist.Personal.FirstName} ${therapist.Personal.LastName}`
-        }
+        let name = getName.full(therapist.Personal)
 
         //determine employment date
-        const employmentDate = getFormattedDate(therapist.Employment.DateOfEmployment)
+        const employmentDate = getDate.dmy(therapist.Employment.DateOfEmployment)
+
+        //determine date of birth
+        const dateOfBirth = getDate.dmy(therapist.Personal.DateOfBirth)
 
         //build therapist table
         $(therapistsTable).append(
@@ -74,7 +71,7 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
                     $('<td>').text(therapist.Account.Type ? therapist.Account.Type : "-")
                 )
                 .append(
-                    $('<td>').text(therapist.Personal.DateOfBirth ? therapist.Personal.DateOfBirth : "-")
+                    $('<td>').text(dateOfBirth)
                 )
                 .append(
                     $("<td>").text("-")
@@ -93,16 +90,10 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
 ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
     // therapist info
     // determine name
-    let name
-
-    if (detail.therapist.Personal.NickName) {
-        name = `${detail.therapist.Personal.FirstName} "${detail.therapist.Personal.NickName}" ${detail.therapist.Personal.LastName}`
-    } else {
-        name = `${detail.therapist.Personal.FirstName} ${detail.therapist.Personal.LastName}`
-    }
+    let name = getName.full(detail.therapist.Personal) 
 
     //determine birthday
-    const birthdayDate = getFormattedDate(detail.therapist.Personal.DateOfBirth)
+    const birthdayDate = getDate.dmy(detail.therapist.Personal.DateOfBirth)
 
     //personal
     $('#therapist-info-name').text(name)
@@ -155,13 +146,7 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
         let clientsTable = document.getElementById('clientsTable')
 
         //determine name
-        let name;
-
-        if (client.Personal.NickName) {
-            name = `${client.Personal.FirstName} "${client.Personal.NickName}" ${client.Personal.LastName}`
-        } else {
-            name = `${client.Personal.FirstName} ${client.Personal.LastName}`
-        }
+        let name = getName.full(client.Personal)
 
         //add row to table
         $(clientsTable)
@@ -211,19 +196,13 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
 ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
     // therapist info
     // determine name
-    let name
-
-    if (therapist.Personal.NickName) {
-        name = `${therapist.Personal.FirstName} "${therapist.Personal.NickName}" ${therapist.Personal.LastName}`
-    } else {
-        name = `${therapist.Personal.FirstName} ${therapist.Personal.LastName}`
-    }
+    let name = getName.full(therapist.Personal)
 
     //format birthday
-    const birthdayDate = getFormattedDate(therapist.Personal.DateOfBirth)
+    const birthdayDate = getDate.dmy(therapist.Personal.DateOfBirth)
 
     //format dateofemployment
-    const employmentDate = getFormattedDate(therapist.Employment.DateOfEmployment)
+    const employmentDate = getDate.dmy(therapist.Employment.DateOfEmployment)
 
     //format adres
     let address
@@ -277,7 +256,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Geboortedatum").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(birthdayDate).addClass('editable').attr('data-label', 'DateOfBirth')
+                    $("<td>").text(birthdayDate).addClass('editable').attr('data-label', 'DateOfBirth').attr('data-type', 'Date')
                 )
         )
 
@@ -315,7 +294,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Datum indienstreding").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(employmentDate).attr('data-label', 'DateOfEmployment').addClass('editable')
+                    $("<td>").text(employmentDate).attr('data-label', 'DateOfEmployment').addClass('editable').attr('data-type', 'Date')
                 )
         )
 

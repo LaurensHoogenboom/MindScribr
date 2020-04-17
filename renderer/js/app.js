@@ -69,13 +69,21 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
         if ($(dataFields).length) {
             dataFields.each(function (e) {
-                fieldValue = $(this).text().trim()
+                let dataType = $(this).data('type')
+                let fieldValue = $(this).text().trim()
 
                 $(this).empty()
 
-                $(this).append(
-                    $("<input>").attr("type", "text").val(fieldValue)
-                )
+                if (dataType === "Date") {
+                    $(this).append(
+                        $("<input>").attr("type", "date").val(getDate.datePicker(fieldValue))
+                        
+                    )
+                } else {
+                    $(this).append(
+                        $("<input>").attr("type", "text").val(fieldValue)
+                    )
+                }
             })
 
             $(this).text('Opslaan')
@@ -87,13 +95,20 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
         dataFields = $(this).closest('.tableWrapper').find('table tbody .editable')
 
         dataFields.each(function (e) {
-            fieldValue = $(this).find("input").val()
+            let fieldValue = $(this).find("input").val()
+            let dataType = $(this).data('type')
+            let dataToStore = $(this).find("input").val()
+
+            if (dataType === "Date") {
+                dataToStore = getDate.json(dataToStore)
+                fieldValue = getDate.dmy(fieldValue)
+            }
 
             let updateData = {
                 tableName: $(this).closest("tbody").data('table'),
                 itemId: $(this).closest("tbody").data('id'),
                 valueLabel: $(this).data('label'),
-                value: $(this).find("input").val()
+                value: dataToStore
             }
 
             ipcRenderer.send('update-data', updateData)
