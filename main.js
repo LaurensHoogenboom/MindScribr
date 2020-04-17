@@ -143,6 +143,14 @@ ipcMain.on('client-detail-request', (e, where) => {
     e.sender.send('client-detail-retrieve', detail)
 })
 
+//data
+
+ipcMain.on('client-data-request', (e, where) => {
+    clients.get(where, (client) => {
+        e.sender.send('client-data-retrieve', client[0])
+    })
+}) 
+
 //---- therapists
 //get
 

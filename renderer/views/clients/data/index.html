@@ -15,7 +15,7 @@
     </div>
 
     <table>
-        <tbody>
+        <tbody id="client-personal-data">
             <tr>
                 <td class="maxContent">Naam</td>
                 <td class="editable">John "Mad" doe</td>
@@ -50,14 +50,14 @@
             Contact
         </p>
         <div class="actions">
-            <a class="button grey">
+            <label class="button grey" data-action="edit">
                 Bewerken
-            </a>
+            </label>
         </div>
     </div>
 
     <table>
-        <tbody>
+        <tbody id="client-contact-data">
             <tr>
                 <td class="maxContent">E-mailadres</td>
                 <td>j.doe@internet.usa</td>
@@ -80,14 +80,14 @@
             Behandeling
         </p>
         <div class="actions">
-            <a class="button grey">
+            <label class="button grey" data-action="edit">
                 Bewerken
-            </a>
+            </label>
         </div>
     </div>
 
     <table>
-        <tbody>
+        <tbody id="client-therapy-data">
             <tr>
                 <td class="maxContent">Sessies</td>
                 <td>05 / 75</td>
@@ -122,14 +122,14 @@
             Financieel
         </p>
         <div class="actions">
-            <a class="button grey">
+            <label class="button grey" data-action="edit">
                 Bewerken
-            </a>
+            </label>
         </div>
     </div>
 
     <table>
-        <tbody>
+        <tbody id="client-finance-data">
             <tr>
                 <td class="maxContent">Verzekeraar</td>
                 <td>CZ</td>
@@ -149,3 +149,10 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    var clients = require('../js/clients.js')
+
+
+    clients.data(window.actionData.parameters.client)
+</script>

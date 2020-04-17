@@ -19,6 +19,16 @@ module.exports = {
 
         //request client detail
         ipcRenderer.send('client-detail-request', where)
+    },
+
+    //client data controller
+    data: (uuid) => {
+        let where = {
+            id: uuid
+        }
+
+        //request client data
+        ipcRenderer.send("client-data-request", where)
     }
 }
 
@@ -35,13 +45,11 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
     $(clientsTable).html('');
 
     content.forEach(client => {
-        let name;
+        //determine name
+        let name = getName.full(client.Personal);
 
-        if (client.Personal.NickName) {
-            name = `${client.Personal.FirstName} "${client.Personal.NickName}" ${client.Personal.LastName}`
-        } else {
-            name = `${client.Personal.FirstName} ${client.Personal.LastName}`
-        }
+        //determine dateOfBirth
+        let dateOfBirth = getDate.dmy(client.Personal.DateOfBirth)
 
         //build client table
         $(clientsTable).append(
@@ -56,7 +64,7 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
                     $("<td>").text(name)
                 )
                 .append(
-                    $("<td>").text(client.Personal.DateOfBirth ? client.Personal.DateOfBirth : "-")
+                    $("<td>").text(dateOfBirth)
                 )
                 .append(
                     $("<td>").text(client.ContactInformation.Address.City ? client.ContactInformation.Address.City : "-")
@@ -79,22 +87,13 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
 
 //require client detail
 ipcRenderer.on('client-detail-retrieve', (e, detail) => {
-    let sectionBackLabel = $('#clientDetailBack label')
-
     //client info
     //info
-    let name;
 
-    if (detail.client.Personal.NickName) {
-        name = `${detail.client.Personal.FirstName} "${detail.client.Personal.NickName}" ${detail.client.Personal.LastName}`
-    } else {
-        name = `${detail.client.Personal.FirstName} ${detail.client.Personal.LastName}`
-    }
-
-    //name
+    //determine and set name
+    let name = getName.full(detail.client.Personal)
     $('.mainInfoBlocks #client-info-name').text(name)
 
-    //therapy
     $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions} / ${detail.client.Therapy.TotalSessions}`)
     $('.mainInfoBlocks #therapy-info-code').text(`${detail.client.Therapy.TrajectType.Code}`)
     $('.mainInfoBlocks #therapy-info-title').text(`${detail.client.Therapy.TrajectType.Title}`)
@@ -112,12 +111,8 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
 
     //notes
     detail.notes.forEach(note => {
-        //convert date to string
-        const date = new Date(note.DateTime)
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-        const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-        const year = date.getFullYear()
-        const timeString = `${day}/${month}/${year}`
+        //determine date
+        let noteDate = getDate.dmy(note.DateTime)
 
         //apend to todolist if task
         if (note.Type === 'task') {
@@ -131,7 +126,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                 .append(
                     $('<tr>')
                         .append(
-                            $('<td>').text(timeString).addClass('maxContent')
+                            $('<td>').text(noteDate).addClass('maxContent')
                         )
                         .append(
                             $('<td>').text(note.Title)
@@ -163,7 +158,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                 .append(
                     $('<tr>')
                         .append(
-                            $('<td>').text(timeString).addClass('maxContent')
+                            $('<td>').text(noteDate).addClass('maxContent')
                         )
                         .append(
                             $('<td>').text(note.Title)
@@ -237,6 +232,179 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     //backbutton
     setBackButton(name)
 })
+
+
+//retrieve client data
+ipcRenderer.on('client-data-retrieve', (e, client) => {
+    console.log(client)
+
+    // // therapist info
+    // // determine name
+    // let name = getName.full(therapist.Personal)
+
+    // //format birthday
+    // const birthdayDate = getDate.dmy(therapist.Personal.DateOfBirth)
+
+    // //format dateofemployment
+    // const employmentDate = getDate.dmy(therapist.Employment.DateOfEmployment)
+
+    // //format adres
+    // let address
+
+    // if (therapist.Contact.Address.City) {
+    //     address = therapist.Contact.City
+    //     if (therapist.Contact.PostalCode && therapist.Contact.Street) {
+    //         address = `${therapist.Contact.Address.Street}<br>${therapist.Contact.Address.PostalCode}<br>${therapist.Contact.Address.City}`
+    //     }
+    // } else {
+    //     address = "-"
+    // }
+
+    // //tables
+    // let personalTable = document.getElementById('therapist-personal-data')
+    // let employmentTable = document.getElementById('therapist-employment-data')
+    // let accountTable = document.getElementById('therapist-account-data')
+    // let contactTable = document.getElementById('therapist-contact-data')
+
+    // $(personalTable).attr('data-table', 'therapists').attr('data-id', therapist.id)
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Voornaam").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Personal.FirstName).addClass('editable').attr('data-label', 'FirstName')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Achternaam").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Personal.LastName).addClass('editable').attr('data-label', 'LastName')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Bijnaam").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Personal.NickName).addClass('editable').attr('data-label', 'NickName')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Geboortedatum").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(birthdayDate).addClass('editable').attr('data-label', 'DateOfBirth').attr('data-type', 'Date')
+    //             )
+    //     )
+
+    // $(employmentTable).attr('data-table', 'therapists').attr('data-id', therapist.id)
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Functie").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Employment.JobType ? therapist.Employment.JobType : "-").attr('data-label', 'JobType').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Werkdagen").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Employment.WorkingDays ? therapist.Employment.WorkingDays : "-").attr('data-label', 'WorkingDays').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Status").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Employment.Status ? therapist.Employment.Status : "-").attr('data-label', 'Status').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Datum indienstreding").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(employmentDate).attr('data-label', 'DateOfEmployment').addClass('editable').attr('data-type', 'Date')
+    //             )
+    //     )
+
+    // $(accountTable).attr('data-table', 'therapists').attr('data-id', therapist.id)
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Gebruikersnaam").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Account.Username ? therapist.Account.Username : "-").attr('data-label', 'Username').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Wachtwoord").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Account.Password ? therapist.Account.Password : "-").attr('data-label', 'Password').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Type").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Account.Type ? therapist.Account.Type : "-").attr('data-label', 'Type').addClass('editable')
+    //             )
+    //     )
+
+    // $(contactTable).attr('data-table', 'therapists').attr('data-id', therapist.id)
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("E-mailadres").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Contact.Email ? therapist.Contact.Email : "-").attr('data-label', 'Email').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Telefoonnummer").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").text(therapist.Contact.Phone ? therapist.Contact.Phone : "-").attr('data-label', 'Phone').addClass('editable')
+    //             )
+    //     )
+    //     .append(
+    //         $("<tr>")
+    //             .append(
+    //                 $("<td>").text("Adres").addClass('maxContent')
+    //             )
+    //             .append(
+    //                 $("<td>").html(address).attr('data-label', 'Address').addClass('editable')
+    //             )
+    //     )
+
+    // //backbutton
+    // setBackButton(name)
+})
+
+
 
 
 
