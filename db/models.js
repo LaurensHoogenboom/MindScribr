@@ -13,7 +13,7 @@ class Client {
             MainOccupation: mainOccupation
         }
 
-        this.ContactInformation = {
+        this.Contact = {
             Email: email,
             Phone: phone,
             Address: {
@@ -36,7 +36,7 @@ class Client {
             MainDiagnosis: mainDiagnosis,
         }
 
-        this.FinanceDetails = {
+        this.Finance = {
             Insurer: insurer,
             PolicyNumber: policyNumber,
             UZOVINumber: uzoviNumber,

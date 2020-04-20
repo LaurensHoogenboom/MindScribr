@@ -254,7 +254,7 @@ function loadPage(pageLocation) {
     })
 }
 
-loadPage('therapists/')
+loadPage('clients/')
 
 
 

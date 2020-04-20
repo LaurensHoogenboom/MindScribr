@@ -149,7 +149,7 @@ ipcMain.on('client-data-request', (e, where) => {
     clients.get(where, (client) => {
         e.sender.send('client-data-retrieve', client[0])
     })
-}) 
+})
 
 //---- therapists
 //get

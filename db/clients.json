@@ -8,10 +8,10 @@
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
-        "DateOfBirth": "02/07/1987"
+        "DateOfBirth": "2020-04-20T00:00:00.000Z"
       },
       "Notes": {},
-      "ContactInformation": {
+      "Contact": {
         "Address": {}
       },
       "Therapy": {
@@ -35,7 +35,7 @@
         "Status": "In behandeling",
         "MainDiagnosis": "Niet vastgesteld"
       },
-      "FinanceDetails": {},
+      "Finance": {},
       "id": 1584639131903
     },
     {
@@ -49,7 +49,7 @@
         "DateOfBirth": "02/07/1987"
       },
       "Notes": {},
-      "ContactInformation": {
+      "Contact": {
         "Address": {}
       },
       "Therapy": {
@@ -73,7 +73,7 @@
         "Status": "In behandeling",
         "MainDiagnosis": "PTSS"
       },
-      "FinanceDetails": {},
+      "Finance": {},
       "id": 1584684689168
     }
   ]

@@ -43,7 +43,6 @@ const getDate = {
 }
 
 //name
-
 const getName = {
     full: (PersonalInfo) => {
         if (PersonalInfo.NickName) {
@@ -72,3 +71,32 @@ const getName = {
         return PersonalInfo.NickName
     }
 }
+
+//address
+const getAddress = {
+    full: (Address) => {
+        let address = "-"
+
+        if (Address.City) {
+            address = Address.City
+            if (Address.PostalCode && Address.Street) {
+                address = `${Address.Street}<br>${Address.PostalCode}<br>${Address.Street}`
+            }
+        } 
+
+        return address
+    },
+
+    postalCode: (Address) => {
+        return Address.PostalCode
+    },
+
+    street: (Address) => {
+        return Address.Street
+    },
+
+    city: (Address) => {
+        return Address.City
+    }
+}
+
