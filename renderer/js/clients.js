@@ -245,6 +245,8 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
     //get client address
     let address = getAddress.full(client.Contact.Address)
 
+    console.log(client.Contact.Address)
+
     //tablelist
     let personalTable = document.getElementById("client-personal-data")
     let contactTable = document.getElementById("client-contact-data")
@@ -323,19 +325,28 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("E-mailadres").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Contact.Email).addClass('editable').attr('data-label', 'Email')
+                    $("<td>").text(client.Contact.Email).addClass('editable').attr('data-label', 'Contact.Email')
                 )
         )
-
         .append(
             $("<tr>")
                 .append(
                     $("<td>").text("Telefoonnummer").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Contact.Phone).addClass('editable').attr('data-label', 'Phone')
+                    $("<td>").text(client.Contact.Phone).addClass('editable').attr('data-label', 'Contact.Phone')
                 )
         )
+        .append(
+            $("<tr>")
+                .append(
+                    $("<td>").text("Adres").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(address).addClass('editable').attr('data-label', 'Address').attr('data-type', "Contact.Address")
+                )
+        )
+
 
     $(therapyTable).attr('data-table', 'clients').attr('data-id', client.id)
         .append(
@@ -344,7 +355,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Status").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Therapy.Status).addClass('editable').attr('data-label', 'Status')
+                    $("<td>").text(client.Therapy.Status).addClass('editable').attr('data-label', 'Therapy.Status')
                 )
         )
         .append(
@@ -353,7 +364,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Aantal Sessies").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TotalSessions).addClass('editable').attr('data-label', 'TotalSessions')
+                    $("<td>").text(client.Therapy.TotalSessions).addClass('editable').attr('data-label', 'Therapy.TotalSessions')
                 )
         )
         .append(
@@ -362,7 +373,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Aantal gebruikte sessies")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.UsedSessions).addClass('editable').attr('data-label', 'UsedSessions')
+                    $("<td>").text(client.Therapy.UsedSessions).addClass('editable').attr('data-label', 'Therapy.UsedSessions')
                 )
         )
         .append(
@@ -371,7 +382,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Trajectnaam")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TrajectType.Title).addClass('editable').attr('data-label', 'Title')
+                    $("<td>").text(client.Therapy.TrajectType.Title).addClass('editable').attr('data-label', 'Therapy.Title')
                 )
         )
         .append(
@@ -380,7 +391,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Trajectcode")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TrajectType.Code).addClass('editable').attr('data-label', 'Code')
+                    $("<td>").text(client.Therapy.TrajectType.Code).addClass('editable').attr('data-label', 'Therapy.Code')
                 )
         )
         .append(
@@ -389,7 +400,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Therapeuten")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.Therapists).addClass('editable').attr('data-label', 'Therapists')
+                    $("<td>").text(client.Therapy.Therapists).addClass('editable').attr('data-label', 'Therapy.Therapists')
                 )
         )
         .append(
@@ -398,7 +409,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Hoofddiagnose").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Therapy.MainDiagnosis).addClass('editable').attr('data-label', 'MainDiagnosis')
+                    $("<td>").text(client.Therapy.MainDiagnosis).addClass('editable').attr('data-label', 'Therapy.MainDiagnosis')
                 )
         )
 
@@ -409,7 +420,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 $("<td>").text("Verzekeraar").addClass('maxContent')
             )
             .append(
-                $("<td>").text(client.Finance.Insurer).addClass('editable').attr('dataLabel', 'Insurer')
+                $("<td>").text(client.Finance.Insurer).addClass('editable').attr('dataLabel', 'Finance.Insurer')
             )
         )
         .append(
@@ -418,7 +429,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 $("<td>").text("Polisnummer").addClass('maxContent')
             )
             .append(
-                $("<td>").text(client.Finance.PolicyNumber).addClass('editable').attr('dataLabel', 'Insurer')
+                $("<td>").text(client.Finance.PolicyNumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
             )
         )
         .append(
@@ -427,7 +438,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 $("<td>").text("UZOVI-nummer").addClass('maxContent')
             )
             .append(
-                $("<td>").text(client.Finance.UZOVINumber).addClass('editable').attr('dataLabel', 'Insurer')
+                $("<td>").text(client.Finance.UZOVINumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
             )
         )
         .append(
@@ -436,7 +447,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 $("<td>").text("Factuurplan").addClass('maxContent')
             )
             .append(
-                $("<td>").text(client.Finance.InvoiceType).addClass('editable').attr('dataLabel', 'Insurer')
+                $("<td>").text(client.Finance.InvoiceType).addClass('editable').attr('dataLabel', 'Finance.Insurer')
             )
         )
 

@@ -80,7 +80,7 @@ const getAddress = {
         if (Address.City) {
             address = Address.City
             if (Address.PostalCode && Address.Street) {
-                address = `${Address.Street}<br>${Address.PostalCode}<br>${Address.Street}`
+                address = `${Address.Street},${Address.PostalCode},${Address.Street}`
             }
         } 
 

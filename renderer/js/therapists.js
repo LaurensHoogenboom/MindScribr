@@ -165,13 +165,13 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
                         $("<td>").text(client.Personal.DateOfBirth ? client.Personal.DateOfBirth : "-")
                     )
                     .append(
-                        $("<td>").text(client.ContactInformation.Address.City ? client.ContactInformation.Address.City : "-")
+                        $("<td>").text(client.Contact.Address.City ? client.Contact.Address.City : "-")
                     )
                     .append(
-                        $("<td>").text(client.ContactInformation.Email ? client.ContactInformation.Email : "-")
+                        $("<td>").text(client.Contact.Email ? client.Contact.Email : "-")
                     )
                     .append(
-                        $("<td>").text(client.ContactInformation.Phone ? client.ContactInformation.Phone : "-")
+                        $("<td>").text(client.Contact.Phone ? client.Contact.Phone : "-")
                     )
                     .append(
                         $("<td>").text(client.Therapy.Status ? client.Therapy.Status : "-")
@@ -205,16 +205,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
     const employmentDate = getDate.dmy(therapist.Employment.DateOfEmployment)
 
     //format adres
-    let address
-
-    if (therapist.Contact.Address.City) {
-        address = therapist.Contact.City
-        if (therapist.Contact.PostalCode && therapist.Contact.Street) {
-            address = `${therapist.Contact.Address.Street}<br>${therapist.Contact.Address.PostalCode}<br>${therapist.Contact.Address.City}`
-        }
-    } else {
-        address = "-"
-    }
+    let address = getAddress.full(therapist.Contact.Address)
 
     //tables
     let personalTable = document.getElementById('therapist-personal-data')
@@ -294,7 +285,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Datum indienstreding").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(employmentDate).attr('data-label', 'DateOfEmployment').addClass('editable').attr('data-type', 'Employment.Date')
+                    $("<td>").text(employmentDate).attr('data-label', 'Employment.DateOfEmployment').addClass('editable').attr('data-type', 'Date')
                 )
         )
 
@@ -334,7 +325,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("E-mailadres").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(therapist.Contact.Email ? therapist.Contact.Email : "-").attr('data-label', 'Contact.Email').addClass('editable')
+                    $("<td>").text(therapist.Contact.Email ? therapist.Contact.Email : "-").attr('data-label', 'Contact.Email').addClass('editable').attr('data-type', 'Email')
                 )
         )
         .append(
@@ -352,7 +343,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Adres").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").html(address).attr('data-label', 'Contact.Address').addClass('editable')
+                    $("<td>").html(address).attr('data-label', 'Contact.Address').addClass('editable').attr('data-type', 'Address')
                 )
         )
 

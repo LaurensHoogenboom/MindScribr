@@ -12,7 +12,13 @@
       },
       "Notes": {},
       "Contact": {
-        "Address": {}
+        "Email": "",
+        "Phone": "",
+        "Address": {
+          "Street": "asdf",
+          "PostalCode": "asdf",
+          "City": "asdf"
+        }
       },
       "Therapy": {
         "FileId": "D-987.654.321",
@@ -50,7 +56,13 @@
       },
       "Notes": {},
       "Contact": {
-        "Address": {}
+        "Email": "",
+        "Phone": "",
+        "Address": {
+          "Street": "asdf",
+          "PostalCode": "asdf",
+          "City": "asdf"
+        }
       },
       "Therapy": {
         "FileId": "D-123.456.789",

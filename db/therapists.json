@@ -10,7 +10,7 @@
       "Employment": {
         "JobType": "Therapeut",
         "DateOfEmployment": "2020-04-17T00:00:00.000Z",
-        "Status": "active",
+        "Status": "Actief",
         "WorkingDays": "Wo, Do"
       },
       "Account": {
@@ -19,9 +19,12 @@
         "Username": "WilliamAnderson"
       },
       "Contact": {
-        "Address": {}
+        "Address": "-",
+        "Email": "-",
+        "Phone": "-"
       },
-      "id": 1585542481325
+      "id": 1585542481325,
+      "DateOfEmployment": "17/04/2020"
     },
     {
       "Personal": {
@@ -42,7 +45,13 @@
         "Username": "AlexaJohnson"
       },
       "Contact": {
-        "Address": {}
+        "Address": {
+          "Street": "asdf",
+          "PostalCode": "asdf",
+          "City": "asdf"
+        },
+        "Email": "-",
+        "Phone": "-"
       },
       "id": 1586945190927
     }

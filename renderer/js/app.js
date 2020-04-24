@@ -77,9 +77,52 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 if (dataType === "Date") {
                     $(this).append(
                         $("<input>").attr("type", "date").val(getDate.datePicker(fieldValue))
-                        
+
                     )
-                } else {
+                } else if (dataType === "Email") {
+                    $(this).append(
+                        $("<input>").attr("type", "email").val(fieldValue)
+                    )
+                } else if (dataType === "Address") {
+                    fieldValue = fieldValue.split(',')
+
+                    if (fieldValue[0] && fieldValue[0] !== "-") {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").val(fieldValue[0].trim()).attr('placeholder', 'Straat en huisnummer')
+                            )
+                    } else {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").attr('placeholder', 'Straat en huisnummer')
+                            )
+                    }
+
+                    if (fieldValue[1] && fieldValue[1] !== "-") {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").val(fieldValue[1].trim()).attr('placeholder', 'Postcode')
+                            )
+                    } else {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").attr('placeholder', 'Postcode')
+                            )
+                    }
+
+                    if (fieldValue[2] && fieldValue[2] !== "-") {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").val(fieldValue[2].trim()).attr('placeholder', 'Woonplaats')
+                            )
+                    } else {
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").attr('placeholder', 'Woonplaats')
+                            )
+                    }
+                }
+                else {
                     $(this).append(
                         $("<input>").attr("type", "text").val(fieldValue)
                     )
@@ -102,6 +145,21 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
             if (dataType === "Date") {
                 dataToStore = getDate.json(dataToStore)
                 fieldValue = getDate.dmy(fieldValue)
+            }
+
+            if (dataType === "Address") {
+                let street = $(this).find("input")[0].value
+                let postalCode = $(this).find("input")[1].value
+                let city = $(this).find("input")[2].value
+
+                fieldValue = `${street}, ${postalCode}, ${city}`
+                dataToStore = {
+                    Street: street,
+                    PostalCode: postalCode,
+                    City: city
+                }
+
+                console.log($(this).find('input'))
             }
 
             let updateData = {

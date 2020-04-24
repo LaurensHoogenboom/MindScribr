@@ -870,7 +870,7 @@ input {
     background-color: white;
 }
 
-input[type="text"], input[type="date"], textarea {
+input[type="text"], input[type="date"], input[type="email"], textarea {
     height: 30px;
     padding: 4px 20px;
     font-family: OpenSans;
