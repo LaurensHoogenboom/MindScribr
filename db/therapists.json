@@ -19,7 +19,11 @@
         "Username": "WilliamAnderson"
       },
       "Contact": {
-        "Address": "-",
+        "Address": {
+          "Street": "",
+          "PostalCode": "",
+          "City": ""
+        },
         "Email": "-",
         "Phone": "-"
       },
@@ -35,8 +39,8 @@
       },
       "Employment": {
         "JobType": "Therapeut",
-        "DateOfEmployment": "2020-03-30T06:25:18.131Z",
-        "Status": "active",
+        "DateOfEmployment": "2020-03-30T00:00:00.000Z",
+        "Status": "Actief",
         "WorkingDays": "Ma, Do, Vr"
       },
       "Account": {
@@ -46,9 +50,9 @@
       },
       "Contact": {
         "Address": {
-          "Street": "asdf",
-          "PostalCode": "asdf",
-          "City": "asdf"
+          "Street": "Prof. Snelliusweg 69",
+          "PostalCode": "3362SM",
+          "City": "Sliedrecht"
         },
         "Email": "-",
         "Phone": "-"

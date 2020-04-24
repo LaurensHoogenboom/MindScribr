@@ -145,6 +145,14 @@ table tr td.actions {
     border-left: none;
 }
 
+table tr td.editable input {
+    margin-right: 20px;
+}
+
+table tr td.editable input:last-child {
+    margin-right: 0px;
+}
+
 table.actionTable tbody tr {
     cursor: pointer;
 }
