@@ -65,24 +65,18 @@ ipcMain.on('update-data', (e, updateData) => {
         }
     })
 
-    //iterate through the keys of the object
-    const updateKeys = (obj) => {
-        Object.keys(obj).forEach(key => {
+    //get value label tree
+    let valueLabelTree = updateData.valueLabel.split('.')
 
-            //if the key is a value and matches the labelvalue update it, else iterate through the nested keys
-            if (typeof obj[key] !== 'object') {
-                if (key === updateData.valueLabel) {
-                    obj[key] = updateData.value
-                }
-            }
-            else if (typeof obj[key] === 'object') {
-                updateKeys(obj[key])
-            }
-        })
+    const setNestedKey = (obj, path, value) => {
+        if (path.length === 1) {
+          obj[path] = value
+          return
+        }
+        return setNestedKey(obj[path[0]], path.slice(1), value)
     }
 
-    //call to update object function
-    updateKeys(rowToUpdate)
+    setNestedKey(rowToUpdate, valueLabelTree, updateData.value)
 
     //update the database with the new object
     db.updateRow(tableName, location, where, rowToUpdate, (succ, msg) => {

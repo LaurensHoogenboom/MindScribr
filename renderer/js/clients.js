@@ -236,8 +236,6 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
 
 //retrieve client data
 ipcRenderer.on('client-data-retrieve', (e, client) => {
-    console.log(client)
-
     //get client full name
     let name = getName.full(client.Personal)
 
@@ -260,7 +258,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Voornaam").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.FirstName).addClass('editable').attr('data-label', 'FirstName')
+                    $("<td>").text(client.Personal.FirstName).addClass('editable').attr('data-label', 'Personal.FirstName')
                 )
         )
         .append(
@@ -269,7 +267,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Achternaam").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.LastName).addClass('editable').attr('data-label', 'LastName')
+                    $("<td>").text(client.Personal.LastName).addClass('editable').attr('data-label', 'Personal.LastName')
                 )
         )
         .append(
@@ -278,7 +276,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Bijnaam").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.NickName).addClass('editable').attr('data-label', 'NickName')
+                    $("<td>").text(client.Personal.NickName).addClass('editable').attr('data-label', 'Personal.NickName')
                 )
         )
         .append(
@@ -287,7 +285,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Geboortedatum").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(birthday).addClass('editable').attr('data-label', 'DateOfBirth').attr('data-type', 'Date')
+                    $("<td>").text(birthday).addClass('editable').attr('data-label', 'Personal.DateOfBirth').attr('data-type', 'Date')
                 )
         )
         .append(
@@ -296,7 +294,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("BSN-Nummer").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.BSNNumber).addClass('editable').attr('data-label', 'BSNNumber')
+                    $("<td>").text(client.Personal.BSNNumber).addClass('editable').attr('data-label', 'Personal.BSNNumber')
                 )
         )
         .append(
@@ -305,7 +303,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Huidig beroep en/of opleiding").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.MainOccupation).addClass('editable').attr('data-label', 'MainOccupation')
+                    $("<td>").text(client.Personal.MainOccupation).addClass('editable').attr('data-label', 'Personal.MainOccupation')
                 )
         )
         .append(
@@ -314,7 +312,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Huisarts").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.GeneralPractitioner).addClass('editable').attr('data-label', 'GeneralPractitioner')
+                    $("<td>").text(client.Personal.GeneralPractitioner).addClass('editable').attr('data-label', 'Personal.GeneralPractitioner')
                 )
         )
 
