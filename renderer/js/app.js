@@ -20,6 +20,40 @@ window.actionData = {
     pageLocation: ''
 }
 
+//toolbar 
+
+$(document).on('click', '.toolbar .button', function() {
+    buttonAction = $(this).data('action')
+
+    if (buttonAction === "open-window") {
+        windowToOpen = $(this).data("windowname")
+
+        $('.window').each(function() {
+            windowName = $(this).data('name')
+
+            if (windowName === windowToOpen) {
+                $(this).addClass('visible')
+            }
+        })
+    }
+})
+
+//window
+
+$(document).on('click', '.window .footer .button, .window .title .button', function() {
+    buttonAction = $(this).data('action')
+
+    if (buttonAction === "close-window") {
+        windowToClose = $(this).data("windowname")
+
+        $('.window').each(function() {
+            if ($(this).data('name') === windowToClose) {
+                $(this).removeClass('visible')
+            }
+        })
+    }
+})
+
 //switch
 
 $(document).on('click', '.switch:not(.subSectionNav) a', function () {
@@ -61,6 +95,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .button', function (e) {
     return false;
 });
 
+//dropdown table actions
 $(document).on('click', '.tableWrapper.dropdown .title .actions .button', function (e) {
     let action = $(this).data('action')
 

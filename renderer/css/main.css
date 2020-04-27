@@ -504,6 +504,20 @@ main #mainContent {
     margin-left: 20px;
 }
 
+.toolbar .right .actionGroup .button {
+    border-radius: 0;
+    border-right: none;
+}
+
+.toolbar .right .actionGroup .button:first-child {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.toolbar .right .actionGroup .button:last-child {
+    border-radius: 0px 4px 4px 0px;
+    border-right: 1px solid var(--grey-light);
+}
+
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -618,6 +632,74 @@ main #mainContent {
     }
 }
 
+/*windows*/
+
+.window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: var(--white);
+    box-shadow: 0px 10px 20px var(--shadow);
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.2s;
+}
+
+.window.visible {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.window.visible .body {
+    max-height: 400px;
+}
+
+.window .title, .window .footer {
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.window .body {
+    background-color: var(--grey-lightest);
+    padding: 0px 20px;
+    max-height: 0;
+    overflow-y: scroll;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.window .body:before {
+    content: '';
+    display: block;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(250,250,250,0.0), rgba(250,250,250,1.0));
+    height: 40px;
+}
+
+.window .body:after {
+    content: '';
+    display: block;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(250,250,250,0.0), rgba(250,250,250,1.0));
+    height: 40px;
+}
+
+
+/*input*/
+
 .typeNumbers {
     display: inline;
     background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
@@ -631,7 +713,6 @@ main #mainContent {
 }
 
 .switch {
-    border-radius: 15px;
     background-color: white;
     float: left;
 }
@@ -658,11 +739,11 @@ main #mainContent {
 }
 
 .switch a:first-child {
-    border-radius: 15px 0px 0px 15px;
+    border-radius: 4px 0px 0px 4px;
 }
 
 .switch a:last-child {
-    border-radius: 0px 15px 15px 0px;
+    border-radius: 0px 4px 4px 0px;
     border-right: 1px solid var(--grey-light);
 }
 
@@ -673,21 +754,6 @@ main #mainContent {
     border-radius: 50%;
     background-size: cover;
     background-position: 50%;
-}
-
-select {
-    border-radius: 15px;
-    padding: 2px 20px;
-    border: 1px solid var(--grey-light);
-    outline: none;
-}
-
-select.placeHolder {
-    color: var(--grey-light);
-}
-
-select option {
-    color: var(--grey-dark);
 }
 
 .chevron {
@@ -805,7 +871,7 @@ select option {
     padding: 2px 20px;
     background-color: var(--blue);
     color: var(--white);
-    border: 1px solid var(--blue-dark); 
+    border: 1px solid var(--blue); 
 }
 
 .button:hover {
@@ -822,7 +888,7 @@ select option {
 }
 
 .button.grey {
-    background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
+    background-color: var(--white);
     color: var(--grey-dark);
     border: 1px solid var(--grey-light);
     padding: 3px 20px 1px 20px;
@@ -835,6 +901,7 @@ select option {
 .button .icon {
     color: var(--white);
     filter: drop-shadow(0px 3px 6px var(--shadow));
+    padding-bottom: 2px;
 }
 
 .button.grey .icon {
@@ -871,10 +938,49 @@ select option {
     cursor: pointer;
 }
 
+/*form*/
+
+form {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+form:last-child {
+    margin-bottom: 0;
+}
+
+form .inputGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    grid-gap: 20px;
+    padding: 30px 0px;
+    border-bottom: 1px solid var(--grey-light);
+}
+
+form .inputGroup:first-child {
+    padding-top: 0;
+}
+
+form .inputGroup:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+form .inputGroup .input label {
+    display: block;
+    padding-bottom: 9px;
+}
+
+form .inputGroup .input input, form .inputGroup .input select {
+    width: 100%;
+} 
+
 input {
     outline: none;
     border: 1px solid var(--grey-light);
-    border-radius: 15px;
+    border-radius: 4px;
     background-color: white;
 }
 
@@ -883,7 +989,7 @@ input[type="text"], input[type="date"], input[type="email"], textarea {
     padding: 4px 20px;
     font-family: OpenSans;
     font-size: 16px;
-    color: var(--grey-dark)
+    color: var(--grey-dark);
 }
 
 textarea {
@@ -892,8 +998,6 @@ textarea {
     border-radius: 15px;
     background-color: white;
     min-height: 120px;
-    width: 100%;
-    min-width: 215px;
 }
 
 input[type="checkbox"] {
@@ -932,18 +1036,33 @@ input[type="checkbox"]:checked + label::before {
     font-style: italic;
 }
 
+select {
+    border-radius: 4px;
+    padding: 2px 20px;
+    border: 1px solid var(--grey-light);
+    outline: none;
+}
+
+select.placeHolder {
+    color: var(--grey-light);
+}
+
+select option {
+    color: var(--grey-dark);
+}
+
 .buttonInput {
     display: grid;
     grid-template-columns: 1fr max-content;
 }
 
 .buttonInput input {
-    border-radius: 15px 0px 0px 15px;
+    border-radius: 4px 0px 0px 4px;
     max-width: 180px;
 }
 
 .buttonInput .button {
-    border-radius: 0px 15px 15px 0px;
+    border-radius: 0px 4px 4px 0px;
     padding: 0;
     max-height: 30px;
 }
@@ -951,7 +1070,6 @@ input[type="checkbox"]:checked + label::before {
 .pager {
     display: grid;
     grid-template-columns: 30px max-content 30px;
-    border-radius: 15px;
 }
 
 .pager .button {
@@ -960,11 +1078,11 @@ input[type="checkbox"]:checked + label::before {
 }
 
 .pager .button:first-child {
-    border-radius: 15px 0px 0px 15px;
+    border-radius: 4px 0px 0px 4px;
 }
 
 .pager .button:last-child {
-    border-radius: 0px 15px 15px 0px;
+    border-radius: 0px 4px 4px 0px;
 }
 
 /* window styles */

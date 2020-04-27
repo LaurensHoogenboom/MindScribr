@@ -1,23 +1,144 @@
 <div class="left">
-    <div class="switch">
-      <a href="#" class="current">Alle</a>
-      <a href="#">In behandeling</a>
-      <a href="#">Mijn cliënten</a>
+  <div class="switch">
+    <a href="#" class="current">Alle</a>
+    <a href="#">In behandeling</a>
+    <a href="#">Mijn cliënten</a>
+  </div>
+</div>
+<div class="center">
+  <div class="buttonInput">
+    <input type="text" placeholder="Zoek cliënten">
+    <div class="button circle">
+      <span class="icon">&#xe900;</span>
     </div>
   </div>
-  <div class="center">
-    <div class="buttonInput">
-      <input type="text" placeholder="Zoek cliënten">
-      <div class="button circle">
-        <span class="icon">&#xe900;</span>
+</div>
+<div class="right">
+  <section class="actionGroup">
+    <label class="button grey square">
+      <span class="icon">
+        &#xe90a;
+      </span>
+    </label>
+    <label class="button grey square" data-action="open-window" data-windowname="add-client">
+      <span class="icon">
+        &#xe90b;
+      </span>
+    </label>
+    <label class="icon button grey square">
+      <span class="icon">
+        &#xe905;
+      </span>
+    </label>
+  </section>
+</div>
+
+<div class="window" data-name="add-client">
+  <div class="title">
+    <div class="left">
+
+    </div>
+    <div class="center">
+      <h3>
+        Client toevoegen
+      </h3>
+    </div>
+    <div class="right">
+      <div class="button grey circle" data-action="close-window" data-windowname="add-client">
+        <div class="cross">
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   </div>
-  <div class="right">
-    <select>
-      <option value="default">Client</option>
-      <option>Toevoegen</option>
-      <option>Aanpassen</option>
-      <option>Verwijderen</option>
-    </select>
+
+  <div class="body">
+    <form>
+      <div class="inputGroup">
+        <div class="input">
+          <label>Voornaam</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Achternaam</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Bijnaam</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Beroep</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Geboortedatum</label>
+          <input type="date">
+        </div>
+        <div class="input">
+          <label>Huisarts</label>
+          <select>
+            <option>Johnson</option>
+            <option>Smith</option>
+            <option>Toevoegen</option>
+          </select>
+        </div>
+      </div>
+      <div class="inputGroup">
+        <div class="input">
+          <label>Straat en huisnummer</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Postcode</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Woonplaats</label>
+          <input type="text">
+        </div>
+      </div>
+      <div class="inputGroup">
+        <div class="input">
+          <label>Verzekeraar</label>
+          <select>
+            <option>Johnson</option>
+            <option>Toevoegen</option>
+          </select>
+        </div>
+        <div class="input">
+          <label>Polisnummer</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Usovinummer</label>
+          <input type="text">
+        </div>
+        <div class="input">
+          <label>Factuurplan</label>
+          <select>
+            <option>Automatisch</option>
+            <option>Handmatig</option>
+          </select>
+        </div>
+      </div>
+    </form>
   </div>
+
+  <div class="footer">
+    <div class="left">
+      <label class="button grey" data-action="close-window" data-windowname="add-client">
+        Annuleren
+      </label>
+    </div>
+    <div class="center">
+      
+    </div>
+    <div class="right">
+      <label class="button blue">
+        Toevoegen
+      </label>
+    </div>
+  </div>
+</div>
