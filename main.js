@@ -70,8 +70,8 @@ ipcMain.on('update-data', (e, updateData) => {
 
     const setNestedKey = (obj, path, value) => {
         if (path.length === 1) {
-          obj[path] = value
-          return
+            obj[path] = value
+            return
         }
         return setNestedKey(obj[path[0]], path.slice(1), value)
     }
@@ -121,17 +121,19 @@ ipcMain.on('client-detail-request', (e, where) => {
     //request related therapist
     therpistIdList = detail.client.Therapy.Therapists
 
-    therpistIdList.forEach(unknownTherapist => {
-        where = {
-            id: unknownTherapist.id
-        }
-
-        therapists.get(where, therapist => {
-            therapist[0].Relation = unknownTherapist.relation
-
-            detail.therapists.push(therapist[0])
+    if (therpistIdList) {
+        therpistIdList.forEach(unknownTherapist => {
+            where = {
+                id: unknownTherapist.id
+            }
+    
+            therapists.get(where, therapist => {
+                therapist[0].Relation = unknownTherapist.relation
+    
+                detail.therapists.push(therapist[0])
+            })
         })
-    })
+    }
 
     //return detail object
     e.sender.send('client-detail-retrieve', detail)
@@ -144,6 +146,20 @@ ipcMain.on('client-data-request', (e, where) => {
         e.sender.send('client-data-retrieve', client[0])
     })
 })
+
+//crud
+//add
+ipcMain.on('client-add-request', (e, values) => {
+    console.log(values)
+
+    clients.add(values.firstName, values.lastName, values.nickName, values.bsnNumber, values.mainOccupation, values.mainPractioner,
+        values.dateOfBirth, values.email, values.phone, values.street, values.postalcode, values.city, values.totalSessions, values.usedSessions,
+        values.therapists, values.therapyStatus, values.mainDiagnosis, values.insurer, values.policyNumber, values.usoviNumber, values.invoiceType,
+        values.fileId, values.notes, values.trajectTitle, values.trajectCode, (succ) => {
+            e.sender.send('client-add-response', succ)
+        })
+})
+
 
 //---- therapists
 //get
@@ -178,16 +194,20 @@ ipcMain.on('therapist-detail-request', (e, where) => {
     })
 
     potentialClients.forEach(client => {
-        var relatedClient = false
+        if (client.Therapy.Therapists) {
+            console.log(client.Therapy.Therapists)
 
-        client.Therapy.Therapists.forEach(therapist => {
-            if (therapist.id === detail.therapist.id) {
-                relatedClient = true
+            var relatedClient = false
+
+            client.Therapy.Therapists.forEach(therapist => {
+                if (therapist.id === detail.therapist.id) {
+                    relatedClient = true
+                }
+            })
+    
+            if (relatedClient) {
+                detail.clients.push(client)
             }
-        })
-
-        if (relatedClient) {
-            detail.clients.push(client)
         }
     })
 

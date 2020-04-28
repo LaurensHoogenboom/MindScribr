@@ -94,11 +94,11 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     let name = getName.full(detail.client.Personal)
     $('.mainInfoBlocks #client-info-name').text(name)
 
-    $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions} / ${detail.client.Therapy.TotalSessions}`)
-    $('.mainInfoBlocks #therapy-info-code').text(`${detail.client.Therapy.TrajectType.Code}`)
-    $('.mainInfoBlocks #therapy-info-title').text(`${detail.client.Therapy.TrajectType.Title}`)
+    $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions ? detail.client.Therapy.UsedSessions : '-'} / ${detail.client.Therapy.TotalSessions ? detail.client.Therapy.TotalSessions : '-'}`)
+    $('.mainInfoBlocks #therapy-info-code').text(`${detail.client.Therapy.TrajectType.Code ? detail.client.Therapy.TrajectType.Code : '-'}`)
+    $('.mainInfoBlocks #therapy-info-title').text(`${detail.client.Therapy.TrajectType.Title ? detail.client.Therapy.TrajectType.Title : 'Bandelingscode'}`)
     $('.mainInfoBlocks #therapy-info-status').text(`${detail.client.Therapy.Status}`)
-    $('.mainInfoBlocks #therapy-info-diagnosis').text(`${detail.client.Therapy.MainDiagnosis}`)
+    $('.mainInfoBlocks #therapy-info-diagnosis').text(`${detail.client.Therapy.MainDiagnosis ? detail.client.Therapy.MainDiagnosis : '-'}`)
 
     //contact info
     $('.mainInfoBlocks #contact-info-mail').attr('href', `mailto:${detail.client.Contact.Email}`)
@@ -198,36 +198,36 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     //therapists
     let therapistCount = 0
 
-    detail.therapists.forEach(therapist => {
-        therapistCount++
-
-        $('#therapist-list')
-            .append(
-                $('<tr>')
-                    .append(
-                        $('<td>').text(`${therapist.Personal.FirstName} ${therapist.Personal.LastName}`).addClass('maxContent')
-                    )
-                    .append(
-                        $('<td>').text(therapist.Relation)
-                    )
-                    .append(
-                        $('<td>').addClass('maxContent')
-                            .append(
-                                $('<label>').addClass('cross')
-                                    .append(
-                                        $('<span>')
-                                    )
-                                    .append(
-                                        $('<span>')
-                                    )
-                            )
-                    )
-            )
-    })
-
-    if (therapistCount > 0) {
-        $('#therapist-list-title').text(`Toegewezen aan (${therapistCount})`)
+    if (detail.therapists) {
+        detail.therapists.forEach(therapist => {
+            therapistCount++
+    
+            $('#therapist-list')
+                .append(
+                    $('<tr>')
+                        .append(
+                            $('<td>').text(`${therapist.Personal.FirstName} ${therapist.Personal.LastName}`).addClass('maxContent')
+                        )
+                        .append(
+                            $('<td>').text(therapist.Relation)
+                        )
+                        .append(
+                            $('<td>').addClass('maxContent')
+                                .append(
+                                    $('<label>').addClass('cross')
+                                        .append(
+                                            $('<span>')
+                                        )
+                                        .append(
+                                            $('<span>')
+                                        )
+                                )
+                        )
+                )
+        })
     }
+
+    $('#therapist-list-title').text(`Toegewezen aan (${therapistCount})`)
 
     //backbutton
     setBackButton(name)
@@ -244,8 +244,6 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
 
     //get client address
     let address = getAddress.full(client.Contact.Address)
-
-    console.log(client.Contact.Address)
 
     //tablelist
     let personalTable = document.getElementById("client-personal-data")
@@ -456,6 +454,25 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
     setBackButton(name)
 })
 
+$(document).on('submit', '#addClientForm', function(e) {
+    e.preventDefault()
+
+    var formValues = $(this).serializeArray();
+
+    let newClient = {};
+
+    formValues.forEach(key => {
+        newClient[key.name] = key.value
+    })
+
+    newClient["therapyStatus"] = "Aankomend"
+
+    ipcRenderer.send('client-add-request', newClient)
+})
+
+ipcRenderer.on('client-add-response', (succ) => {
+    console.log('Succes: ' + succ)
+})
 
 
 

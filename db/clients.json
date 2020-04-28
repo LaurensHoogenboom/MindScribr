@@ -39,7 +39,9 @@
           }
         ],
         "Status": "In behandeling",
-        "MainDiagnosis": "Niet vastgesteld"
+        "MainDiagnosis": "Niet vastgesteld",
+        "Title": "Basis | Intensief",
+        "Code": "108.302"
       },
       "Finance": {},
       "id": 1584639131903
@@ -87,6 +89,75 @@
       },
       "Finance": {},
       "id": 1584684689168
+    },
+    {
+      "Personal": {
+        "FirstName": "asdf",
+        "LastName": "asdf",
+        "DateOfBirth": ""
+      },
+      "Contact": {
+        "Address": {
+          "Street": "",
+          "City": ""
+        }
+      },
+      "Therapy": {
+        "TrajectType": {},
+        "Status": "Aankomend"
+      },
+      "Finance": {
+        "Insurer": "Johnson",
+        "InvoiceType": "Automatisch"
+      },
+      "Notes": {},
+      "id": 1588082388469
+    },
+    {
+      "Personal": {
+        "FirstName": "",
+        "LastName": "",
+        "DateOfBirth": ""
+      },
+      "Contact": {
+        "Address": {
+          "Street": "",
+          "City": ""
+        }
+      },
+      "Therapy": {
+        "TrajectType": {},
+        "Status": "Aankomend"
+      },
+      "Finance": {
+        "Insurer": "Johnson",
+        "InvoiceType": "Automatisch"
+      },
+      "Notes": {},
+      "id": 1588082444779
+    },
+    {
+      "Personal": {
+        "FirstName": "asdf",
+        "LastName": "asdf",
+        "DateOfBirth": ""
+      },
+      "Contact": {
+        "Address": {
+          "Street": "",
+          "City": ""
+        }
+      },
+      "Therapy": {
+        "TrajectType": {},
+        "Status": "Aankomend"
+      },
+      "Finance": {
+        "Insurer": "Johnson",
+        "InvoiceType": "Automatisch"
+      },
+      "Notes": {},
+      "id": 1588082517897
     }
   ]
 }

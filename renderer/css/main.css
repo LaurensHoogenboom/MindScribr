@@ -52,6 +52,10 @@ h3 {
     font-size: 15px;
 }
 
+.hidden {
+    display: none;
+}
+
 span.red, .typeNumbers span.red {
     color: var(--red);
 }
@@ -963,7 +967,7 @@ form .inputGroup:first-child {
     padding-top: 0;
 }
 
-form .inputGroup:last-child {
+form .inputGroup:last-of-type {
     border-bottom: 0;
     padding-bottom: 0;
 }

@@ -54,31 +54,23 @@
   </div>
 
   <div class="body">
-    <form>
+    <form id="addClientForm">
       <div class="inputGroup">
         <div class="input">
           <label>Voornaam</label>
-          <input type="text">
+          <input type="text" name="firstName">
         </div>
         <div class="input">
           <label>Achternaam</label>
-          <input type="text">
-        </div>
-        <div class="input">
-          <label>Bijnaam</label>
-          <input type="text">
-        </div>
-        <div class="input">
-          <label>Beroep</label>
-          <input type="text">
+          <input type="text" name="lastName">
         </div>
         <div class="input">
           <label>Geboortedatum</label>
-          <input type="date">
+          <input type="date" name="dateOfBirth">
         </div>
         <div class="input">
           <label>Huisarts</label>
-          <select>
+          <select name="generalPractioner">
             <option>Johnson</option>
             <option>Smith</option>
             <option>Toevoegen</option>
@@ -88,41 +80,39 @@
       <div class="inputGroup">
         <div class="input">
           <label>Straat en huisnummer</label>
-          <input type="text">
+          <input type="text" name="street">
         </div>
         <div class="input">
           <label>Postcode</label>
-          <input type="text">
+          <input type="text" name="postalCode">
         </div>
         <div class="input">
           <label>Woonplaats</label>
-          <input type="text">
+          <input type="text" name="city">
         </div>
       </div>
       <div class="inputGroup">
         <div class="input">
           <label>Verzekeraar</label>
-          <select>
+          <select name ="insurer">
             <option>Johnson</option>
             <option>Toevoegen</option>
           </select>
         </div>
         <div class="input">
           <label>Polisnummer</label>
-          <input type="text">
-        </div>
-        <div class="input">
-          <label>Usovinummer</label>
-          <input type="text">
+          <input type="text" name="polisNumber">
         </div>
         <div class="input">
           <label>Factuurplan</label>
-          <select>
+          <select name="invoiceType">
             <option>Automatisch</option>
             <option>Handmatig</option>
           </select>
         </div>
       </div>
+
+      <input type="submit" class="hidden" id="submitAddClientForm">
     </form>
   </div>
 
@@ -136,7 +126,7 @@
       
     </div>
     <div class="right">
-      <label class="button blue">
+      <label class="button blue" data-action="close-window" data-windowname="add-client" for="submitAddClientForm">
         Toevoegen
       </label>
     </div>

@@ -43,6 +43,8 @@ $(document).on('click', '.toolbar .button', function() {
 $(document).on('click', '.window .footer .button, .window .title .button', function() {
     buttonAction = $(this).data('action')
 
+    console.log('fire')
+
     if (buttonAction === "close-window") {
         windowToClose = $(this).data("windowname")
 
