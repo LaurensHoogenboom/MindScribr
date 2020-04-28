@@ -1,5 +1,5 @@
 //jquery
-$ = window.jQuery = require('jquery');
+$ = window.jQuery = require('jquery')
 
 //modules
 const { ipcRenderer } = require('electron')
@@ -33,6 +33,7 @@ $(document).on('click', '.toolbar .button', function() {
 
             if (windowName === windowToOpen) {
                 $(this).addClass('visible')
+
             }
         })
     }

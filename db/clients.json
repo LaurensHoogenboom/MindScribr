@@ -115,9 +115,13 @@
     },
     {
       "Personal": {
-        "FirstName": "",
-        "LastName": "",
-        "DateOfBirth": ""
+        "FirstName": "Laurens",
+        "LastName": "Hoogenboom",
+        "DateOfBirth": "2000-08-21T00:00:00.000Z",
+        "NickName": "asdf",
+        "BSNNumber": "asdfasdf",
+        "MainOccupation": "asdfa",
+        "GeneralPractitioner": "asdfasdf"
       },
       "Contact": {
         "Address": {
