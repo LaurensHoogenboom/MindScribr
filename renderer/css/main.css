@@ -650,7 +650,7 @@ main #mainContent {
     border-radius: 10px;
     pointer-events: none;
     opacity: 0;
-    transition: all 0.2s;
+    transition: opacity 0.1s;
 }
 
 .window.visible {
@@ -670,11 +670,15 @@ main #mainContent {
     padding: 10px 20px;
 }
 
+.window .title .right, .window .footer .right {
+    justify-self: flex-end;
+}
+
 .window .body {
     background-color: var(--grey-lightest);
     padding: 0px 20px;
     max-height: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: relative;
     transition: all 0.2s;
 }
@@ -988,12 +992,20 @@ input {
     background-color: white;
 }
 
-input[type="text"], input[type="date"], input[type="email"], textarea {
+input[type="text"], input[type="date"], input[type="email"], input[type="tel"], textarea {
     height: 30px;
     padding: 4px 20px;
     font-family: OpenSans;
     font-size: 16px;
     color: var(--grey-dark);
+}
+
+input:focus:required:invalid {
+    border-color: var(--red);
+}
+
+input:focus:required:valid, input:required:valid {
+    border-color: var(--green);
 }
 
 textarea {

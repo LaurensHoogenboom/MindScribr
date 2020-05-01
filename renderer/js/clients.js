@@ -251,6 +251,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
     let therapyTable = document.getElementById("client-therapy-data")
     let financeTable = document.getElementById('client-finance-data')
 
+    //personal data table
     $(personalTable).attr('data-table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
@@ -316,6 +317,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 )
         )
 
+    //contact info table
     $(contactTable).attr('data-table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
@@ -345,7 +347,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 )
         )
 
-
+    //therapy info table
     $(therapyTable).attr('data-table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
@@ -411,6 +413,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                 )
         )
 
+    //finance info table
     $(financeTable).attr('data-Table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
@@ -455,24 +458,56 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
 })
 
 $(document).on('submit', '#addClientForm', function(e) {
+    //prevent default submission
     e.preventDefault()
 
-    var formValues = $(this).serializeArray();
+    //validat form
+    form = $(this)
+    form.validate()
 
-    let newClient = {};
+    //in case the form is valid
+    if (form.valid()) {
+        //serialize the form and create a new client object
+        var formValues = $(this).serializeArray();
 
-    formValues.forEach(key => {
-        newClient[key.name] = key.value
-    })
+        let newClient = {};
+    
+        formValues.forEach(key => {
+            newClient[key.name] = key.value
+        })
+    
+        //set the default therapy status
+        newClient["therapyStatus"] = "Aankomend"
+    
+        //add the new client
+        ipcRenderer.send('client-add-request', newClient)
 
-    newClient["therapyStatus"] = "Aankomend"
+        //close the window
+        closeWindow("add-client")
 
-    ipcRenderer.send('client-add-request', newClient)
+        let where = {}
+
+        //refresh the client list
+        ipcRenderer.send('clients-request', where)
+    }
 })
 
+//log the client added response for debugging purposes
 ipcRenderer.on('client-add-response', (succ) => {
     console.log('Succes: ' + succ)
 })
+
+//close the window
+function closeWindow(windowName) {
+    //loop through all the available windows and close those whose name is matching
+    $('.window').each(function() {
+        if ($(this).data('name') === windowName) {
+            $(this).removeClass('visible')
+        }
+    })
+}
+
+
 
 
 

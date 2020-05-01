@@ -5,6 +5,7 @@ $ = window.jQuery = require('jquery')
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
 const customTitlebar = require('custom-electron-titlebar')
+const interact = require('interactjs')
 
 //initiate titlebar
 
@@ -33,7 +34,6 @@ $(document).on('click', '.toolbar .button', function() {
 
             if (windowName === windowToOpen) {
                 $(this).addClass('visible')
-
             }
         })
     }
@@ -41,21 +41,29 @@ $(document).on('click', '.toolbar .button', function() {
 
 //window
 
+
+
 $(document).on('click', '.window .footer .button, .window .title .button', function() {
     buttonAction = $(this).data('action')
-
-    console.log('fire')
 
     if (buttonAction === "close-window") {
         windowToClose = $(this).data("windowname")
 
-        $('.window').each(function() {
-            if ($(this).data('name') === windowToClose) {
-                $(this).removeClass('visible')
-            }
-        })
+        closeWindow(windowToClose)
+
+        const window = interact($(this))
+
+        window.draggable()
     }
 })
+
+function closeWindow(windowName) {
+    $('.window').each(function() {
+        if ($(this).data('name') === windowName) {
+            $(this).removeClass('visible')
+        }
+    })
+}
 
 //switch
 
