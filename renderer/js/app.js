@@ -36,6 +36,33 @@ $(document).on('click', '.toolbar .button', function () {
 
             if (windowName === windowToOpen) {
                 $(this).addClass('visible')
+
+                const position = { x: 0, y: 0 }
+
+                interact(this).draggable({
+                    allowFrom: '.title',
+
+                    modifiers: [
+                        interact.modifiers.restrictRect({
+                            restriction: '.mainContent',
+                            endOnly: true,
+                            restrictRect: {left: 0, right: 0, top: 0, bottom: 0}
+                        })
+                    ],
+
+                    listeners: {
+                        start(event) {
+                            console.log(event.type, event.target)
+                        },
+                        move(event) {
+                            position.x += event.dx
+                            position.y += event.dy
+
+                            event.target.style.transform =
+                                `translateX( calc(-50% + ${position.x}px) ) translateY( calc(-50% + ${position.y}px) )`;
+                        },
+                    }
+                })
             }
         })
     }

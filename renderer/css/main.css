@@ -642,7 +642,7 @@ main #mainContent {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateX(-50%);
+    transform: translateX(-50%) translateY(-50%);
     background-color: var(--white);
     box-shadow: 0px 10px 20px var(--shadow);
     display: grid;
