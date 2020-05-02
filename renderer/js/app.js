@@ -1,11 +1,13 @@
 //jquery
 $ = window.jQuery = require('jquery')
 
+
 //modules
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
 const customTitlebar = require('custom-electron-titlebar')
 const interact = require('interactjs')
+
 
 //initiate titlebar
 
@@ -23,13 +25,13 @@ window.actionData = {
 
 //toolbar 
 
-$(document).on('click', '.toolbar .button', function() {
+$(document).on('click', '.toolbar .button', function () {
     buttonAction = $(this).data('action')
 
     if (buttonAction === "open-window") {
         windowToOpen = $(this).data("windowname")
 
-        $('.window').each(function() {
+        $('.window').each(function () {
             windowName = $(this).data('name')
 
             if (windowName === windowToOpen) {
@@ -41,24 +43,18 @@ $(document).on('click', '.toolbar .button', function() {
 
 //window
 
-
-
-$(document).on('click', '.window .footer .button, .window .title .button', function() {
+$(document).on('click', '.window .footer .button, .window .title .button', function () {
     buttonAction = $(this).data('action')
 
     if (buttonAction === "close-window") {
         windowToClose = $(this).data("windowname")
 
         closeWindow(windowToClose)
-
-        const window = interact($(this))
-
-        window.draggable()
     }
 })
 
 function closeWindow(windowName) {
-    $('.window').each(function() {
+    $('.window').each(function () {
         if ($(this).data('name') === windowName) {
             $(this).removeClass('visible')
         }
