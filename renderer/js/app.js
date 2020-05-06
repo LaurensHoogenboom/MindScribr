@@ -46,7 +46,7 @@ $(document).on('click', '.toolbar .button', function () {
                         interact.modifiers.restrictRect({
                             restriction: '.mainContent',
                             endOnly: true,
-                            restrictRect: {left: 0, right: 0, top: 0, bottom: 0}
+                            restrictRect: { left: 0, right: 0, top: 0, bottom: 0 }
                         })
                     ],
 
@@ -108,14 +108,52 @@ $(document).on('mouseover', '.inputGrid .input .title .actions .infoButton', fun
 
 //action table
 
-$(document).on('click', '.actionTable tbody tr', function () {
-    var action = $(this).closest('table').data('action')
-    var dataValue = $(this).data('value')
-    var dataLabel = $(this).data('label')
+$(document).on('click', '.actionTable tbody tr td', function (e) {
+    if (e.target !== this) {
+        return
+    }
+    else {
+        var action = $(this).closest('table').data('action')
+        var dataValue = $(this).closest('tr').data('value')
+        var dataLabel = $(this).closest('tr').data('label')
 
-    window.actionData.parameters[dataLabel] = dataValue
+        window.actionData.parameters[dataLabel] = dataValue
 
-    loadPage(action);
+        loadPage(action);
+    }
+})
+
+$(document).on('change', '.actionTable tbody .select input[type="checkbox"]', function (e) {
+    let menuName = $(this).closest('tbody').attr("id")
+
+    if ($(this).is(":checked")) {
+        $(".toolbar .actionGroup").each(function () {
+            if ($(this).data("for") === menuName) {
+                $(this).removeClass("hidden")
+            }
+        })
+    }
+    else {
+        editModeActive = false
+
+        $(this).closest('tbody').find('.select input').each(function() {
+            if ($(this).is(":checked")) {
+                editModeActive = true
+            }
+
+            console.log('fire')
+        })
+
+        if (!editModeActive) {
+            $(".toolbar .actionGroup").each(function () {
+                if ($(this).data("for") === menuName) {
+                    $(this).addClass("hidden")
+                }
+            })
+        }
+    }
+
+        
 })
 
 //dropdown table

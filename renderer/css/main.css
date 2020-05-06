@@ -74,8 +74,8 @@ span.orange, .typeNumbers span.orange {
 
 .tableWrapper {
     width: 100%;
-    border-bottom: 16px solid var(--grey-lighter);
-    border-radius: 16px;
+    border-bottom: 10px solid var(--grey-lighter);
+    border-radius: 10px;
     overflow-x: auto;
     overflow-y: hidden;
     margin-bottom: 40px;
@@ -147,6 +147,12 @@ table tr td.description {
 
 table tr td.actions {
     border-left: none;
+}
+
+table tr td.select input[type="checkbox"] + label::before { 
+    margin-right: 0;
+    height: 20px;
+    width: 20px;
 }
 
 table tr td.editable input {
@@ -240,7 +246,7 @@ table.listTable tr td:last-child {
 }
 
 .tableWrapper.dropdown {
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0px 1px 1px var(--shadow);
     border-bottom: none;
 }
@@ -369,7 +375,7 @@ table.listTable tr td:last-child {
 }
 
 .inputGrid .input .description {
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0px 0px 10px 10px;
     padding: 0 20px;
     background-color: var(--grey-lighter);
     margin-top: -15px;
@@ -491,7 +497,6 @@ main #mainContent {
 }
 
 .toolbar .right section {
-    border-left: 1px solid var(--grey-light);
     margin-left: 20px;
 }
 
@@ -514,11 +519,14 @@ main #mainContent {
 }
 
 .toolbar .right .actionGroup .button:first-child {
-    border-radius: 4px 0px 0px 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-left: 1px solid var(--grey-light);
 }
 
 .toolbar .right .actionGroup .button:last-child {
-    border-radius: 0px 4px 4px 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     border-right: 1px solid var(--grey-light);
 }
 
@@ -564,7 +572,7 @@ main #mainContent {
     justify-content: center;
     background-color: white;
     border: 1px solid var(--grey-light);
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 20px 40px;
     height: 110px;
 }
@@ -876,6 +884,7 @@ main #mainContent {
     background-color: var(--blue);
     color: var(--white);
     border: 1px solid var(--blue); 
+    cursor: pointer;
 }
 
 .button:hover {
@@ -940,6 +949,10 @@ main #mainContent {
     background-color: var(--white);
     border: 1px solid var(--grey-light);
     cursor: pointer;
+}
+
+.button.square.hidden, .button.circle.hidden, .button.grey.circle.hidden, .button.grey.square.hidden, .button.grey.hidden, .button.blue.hidden, .button.hidden {
+    display: none;
 }
 
 /*form*/
@@ -1007,7 +1020,7 @@ input:focus:required:valid, input:required:valid {
 textarea {
     outline: none;
     border: 1px solid var(--grey-light);
-    border-radius: 15px;
+    border-radius: 4px;
     background-color: white;
     min-height: 120px;
 }
@@ -1033,14 +1046,14 @@ input[type="checkbox"] + label::before {
     border: 1px solid var(--grey-light);
     transition: all 0.2s;
     font-family: Icons;
-    font-size: 13px;
+    font-size: 10px;
     margin-right: 10px;
 }
 
 input[type="checkbox"]:checked + label::before {
-    background-color: var(--grey-lightest);
+    background-color: var(--green);
     content: '\e908';
-    color: var(--green);
+    color: var(--white);
 }
 
 ::placeholder {

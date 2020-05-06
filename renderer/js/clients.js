@@ -55,6 +55,15 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
         $(clientsTable).append(
             $("<tr>").attr('data-value', client.id).attr('data-label', 'client')
                 .append(
+                    $("<td>").addClass("select").addClass("maxContent")
+                    .append(
+                        $("<input>").attr("type", "checkbox").attr("id", client.id + "checkbox")
+                    )
+                    .append(
+                        $("<label>").attr("for", client.id + "checkbox")
+                    )
+                )
+                .append(
                     $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
                 )
                 .append(
