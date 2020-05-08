@@ -26,13 +26,13 @@ window.actionData = {
 //toolbar 
 
 $(document).on('click', '.toolbar .button', function () {
-    buttonAction = $(this).data('action')
+    let buttonAction = $(this).data('action')
 
     if (buttonAction === "open-window") {
-        windowToOpen = $(this).data("windowname")
+        let windowToOpen = $(this).data("windowname")
 
         $('.window').each(function () {
-            windowName = $(this).data('name')
+            let windowName = $(this).data('name')
 
             if (windowName === windowToOpen) {
                 $(this).addClass('visible')
@@ -66,8 +66,9 @@ $(document).on('click', '.toolbar .button', function () {
             }
         })
     }
+
     if (buttonAction === "open-modal") {
-        modalToOpen = $(this).data("modalname")
+        let modalToOpen = $(this).data("modalname")
 
         $(".modal").each(function() {
             modalName = $(this).data("name")
@@ -76,6 +77,31 @@ $(document).on('click', '.toolbar .button', function () {
                 $(this).removeClass('hidden')
             }
         })
+    }
+
+    if (buttonAction === "select-all") {
+        let contextType = $(this).data('contexttype')
+
+        if (contextType === "table") {
+            let context = $(this).data('context')
+            let allChecked = true
+
+            $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function() {
+                if (!$(this).is(':checked')) {
+                    allChecked = false
+                }
+            })
+
+            if (allChecked) {
+                $('#' + context).find('tr td:first-child input[type="checkbox"]:checked').each(function() {
+                    $(this).prop('checked', false)
+                })
+            } else {
+                $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function() {
+                    $(this).prop('checked', true)
+                })
+            }
+        }
     }
 })
 
@@ -180,9 +206,7 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
                 }
             })
         }
-    }
-
-        
+    }   
 })
 
 //dropdown table
