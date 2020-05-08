@@ -412,6 +412,7 @@ header {
     position: relative;
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
 
 header nav {
@@ -455,6 +456,7 @@ main #mainContent {
     background: var(--grey-lightest);
     box-shadow: 0px 1px 1px var(--shadow);
     padding: 5px 40px;
+    position: relative;
 }
 
 .toolbar > * {
@@ -513,21 +515,35 @@ main #mainContent {
     margin-left: 20px;
 }
 
-.toolbar .right .actionGroup .button {
+/*actiongroup*/
+
+.actionGroup {
+    max-width: initial;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+.actionGroup .button {
     border-radius: 0;
     border-right: none;
 }
 
-.toolbar .right .actionGroup .button:first-child {
+.actionGroup .button:first-child {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     border-left: 1px solid var(--grey-light);
 }
 
-.toolbar .right .actionGroup .button:last-child {
+.actionGroup .button:last-child {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     border-right: 1px solid var(--grey-light);
+}
+
+.actionGroup.hidden {
+    display: block;
+    opacity: 0;
+    max-width: 0;
 }
 
 @keyframes fadeIn {
@@ -709,6 +725,48 @@ main #mainContent {
     height: 40px;
 }
 
+/*modal*/
+
+.modal {
+    position: absolute;
+    background-color: white;
+    top: 90px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0px 10px 20px var(--shadow);
+    transition: all 0.2s;
+}
+
+.modal.hidden {
+    display: block;
+    top: 80px;
+    opacity: 0;
+}
+
+.modal .body {
+    padding: 20px;
+    background-color: var(--grey-lightest);
+}
+
+.modal .footer {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.modal .footer section:last-child {
+    justify-self: end;
+}
+
+.modal .footer section:last-child .button {
+    margin-left: 20px;
+}
 
 /*input*/
 

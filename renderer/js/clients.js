@@ -56,12 +56,12 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
             $("<tr>").attr('data-value', client.id).attr('data-label', 'client')
                 .append(
                     $("<td>").addClass("select").addClass("maxContent")
-                    .append(
-                        $("<input>").attr("type", "checkbox").attr("id", client.id + "checkbox")
-                    )
-                    .append(
-                        $("<label>").attr("for", client.id + "checkbox")
-                    )
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr("id", client.id + "checkbox")
+                        )
+                        .append(
+                            $("<label>").attr("for", client.id + "checkbox")
+                        )
                 )
                 .append(
                     $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
@@ -210,7 +210,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     if (detail.therapists) {
         detail.therapists.forEach(therapist => {
             therapistCount++
-    
+
             $('#therapist-list')
                 .append(
                     $('<tr>')
@@ -426,39 +426,39 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
     $(financeTable).attr('data-Table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
-            .append(
-                $("<td>").text("Verzekeraar").addClass('maxContent')
-            )
-            .append(
-                $("<td>").text(client.Finance.Insurer).addClass('editable').attr('dataLabel', 'Finance.Insurer')
-            )
+                .append(
+                    $("<td>").text("Verzekeraar").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(client.Finance.Insurer).addClass('editable').attr('dataLabel', 'Finance.Insurer')
+                )
         )
         .append(
             $("<tr>")
-            .append(
-                $("<td>").text("Polisnummer").addClass('maxContent')
-            )
-            .append(
-                $("<td>").text(client.Finance.PolicyNumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
-            )
+                .append(
+                    $("<td>").text("Polisnummer").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(client.Finance.PolicyNumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
+                )
         )
         .append(
             $("<tr>")
-            .append(
-                $("<td>").text("UZOVI-nummer").addClass('maxContent')
-            )
-            .append(
-                $("<td>").text(client.Finance.UZOVINumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
-            )
+                .append(
+                    $("<td>").text("UZOVI-nummer").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(client.Finance.UZOVINumber).addClass('editable').attr('dataLabel', 'Finance.Insurer')
+                )
         )
         .append(
             $("<tr>")
-            .append(
-                $("<td>").text("Factuurplan").addClass('maxContent')
-            )
-            .append(
-                $("<td>").text(client.Finance.InvoiceType).addClass('editable').attr('dataLabel', 'Finance.Insurer')
-            )
+                .append(
+                    $("<td>").text("Factuurplan").addClass('maxContent')
+                )
+                .append(
+                    $("<td>").text(client.Finance.InvoiceType).addClass('editable').attr('dataLabel', 'Finance.Insurer')
+                )
         )
 
 
@@ -466,7 +466,9 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
     setBackButton(name)
 })
 
-$(document).on('submit', '#addClientForm', function(e) {
+//add client
+
+$(document).on('submit', '#addClientForm', function (e) {
     //prevent default submission
     e.preventDefault()
 
@@ -480,14 +482,14 @@ $(document).on('submit', '#addClientForm', function(e) {
         var formValues = $(this).serializeArray();
 
         let newClient = {};
-    
+
         formValues.forEach(key => {
             newClient[key.name] = key.value
         })
-    
+
         //set the default therapy status
         newClient["therapyStatus"] = "Aankomend"
-    
+
         //add the new client
         ipcRenderer.send('client-add-request', newClient)
 
@@ -501,17 +503,66 @@ $(document).on('submit', '#addClientForm', function(e) {
     }
 })
 
-//log the client added response for debugging purposes
 ipcRenderer.on('client-add-response', (succ) => {
     console.log('Succes: ' + succ)
 })
 
-//close the window
+//modals
+$(document).on('click', '.modal .footer .button', function () {
+    action = $(this).data('action')
+
+    //delete client
+    if (action = "delete-client") {
+        contexttype = $(this).data("contexttype")
+        context = $(this).data("context")
+
+        //delete clients selected in table
+        if (contexttype === "table") {
+            let clients = []
+
+            //gather all selected rows
+            $('#' + context).find('tr').each(function () {
+                toBeModified = false
+
+                $(this).find('td:first-child input[type="checkbox"]:checked').each(function () {
+                    toBeModified = true
+                })
+
+                if (toBeModified === true) {
+                    clients.push($(this).data('value'))
+                }
+            })
+
+            //request removal
+            ipcRenderer.send('client-delete-request', clients)
+
+            //close the modal
+            closeModal('delete-client')
+
+            let where = {}
+
+            //refresh the client list
+            ipcRenderer.send('clients-request', where)
+        }
+    }
+})
+
+
+
+//close functions
 function closeWindow(windowName) {
     //loop through all the available windows and close those whose name is matching
-    $('.window').each(function() {
+    $('.window').each(function () {
         if ($(this).data('name') === windowName) {
             $(this).removeClass('visible')
+        }
+    })
+}
+
+function closeModal(modalName) {
+    $('.modal').each(function () {
+        if ($(this).data('name') === modalName) {
+            $(this).addClass("hidden")
         }
     })
 }

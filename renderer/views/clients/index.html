@@ -132,6 +132,25 @@
   </div>
 </div>
 
+<div class="modal hidden" data-name="delete-client" data-context="clients-table">
+  <div class="body">
+    <p>Weet u zeker dat u de geselecteerde client(en) wilt verwijderen?</p>
+  </div>
+  <div class="footer">
+    <section>
+
+    </section>
+    <section>
+      <label class="button grey" data-action="close-modal" data-modalname="delete-client">
+        Annuleren
+      </label>
+      <label class="button grey" data-action="delete-client" data-context="clients-table" data-contexttype='table'>
+        Verwijderen
+      </label>
+    </section>
+  </div>
+</div>
+
 <script>
   var clients = require('../js/clients.js')
 

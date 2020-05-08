@@ -150,14 +150,27 @@ ipcMain.on('client-data-request', (e, where) => {
 //crud
 //add
 ipcMain.on('client-add-request', (e, values) => {
-    console.log(values)
-
     clients.add(values.firstName, values.lastName, values.nickName, values.bsnNumber, values.mainOccupation, values.mainPractioner,
         values.dateOfBirth, values.email, values.phone, values.street, values.postalcode, values.city, values.totalSessions, values.usedSessions,
         values.therapists, values.therapyStatus, values.mainDiagnosis, values.insurer, values.policyNumber, values.usoviNumber, values.invoiceType,
         values.fileId, values.notes, values.trajectTitle, values.trajectCode, (succ) => {
             e.sender.send('client-add-response', succ)
         })
+})
+
+//delete
+ipcMain.on('client-delete-request', (e, list) => {
+    console.log(list)
+
+    list.forEach(function(id) {
+        where = {
+            id: id
+        }
+
+        clients.delete(where, (succ) => {
+            e.sender.send('clients-delete-response', succ)
+        })
+    })
 })
 
 

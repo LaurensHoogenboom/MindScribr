@@ -20,25 +20,6 @@ exports.createDatabase = () => {
     })
 }
 
-//seed test data into the database
-exports.seedPreviewData = () => {
-    let newClient = new Client(
-        'John',
-        'Doe',
-        'Mad',
-        '123.456.789',
-        'Woodcarver',
-        'J. Smith'
-    )
-
-    if (db.valid('clients', location)) {
-        db.insertTableContent('clients', location, newClient, (succ, msg) => {
-            console.log('Succes: ', + succ)
-            console.log(msg)
-        })
-    }
-}
-
 //get all clients from the database
 exports.get = (where, callback) => {
     //if there are any where conditions
@@ -70,6 +51,15 @@ exports.add = (firstName, lastName, nickName, bsnNumber, mainOccupation,
 
     if (db.valid('clients', location)) {
         db.insertTableContent('clients', location, newClient, (succ, msg) => {
+            callback(succ)
+        })
+    }
+}
+
+//delete
+exports.delete = (where, callback) => {
+    if (where) {
+        db.deleteRow('clients', location, where, (succ, msg) => {
             callback(succ)
         })
     }

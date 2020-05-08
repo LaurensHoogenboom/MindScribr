@@ -1,6 +1,6 @@
 //jquery
 $ = window.jQuery = require('jquery')
-
+require("jquery-validation")
 
 //modules
 const { ipcRenderer } = require('electron')
@@ -66,6 +66,17 @@ $(document).on('click', '.toolbar .button', function () {
             }
         })
     }
+    if (buttonAction === "open-modal") {
+        modalToOpen = $(this).data("modalname")
+
+        $(".modal").each(function() {
+            modalName = $(this).data("name")
+
+            if (modalToOpen === modalName) {
+                $(this).removeClass('hidden')
+            }
+        })
+    }
 })
 
 //window
@@ -84,6 +95,26 @@ function closeWindow(windowName) {
     $('.window').each(function () {
         if ($(this).data('name') === windowName) {
             $(this).removeClass('visible')
+        }
+    })
+}
+
+//modal
+
+$(document).on('click', '.modal .footer .button', function() {
+    buttonAction = $(this).data('action')
+
+    if (buttonAction = "close-modal") {
+        modalToClose = $(this).data("modalname")
+
+        closeModal(modalToClose)
+    }
+})
+
+function closeModal(modalName) {
+    $('.modal').each(function() {
+        if ($(this).data('name') === modalName) {
+            $(this).addClass("hidden")
         }
     })
 }
@@ -140,8 +171,6 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
             if ($(this).is(":checked")) {
                 editModeActive = true
             }
-
-            console.log('fire')
         })
 
         if (!editModeActive) {
