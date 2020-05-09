@@ -547,6 +547,10 @@ $(document).on('click', '.modal .footer .button', function () {
     }
 })
 
+ipcRenderer.on('client-delete-response', (succ) => {
+    console.log('Succes: ' + succ)
+})
+
 
 
 //close functions

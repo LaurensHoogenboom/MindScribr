@@ -96,14 +96,38 @@ $(document).on('click', '.toolbar .button', function () {
                 $('#' + context).find('tr td:first-child input[type="checkbox"]:checked').each(function() {
                     $(this).prop('checked', false)
                 })
+
+                showActionGroup(context)
             } else {
                 $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function() {
                     $(this).prop('checked', true)
                 })
+
+                hideActionGroup(context)
             }
         }
     }
 })
+
+//hide actiongroup by name
+function hideActionGroup(groupName) {
+    $(".toolbar .actionGroup").each(function () {
+        if ($(this).data("for") === groupName) {
+            $(this).removeClass("hidden")
+        }
+    })
+}
+
+//show actiongroup by name
+function showActionGroup(groupName) {
+    console.log(groupName)
+
+    $(".toolbar .actionGroup").each(function () {
+        if ($(this).data("for") === groupName) {
+            $(this).addClass("hidden")
+        }
+    })
+}
 
 //window
 
@@ -184,11 +208,7 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
     let menuName = $(this).closest('tbody').attr("id")
 
     if ($(this).is(":checked")) {
-        $(".toolbar .actionGroup").each(function () {
-            if ($(this).data("for") === menuName) {
-                $(this).removeClass("hidden")
-            }
-        })
+        hideActionGroup(menuName)
     }
     else {
         editModeActive = false
@@ -200,11 +220,7 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
         })
 
         if (!editModeActive) {
-            $(".toolbar .actionGroup").each(function () {
-                if ($(this).data("for") === menuName) {
-                    $(this).addClass("hidden")
-                }
-            })
+            showActionGroup(menuName)
         }
     }   
 })
@@ -472,7 +488,7 @@ function loadPage(pageLocation) {
     })
 }
 
-loadPage('clients/')
+loadPage('therapists/')
 
 
 

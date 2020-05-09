@@ -59,4 +59,29 @@ exports.get = (where, callback) => {
     }
 }
 
+//add therapist
+exports.add = (firstName, lastName, nickName, dateOfBirth, jobType, dateOfEmployment, 
+    status, workingDays, accountType, username, password, email, phone, 
+    street, postalCode, city, callback) => {
+
+    let newTherapist = new Therapist(firstName, lastName, nickName, dateOfBirth, jobType, dateOfEmployment, 
+        status, workingDays, accountType, username, password, email, phone, 
+        street, postalCode, city)
+
+    if (db.valid('therapists', location)) {
+        db.insertTableContent('therapists', location, newTherapist, (succ, msg) => {
+            callback(succ)
+        })
+    }
+}
+
+//delete therapists
+exports.delete = (where, callback) => {
+    if (where) {
+        db.deleteRow('therapists', location, where, (succ, msg) => {
+            callback(succ)
+        })
+    }
+}
+
 

@@ -20,10 +20,25 @@
     </div>
   </div>
   <div class="right">
-    <select>
-      <option value="default">Therapeut</option>
-      <option>Toevoegen</option>
-      <option>Aanpassen</option>
-      <option>Verwijderen</option>
-    </select>
+    <section class="actionGroup hidden" data-for="therapists-list">
+      <label class="icon button grey square" data-action="open-modal" data-modalname="delete-therapist" title="Therapeut(en) verwijderen">
+        <span class="icon">
+          &#xe905;
+        </span>
+      </label>
+    </section>
+  
+    <section class="actionGroup">
+      <label class="button grey square" data-action="open-window" data-windowname="add-therapist" title="Therapeut toevoegen">
+        <span class="icon">
+          &#xe90b;
+        </span>
+      </label>
+  
+      <label class="button grey square" data-action="select-all" data-context="therapists-list", data-contexttype="table" title="Alles selecteren">
+        <span class="icon">
+          &#xe90a;
+        </span>
+      </label>
+    </section>
   </div>

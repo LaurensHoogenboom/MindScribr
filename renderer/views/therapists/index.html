@@ -2,6 +2,7 @@
   <table class="actionTable" data-action="therapists/main/">
     <thead>
       <tr>
+        <td></td>
         <td>Naam</td>
         <td>Functie</td>
         <td>Accounttype</td>
@@ -46,9 +47,109 @@
       <option>25</option>
     </select>
   </div>
+</div>
 
-  <script>
-    var therapists = require('../js/therapists.js')
+<div class="window" data-name="add-therapist">
+  <div class="title">
+    <div class="left">
 
-    therapists.list()
-  </script>
+    </div>
+    <div class="center">
+      <h3>
+        Therapeut toevoegen
+      </h3>
+    </div>
+    <div class="right">
+      <div class="button grey circle" data-action="close-window" data-windowname="add-therapist">
+        <div class="cross">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <form id="addTherapistForm">
+      <div class="inputGroup">
+        <div class="input">
+          <label>Voornaam</label>
+          <input type="text" name="firstName" required>
+        </div>
+        <div class="input">
+          <label>Achternaam</label>
+          <input type="text" name="lastName" required>
+        </div>
+        <div class="input">
+          <label>Geboortedatum</label>
+          <input type="date" name="dateOfBirth" required>
+        </div>
+      </div>
+      <div class="inputGroup">
+        <div class="input">
+          <label>Straat en huisnummer</label>
+          <input type="text" name="street" required>
+        </div>
+        <div class="input">
+          <label>Postcode</label>
+          <input type="text" name="postalCode" required>
+        </div>
+        <div class="input">
+          <label>Woonplaats</label>
+          <input type="text" name="city" required>
+        </div>
+        <div class="input">
+          <label>E-mailadres</label>
+          <input type="text" name="email" required>
+        </div>
+        <div class="input">
+          <label>Telefoonnummer</label>
+          <input type="tel" name="phone" required>
+        </div>
+      </div>
+
+      <input type="submit" class="hidden" id="submitAddTherapistForm">
+    </form>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <label class="button grey" data-action="close-window" data-windowname="add-therapist">
+        Annuleren
+      </label>
+    </div>
+    <div class="center">
+
+    </div>
+    <div class="right">
+      <label class="button blue" data-windowname="add-therapist" for="submitAddTherapistForm">
+        Toevoegen
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="modal hidden" data-name="delete-therapist" data-context="therapists-list">
+  <div class="body">
+    <p>Weet u zeker dat u de geselecteerde therapeuten(en) wilt verwijderen?</p>
+  </div>
+  <div class="footer">
+    <section>
+
+    </section>
+    <section>
+      <label class="button grey" data-action="close-modal" data-modalname="delete-therapist">
+        Annuleren
+      </label>
+      <label class="button red" data-action="delete-therapist" data-context="therapists-list" data-contexttype='table'>
+        Verwijderen
+      </label>
+    </section>
+  </div>
+</div>
+
+<script>
+  var therapists = require('../js/therapists.js')
+
+  therapists.list()
+</script>

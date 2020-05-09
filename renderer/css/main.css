@@ -18,6 +18,7 @@
     --orange: rgb(232, 183, 114);
     --orange-dark: rgb(209, 166, 103);
     --red: rgb(166, 61, 64);
+    --red-dark: rgb(149,55,57);
     --green: rgb(144, 169, 89);
 }
 
@@ -730,14 +731,15 @@ main #mainContent {
 .modal {
     position: absolute;
     background-color: white;
-    top: 90px;
+    top: 89px;
     left: 0;
     right: 0;
     margin: 0 auto;
     width: 100%;
     max-width: 500px;
     border-radius: 0px 0px 10px 10px;
-    box-shadow: 0px 10px 20px var(--shadow);
+    border: 1px solid var(--grey-light);
+    box-shadow: 0px 1px 2px var(--shadow);
     transition: all 0.2s;
 }
 
@@ -967,6 +969,17 @@ main #mainContent {
 
 .button.grey:hover {
     background: var(--grey-lighter);
+}
+
+.button.red {
+    background-color: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+}
+
+.button.red:hover {
+    background-color: var(--red-dark);
+    color: var(--white);
 }
 
 .button .icon {

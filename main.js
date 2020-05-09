@@ -160,8 +160,6 @@ ipcMain.on('client-add-request', (e, values) => {
 
 //delete
 ipcMain.on('client-delete-request', (e, list) => {
-    console.log(list)
-
     list.forEach(function(id) {
         where = {
             id: id
@@ -208,8 +206,6 @@ ipcMain.on('therapist-detail-request', (e, where) => {
 
     potentialClients.forEach(client => {
         if (client.Therapy.Therapists) {
-            console.log(client.Therapy.Therapists)
-
             var relatedClient = false
 
             client.Therapy.Therapists.forEach(therapist => {
@@ -235,3 +231,28 @@ ipcMain.on('therapist-data-request', (e, where) => {
         e.sender.send('therapist-data-retrieve', therapist[0])
     })
 }) 
+
+//crud
+//add
+
+ipcMain.on('therapist-add-request', (e, values) => {
+    therapists.add(values.firstName, values.lastName, values.nickName, values.dateOfBirth, values.jobType, values.dateOfEmployment,
+        values.status, values.workingDays, values.accountType, values.username, values.password, values.email, values.phone, values.street,
+        values.postalCode, values.city, (succ) => {
+            e.sender.send('therapist-add-response', succ)
+        })
+})
+
+//delete
+
+ipcMain.on('therapist-delete-request', (e, list) => {
+    list.forEach(function(id) {
+        where = {
+            id: id
+        }
+
+        therapists.delete(where, (succ) => {
+            e.sender.send('therapists-delete-response', succ)
+        })
+    })
+})

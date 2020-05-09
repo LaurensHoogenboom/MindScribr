@@ -62,6 +62,15 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
         $(therapistsTable).append(
             $("<tr>").attr('data-label', 'therapist').attr('data-value', therapist.id)
                 .append(
+                    $("<td>").addClass("select").addClass("maxContent")
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr("id", therapist.id + "checkbox")
+                        )
+                        .append(
+                            $("<label>").attr("for", therapist.id + "checkbox")
+                        )
+                )
+                .append(
                     $('<td>').text(name)
                 )
                 .append(
@@ -90,7 +99,7 @@ ipcRenderer.on('therapits-list-retrieve', (e, content) => {
 ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
     // therapist info
     // determine name
-    let name = getName.full(detail.therapist.Personal) 
+    let name = getName.full(detail.therapist.Personal)
 
     //determine birthday
     const birthdayDate = getDate.dmy(detail.therapist.Personal.DateOfBirth)
@@ -351,6 +360,105 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
     setBackButton(name)
 })
 
+//add therapist
+
+$(document).on('submit', '#addTherapistForm', function (e) {
+    //prevent default submission
+    e.preventDefault()
+
+    //validat form
+    form = $(this)
+    form.validate()
+
+    //in case the form is valid
+    if (form.valid()) {
+        //serialize the form and create a new client object
+        var formValues = $(this).serializeArray();
+
+        let newTherapist = {};
+
+        formValues.forEach(key => {
+            newTherapist[key.name] = key.value
+        })
+
+        //add the new client
+        ipcRenderer.send('therapist-add-request', newTherapist)
+
+        //close the window
+        closeWindow("add-therapist")
+
+        let where = {}
+
+        //refresh the client list
+        ipcRenderer.send('therapists-list-request', where)
+    }
+})
+
+ipcRenderer.on('therapist-add-response', (succ) => {
+    console.log('Succes: ' + succ)
+})
+
+//modals
+$(document).on('click', '.modal .footer .button', function () {
+    action = $(this).data('action')
+
+    //delete therapist
+    if (action = "delete-therapist") {
+        contexttype = $(this).data("contexttype")
+        context = $(this).data("context")
+
+        //delete therapist selected in table
+        if (contexttype === "table") {
+            let therapists = []
+
+            //gather all selected rows
+            $('#' + context).find('tr').each(function () {
+                toBeModified = false
+
+                $(this).find('td:first-child input[type="checkbox"]:checked').each(function () {
+                    toBeModified = true
+                })
+
+                if (toBeModified === true) {
+                    therapists.push($(this).data('value'))
+                }
+            })
+
+            //request removal
+            ipcRenderer.send('therapist-delete-request', therapists)
+
+            //close the modal
+            closeModal('delete-therapist')
+
+            let where = {}
+
+            //refresh the client list
+            ipcRenderer.send('therapists-list-request', where)
+        }
+    }
+})
+
+ipcRenderer.on('therapist-delete-response', (succ) => {
+    console.log('Succes: ' + succ)
+})
+
+//close functions
+function closeWindow(windowName) {
+    //loop through all the available windows and close those whose name is matching
+    $('.window').each(function () {
+        if ($(this).data('name') === windowName) {
+            $(this).removeClass('visible')
+        }
+    })
+}
+
+function closeModal(modalName) {
+    $('.modal').each(function () {
+        if ($(this).data('name') === modalName) {
+            $(this).addClass("hidden")
+        }
+    })
+}
 
 
 
