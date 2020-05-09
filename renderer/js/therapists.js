@@ -258,7 +258,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Werkdagen").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(therapist.Employment.WorkingDays ? therapist.Employment.WorkingDays : "-").attr('data-label', 'Employment.WorkingDays').addClass('editable')
+                    $("<td>").text(therapist.Employment.WorkingDays ? therapist.Employment.WorkingDays : "-").attr('data-label', 'Employment.WorkingDays').addClass('editable').attr('data-type', 'WorkingDays')
                 )
         )
         .append(

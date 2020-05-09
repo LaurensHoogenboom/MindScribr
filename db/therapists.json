@@ -13,7 +13,11 @@
         "JobType": "Therapeut",
         "DateOfEmployment": "2020-04-17T00:00:00.000Z",
         "Status": "Actief",
-        "WorkingDays": "Wo, Do"
+        "WorkingDays": [
+          "Ma",
+          "Di",
+          "Wo"
+        ]
       },
       "Account": {
         "Type": "Standaard",

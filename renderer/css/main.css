@@ -125,6 +125,11 @@ table tr td.maxContent {
     white-space: nowrap;
 }
 
+table tr td input[type="checkbox"] + label {
+    float: left;
+    margin-right: 20px;
+}
+
 table tr.edit td {
     border-left: 1px solid var(--grey-lighter);
 }

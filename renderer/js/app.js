@@ -304,6 +304,41 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                             )
                     }
                 }
+                else if (dataType === "WorkingDays") {
+                    fieldValue = fieldValue.split(",")
+
+                    $(this)
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr('id', "monday").prop("checked", fieldValue.includes("Ma") ? true : false).attr("name", "Ma")
+                        )
+                        .append(
+                            $("<label>").attr("for", "monday").text("Maandag")
+                        )
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr('id', "tuesday").prop("checked", fieldValue.includes("Di") ? true : false).attr("name", "Di")
+                        )
+                        .append(
+                            $("<label>").attr("for", "tuesday").text('Dinsdag')
+                        )
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr('id', "wednesday").prop("checked", fieldValue.includes("Wo") ? true : false).attr("name", "Wo")
+                        )
+                        .append(
+                            $("<label>").attr("for", "wednesday").text('Woensdag')
+                        )
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr('id', "thursday").prop("checked", fieldValue.includes("Do") ? true : false).attr("name", "Do")
+                        )
+                        .append(
+                            $("<label>").attr("for", "thursday").text('Donderdag')
+                        )
+                        .append(
+                            $("<input>").attr("type", "checkbox").attr('id', "friday").prop("checked", fieldValue.includes("Vr") ? true : false).attr("name", "Vr")
+                        )
+                        .append(
+                            $("<label>").attr("for", "friday").text('Vrijdag')
+                        )
+                }
                 else {
                     $(this).append(
                         $("<input>").attr("type", "text").val(fieldValue)
@@ -355,6 +390,19 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                     LastName: lastName,
                     NickName: nickName
                 }
+            }
+
+            if (dataType === "WorkingDays") {
+                let workingDays = []
+
+                $(this).find("input").each(function () {
+                    if ($(this).is(":checked")) {
+                        workingDays.push($(this).attr("name"))
+                    }
+                })
+
+                dataToStore = workingDays
+                fieldValue = workingDays
             }
 
             let updateData = {
