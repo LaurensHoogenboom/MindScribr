@@ -68,6 +68,7 @@ ipcMain.on('update-data', (e, updateData) => {
     //get value label tree
     let valueLabelTree = updateData.valueLabel.split('.')
 
+    //iterate through posible key value pairs
     const setNestedKey = (obj, path, value) => {
         if (path.length === 1) {
             obj[path] = value
@@ -126,10 +127,10 @@ ipcMain.on('client-detail-request', (e, where) => {
             where = {
                 id: unknownTherapist.id
             }
-    
+
             therapists.get(where, therapist => {
                 therapist[0].Relation = unknownTherapist.relation
-    
+
                 detail.therapists.push(therapist[0])
             })
         })
@@ -160,7 +161,7 @@ ipcMain.on('client-add-request', (e, values) => {
 
 //delete
 ipcMain.on('client-delete-request', (e, list) => {
-    list.forEach(function(id) {
+    list.forEach(function (id) {
         where = {
             id: id
         }
@@ -213,7 +214,7 @@ ipcMain.on('therapist-detail-request', (e, where) => {
                     relatedClient = true
                 }
             })
-    
+
             if (relatedClient) {
                 detail.clients.push(client)
             }
@@ -230,7 +231,7 @@ ipcMain.on('therapist-data-request', (e, where) => {
     therapists.get(where, (therapist) => {
         e.sender.send('therapist-data-retrieve', therapist[0])
     })
-}) 
+})
 
 //crud
 //add
@@ -246,7 +247,7 @@ ipcMain.on('therapist-add-request', (e, values) => {
 //delete
 
 ipcMain.on('therapist-delete-request', (e, list) => {
-    list.forEach(function(id) {
+    list.forEach(function (id) {
         where = {
             id: id
         }

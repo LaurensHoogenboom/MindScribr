@@ -44,31 +44,31 @@ const getDate = {
 
 //name
 const getName = {
-    full: (PersonalInfo) => {
-        if (PersonalInfo.NickName) {
-            return `${PersonalInfo.FirstName} "${PersonalInfo.NickName}" ${PersonalInfo.LastName}`
+    full: (Name) => {
+        if (Name.NickName) {
+            return `${Name.FirstName} "${Name.NickName}" ${Name.LastName}`
         } else {
-            return `${PersonalInfo.FirstName} ${PersonalInfo.LastName}`
+            return `${Name.FirstName} ${Name.LastName}`
         }
     },
 
-    short: (PersonalInfo) => {
-        let FirstName = PersonalInfo.FirstName
-        let LastName = PersonalInfo.LastName
+    short: (Name) => {
+        let FirstName = Name.FirstName
+        let LastName = Name.LastName
 
         return `${FirstName} ${LastName}`
     },
 
-    first: (PersonalInfo) => {
-        return PersonalInfo.FirstName
+    first: (Name) => {
+        return Name.FirstName
     },
 
-    last: (PersonalInfo) => {
-        return PersonalInfo.LastName
+    last: (Name) => {
+        return Name.LastName
     },
 
-    nickname: (PersonalInfo) => {
-        return PersonalInfo.NickName
+    nickname: (Name) => {
+        return Name.NickName
     }
 }
 

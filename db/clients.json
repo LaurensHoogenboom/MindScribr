@@ -2,9 +2,11 @@
   "clients": [
     {
       "Personal": {
-        "FirstName": "John",
-        "LastName": "Doe",
-        "NickName": "Mad",
+        "Name": {
+          "FirstName": "John",
+          "LastName": "Doe",
+          "NickName": "Mad"
+        },
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
@@ -48,13 +50,15 @@
     },
     {
       "Personal": {
-        "FirstName": "Peter",
-        "LastName": "McArthur",
-        "NickName": "",
+        "Name": {
+          "FirstName": "Peter",
+          "LastName": "McArthur",
+          "NickName": ""
+        },
         "BSNNumber": "123.456.789",
         "GeneralPractitioner": "J. Smith",
         "MainOccupation": "Woodcarver",
-        "DateOfBirth": "02/07/1987"
+        "DateOfBirth": "1987-02-07T00:00:00.000Z"
       },
       "Notes": {},
       "Contact": {

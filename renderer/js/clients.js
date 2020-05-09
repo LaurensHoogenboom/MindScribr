@@ -46,7 +46,7 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
 
     content.forEach(client => {
         //determine name
-        let name = getName.full(client.Personal);
+        let name = getName.full(client.Personal.Name);
 
         //determine dateOfBirth
         let dateOfBirth = getDate.dmy(client.Personal.DateOfBirth)
@@ -67,7 +67,7 @@ ipcRenderer.on('clients-retrieve', (e, content) => {
                     $("<td>").text(client.Therapy.FileId ? client.Therapy.FileId : "-")
                 )
                 .append(
-                    $("<td>").text(`${client.Personal.FirstName.charAt(0).toUpperCase()}. ${client.Personal.LastName.charAt(0).toUpperCase()}.`)
+                    $("<td>").text(`${client.Personal.Name.FirstName.charAt(0).toUpperCase()}. ${client.Personal.Name.LastName.charAt(0).toUpperCase()}.`)
                 )
                 .append(
                     $("<td>").text(name)
@@ -100,7 +100,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     //info
 
     //determine and set name
-    let name = getName.full(detail.client.Personal)
+    let name = getName.full(detail.client.Personal.Name)
     $('.mainInfoBlocks #client-info-name').text(name)
 
     $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions ? detail.client.Therapy.UsedSessions : '-'} / ${detail.client.Therapy.TotalSessions ? detail.client.Therapy.TotalSessions : '-'}`)
@@ -246,7 +246,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
 //retrieve client data
 ipcRenderer.on('client-data-retrieve', (e, client) => {
     //get client full name
-    let name = getName.full(client.Personal)
+    let name = getName.full(client.Personal.Name)
 
     //get client birthday dmy
     let birthday = getDate.dmy(client.Personal.DateOfBirth)
@@ -265,28 +265,10 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
         .append(
             $("<tr>")
                 .append(
-                    $("<td>").text("Voornaam").addClass('maxContent')
+                    $("<td>").text("Naam").addClass("maxContent")
                 )
                 .append(
-                    $("<td>").text(client.Personal.FirstName).addClass('editable').attr('data-label', 'Personal.FirstName')
-                )
-        )
-        .append(
-            $("<tr>")
-                .append(
-                    $("<td>").text("Achternaam").addClass('maxContent')
-                )
-                .append(
-                    $("<td>").text(client.Personal.LastName).addClass('editable').attr('data-label', 'Personal.LastName')
-                )
-        )
-        .append(
-            $("<tr>")
-                .append(
-                    $("<td>").text("Bijnaam").addClass('maxContent')
-                )
-                .append(
-                    $("<td>").text(client.Personal.NickName).addClass('editable').attr('data-label', 'Personal.NickName')
+                    $("<td>").text(name).addClass("editable").attr('data-label', 'Personal.Name').addClass('editable').attr('data-type', 'Name')
                 )
         )
         .append(

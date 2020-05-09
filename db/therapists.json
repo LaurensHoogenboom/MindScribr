@@ -2,9 +2,11 @@
   "therapists": [
     {
       "Personal": {
-        "FirstName": "William",
-        "LastName": "Anderson",
-        "NickName": "Bill",
+        "Name": {
+          "FirstName": "William",
+          "LastName": "Anderson",
+          "NickName": "Bill"
+        },
         "DateOfBirth": "2020-04-17T00:00:00.000Z"
       },
       "Employment": {
@@ -32,9 +34,11 @@
     },
     {
       "Personal": {
-        "FirstName": "Alexa",
-        "LastName": "Johnson",
-        "NickName": "",
+        "Name": {
+          "FirstName": "Alexa",
+          "LastName": "Johnson",
+          "NickName": ""
+        },
         "DateOfBirth": "2020-04-17T00:00:00.000Z"
       },
       "Employment": {
@@ -58,32 +62,6 @@
         "Phone": "-"
       },
       "id": 1586945190927
-    },
-    {
-      "Personal": {
-        "FirstName": "Laurens",
-        "LastName": "Hoogenboom",
-        "DateOfBirth": "2000-09-21"
-      },
-      "Employment": {
-        "JobType": "Administrator",
-        "DateOfEmployment": "2020-05-21"
-      },
-      "Account": {
-        "Type": "Standaard",
-        "Password": "123456789",
-        "Username": "LaurensH"
-      },
-      "Contact": {
-        "Email": "info@laureato.nl",
-        "Phone": "0622854800",
-        "Address": {
-          "Street": "prof. snelliusweg 69",
-          "PostalCode": "3362SM",
-          "City": "Sliedrecht"
-        }
-      },
-      "id": 1589009634472
     }
   ]
 }

@@ -70,7 +70,7 @@ $(document).on('click', '.toolbar .button', function () {
     if (buttonAction === "open-modal") {
         let modalToOpen = $(this).data("modalname")
 
-        $(".modal").each(function() {
+        $(".modal").each(function () {
             modalName = $(this).data("name")
 
             if (modalToOpen === modalName) {
@@ -86,20 +86,20 @@ $(document).on('click', '.toolbar .button', function () {
             let context = $(this).data('context')
             let allChecked = true
 
-            $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function() {
+            $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function () {
                 if (!$(this).is(':checked')) {
                     allChecked = false
                 }
             })
 
             if (allChecked) {
-                $('#' + context).find('tr td:first-child input[type="checkbox"]:checked').each(function() {
+                $('#' + context).find('tr td:first-child input[type="checkbox"]:checked').each(function () {
                     $(this).prop('checked', false)
                 })
 
                 showActionGroup(context)
             } else {
-                $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function() {
+                $('#' + context).find('tr td:first-child input[type="checkbox"]').each(function () {
                     $(this).prop('checked', true)
                 })
 
@@ -120,8 +120,6 @@ function hideActionGroup(groupName) {
 
 //show actiongroup by name
 function showActionGroup(groupName) {
-    console.log(groupName)
-
     $(".toolbar .actionGroup").each(function () {
         if ($(this).data("for") === groupName) {
             $(this).addClass("hidden")
@@ -151,7 +149,7 @@ function closeWindow(windowName) {
 
 //modal
 
-$(document).on('click', '.modal .footer .button', function() {
+$(document).on('click', '.modal .footer .button', function () {
     buttonAction = $(this).data('action')
 
     if (buttonAction = "close-modal") {
@@ -162,7 +160,7 @@ $(document).on('click', '.modal .footer .button', function() {
 })
 
 function closeModal(modalName) {
-    $('.modal').each(function() {
+    $('.modal').each(function () {
         if ($(this).data('name') === modalName) {
             $(this).addClass("hidden")
         }
@@ -213,7 +211,7 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
     else {
         editModeActive = false
 
-        $(this).closest('tbody').find('.select input').each(function() {
+        $(this).closest('tbody').find('.select input').each(function () {
             if ($(this).is(":checked")) {
                 editModeActive = true
             }
@@ -222,7 +220,7 @@ $(document).on('change', '.actionTable tbody .select input[type="checkbox"]', fu
         if (!editModeActive) {
             showActionGroup(menuName)
         }
-    }   
+    }
 })
 
 //dropdown table
@@ -262,39 +260,47 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 } else if (dataType === "Address") {
                     fieldValue = fieldValue.split(',')
 
-                    if (fieldValue[0] && fieldValue[0] !== "-") {
-                        $(this)
-                            .append(
-                                $("<input>").attr("type", "text").val(fieldValue[0].trim()).attr('placeholder', 'Straat en huisnummer')
-                            )
-                    } else {
-                        $(this)
-                            .append(
-                                $("<input>").attr("type", "text").attr('placeholder', 'Straat en huisnummer')
-                            )
-                    }
+                    $(this)
+                        .append(
+                            $("<input>").attr("type", "text").val(fieldValue[0] && fieldValue[0] !== "-" ? fieldValue[0].trim() : "").attr('placeholder', 'Straat en huisnummer')
+                        )
 
-                    if (fieldValue[1] && fieldValue[1] !== "-") {
-                        $(this)
-                            .append(
-                                $("<input>").attr("type", "text").val(fieldValue[1].trim()).attr('placeholder', 'Postcode')
-                            )
-                    } else {
-                        $(this)
-                            .append(
-                                $("<input>").attr("type", "text").attr('placeholder', 'Postcode')
-                            )
-                    }
+                    $(this)
+                        .append(
+                            $("<input>").attr("type", "text").val(fieldValue[1] && fieldValue[1] !== "-" ? fieldValue[1].trim() : "").attr('placeholder', 'Postcode')
+                        )
 
-                    if (fieldValue[2] && fieldValue[2] !== "-") {
+                    $(this)
+                        .append(
+                            $("<input>").attr("type", "text").val(fieldValue[2] && fieldValue[2] !== "-" ? fieldValue[2].trim() : "").attr('placeholder', 'Woonplaats')
+                        )
+                } else if (dataType === "Name") {
+                    fieldValue = fieldValue.split(" ")
+
+                    $(this)
+                        .append(
+                            $("<input>").attr("type", "text").val(fieldValue[0] && fieldValue[0] !== "-" ? fieldValue[0].trim() : "").attr("placeholder", "Voornaam")
+                        )
+
+                    if (fieldValue.length < 3) {
                         $(this)
                             .append(
-                                $("<input>").attr("type", "text").val(fieldValue[2].trim()).attr('placeholder', 'Woonplaats')
+                                $("<input>").attr("type", "text").val(fieldValue[1] && fieldValue[1] !== "-" ? fieldValue[1].trim() : "").attr("placeholder", "Achernaam")
+                            )
+
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").attr("placeholder", "Bijnaam")
                             )
                     } else {
                         $(this)
                             .append(
-                                $("<input>").attr("type", "text").attr('placeholder', 'Woonplaats')
+                                $("<input>").attr("type", "text").val(fieldValue[2] && fieldValue[2] !== "-" ? fieldValue[2].trim() : "").attr("placeholder", "Achernaam")
+                            )
+
+                        $(this)
+                            .append(
+                                $("<input>").attr("type", "text").val(fieldValue[1] && fieldValue[1] !== "-" ? fieldValue[1].trim().slice(1, -1) : "").attr("placeholder", "Bijnaam")
                             )
                     }
                 }
@@ -336,6 +342,19 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 }
 
                 console.log($(this).find('input'))
+            }
+
+            if (dataType === "Name") {
+                let firstName = $(this).find("input")[0].value
+                let lastName = $(this).find("input")[1].value
+                let nickName = $(this).find("input")[2].value
+
+                fieldValue = `${firstName} "${nickName}" ${lastName}`
+                dataToStore = {
+                    FirstName: firstName,
+                    LastName: lastName,
+                    NickName: nickName
+                }
             }
 
             let updateData = {

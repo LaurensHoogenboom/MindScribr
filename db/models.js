@@ -4,9 +4,11 @@ class Client {
         policyNumber, uzoviNumber, invoiceType, fileId, notes, trajectTitle, trajectCode) {
 
         this.Personal = {
-            FirstName: firstName,
-            LastName: lastName,
-            NickName: nickName,
+            Name: {
+                FirstName: firstName,
+                LastName: lastName,
+                NickName: nickName,
+            },
             DateOfBirth: dateOfBirth,
             BSNNumber: bsnNumber,
             GeneralPractitioner: generalPractitioner,
@@ -52,9 +54,11 @@ class Client {
 class Therapist {
     constructor(firstName, lastName, nickName, dateOfBirth, jobType, dateOfEmployment, status, workingDays, accountType, username, password, email, phone, street, postalCode, city) {
         this.Personal = {
-            FirstName: firstName,
-            LastName: lastName,
-            NickName: nickName,
+            Name: {
+                FirstName: firstName,
+                LastName: lastName,
+                NickName: nickName,
+            },
             DateOfBirth: dateOfBirth
         }
 
