@@ -52,7 +52,7 @@ $(document).on('click', '.toolbar .button', function () {
 
                     listeners: {
                         start(event) {
-                            console.log(event.type, event.target)
+                            //console.log(event.type, event.target)
                         },
                         move(event) {
                             position.x += event.dx

@@ -18,7 +18,7 @@
     --orange: rgb(232, 183, 114);
     --orange-dark: rgb(209, 166, 103);
     --red: rgb(166, 61, 64);
-    --red-dark: rgb(149,55,57);
+    --red-dark: rgb(149, 55, 57);
     --green: rgb(144, 169, 89);
 }
 
@@ -125,7 +125,7 @@ table tr td.maxContent {
     white-space: nowrap;
 }
 
-table tr td input[type="checkbox"] + label {
+table tr td input[type="checkbox"]+label {
     float: left;
     margin-right: 20px;
 }
@@ -155,7 +155,7 @@ table tr td.actions {
     border-left: none;
 }
 
-table tr td.select input[type="checkbox"] + label::before { 
+table tr td.select input[type="checkbox"]+label::before {
     margin-right: 0;
     height: 20px;
     width: 20px;
@@ -270,7 +270,7 @@ table.listTable tr td:last-child {
     display: grid;
 }
 
-.tableWrapper.dropdown > .title {
+.tableWrapper.dropdown>.title {
     display: grid;
     grid-template-columns: 1fr max-content 1fr;
     align-items: center;
@@ -283,18 +283,18 @@ table.listTable tr td:last-child {
     top: 0;
 }
 
-.tableWrapper.dropdown > .title .actions .section {
+.tableWrapper.dropdown>.title .actions .section {
     margin-left: 20px;
     border-left: 1px solid var(--grey-light);
     float: left;
 }
 
-.tableWrapper.dropdown > .title .actions .section:first-child {
+.tableWrapper.dropdown>.title .actions .section:first-child {
     margin-left: 0px;
     border-left: none;
 }
 
-.tableWrapper.dropdown > .title .actions .button {
+.tableWrapper.dropdown>.title .actions .button {
     float: left;
     margin-left: 20px;
 }
@@ -307,15 +307,15 @@ table.listTable tr td:last-child {
     color: var(--white);
 }
 
-.tableWrapper.dropdown > .title p {
+.tableWrapper.dropdown>.title p {
     color: var(--white);
 }
 
-.tableWrapper.dropdown > .title .actions {
+.tableWrapper.dropdown>.title .actions {
     justify-self: end;
 }
 
-.tableWrapper.dropdown.orange > .title {
+.tableWrapper.dropdown.orange>.title {
     background: var(--orange);
 }
 
@@ -330,7 +330,7 @@ table.listTable tr td:last-child {
     grid-gap: 20px;
 }
 
-.inputGrid > * {
+.inputGrid>* {
     padding-right: 20px;
 }
 
@@ -342,7 +342,7 @@ table.listTable tr td:last-child {
     grid-column: span 2;
 }
 
-.inputGrid .input input, .inputGrid .input select, .inputGrid .input textarea { 
+.inputGrid .input input, .inputGrid .input select, .inputGrid .input textarea {
     width: 100%;
     position: relative;
     z-index: 1;
@@ -352,14 +352,14 @@ table.listTable tr td:last-child {
     resize: vertical;
 }
 
-.inputGrid .input > .title {
+.inputGrid .input>.title {
     display: grid;
     grid-template-columns: 1fr max-content;
     padding-bottom: 9px;
     align-items: center;
 }
 
-.inputGrid .input > .title .actions {
+.inputGrid .input>.title .actions {
     display: flex;
     align-items: center;
     opacity: 0;
@@ -367,16 +367,16 @@ table.listTable tr td:last-child {
     transition: all 0.2s;
 }
 
-.inputGrid .input > .title .actions > * {
+.inputGrid .input>.title .actions>* {
     margin-left: 20px;
 }
 
-.inputGrid .input:hover > .title .actions {
+.inputGrid .input:hover>.title .actions {
     opacity: 1;
     pointer-events: all;
 }
 
-.inputGrid .input > .title .actions input[type="checkbox"] + label::before {
+.inputGrid .input>.title .actions input[type="checkbox"]+label::before {
     margin-right: 0;
 }
 
@@ -410,7 +410,6 @@ table.listTable tr td:last-child {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 
 header {
     height: 90px;
@@ -465,7 +464,7 @@ main #mainContent {
     position: relative;
 }
 
-.toolbar > * {
+.toolbar>* {
     animation: fadeIn 0.1s;
 }
 
@@ -500,7 +499,7 @@ main #mainContent {
     justify-self: end;
 }
 
-.toolbar .right > *, .toolbar .right section > * {
+.toolbar .right>*, .toolbar .right section>* {
     float: left;
 }
 
@@ -553,8 +552,12 @@ main #mainContent {
 }
 
 @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .tabbar a {
@@ -645,7 +648,6 @@ main #mainContent {
         margin-bottom: 40px;
         overflow: auto;
     }
-
     .mainInfoBlocks .block.wide {
         grid-column: 1 / 3;
     }
@@ -660,7 +662,6 @@ main #mainContent {
         margin-bottom: 40px;
         overflow: auto;
     }
-
     .mainInfoBlocks .block.wide {
         grid-column: 1 / 2;
     }
@@ -694,6 +695,7 @@ main #mainContent {
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
+    user-select: none;
 }
 
 .window .title .right, .window .footer .right {
@@ -716,7 +718,7 @@ main #mainContent {
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(250,250,250,0.0), rgba(250,250,250,1.0));
+    background: linear-gradient(to top, rgba(250, 250, 250, 0.0), rgba(250, 250, 250, 1.0));
     height: 40px;
 }
 
@@ -727,7 +729,7 @@ main #mainContent {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to bottom, rgba(250,250,250,0.0), rgba(250,250,250,1.0));
+    background: linear-gradient(to bottom, rgba(250, 250, 250, 0.0), rgba(250, 250, 250, 1.0));
     height: 40px;
 }
 
@@ -752,6 +754,7 @@ main #mainContent {
     display: block;
     top: 80px;
     opacity: 0;
+    pointer-events: none;
 }
 
 .modal .body {
@@ -910,7 +913,6 @@ main #mainContent {
 
 .cross:hover span {
     background-color: var(--red);
-    
 }
 
 .plus {
@@ -948,7 +950,7 @@ main #mainContent {
     padding: 2px 20px;
     background-color: var(--blue);
     color: var(--white);
-    border: 1px solid var(--blue); 
+    border: 1px solid var(--blue);
     cursor: pointer;
 }
 
@@ -1081,7 +1083,7 @@ form .inputGroup .input label {
 
 form .inputGroup .input input, form .inputGroup .input select {
     width: 100%;
-} 
+}
 
 input {
     outline: none;
@@ -1118,12 +1120,12 @@ input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
     display: flex;
     align-items: center;
 }
 
-input[type="checkbox"] + label::before {
+input[type="checkbox"]+label::before {
     content: '';
     display: flex;
     justify-content: center;
@@ -1139,7 +1141,7 @@ input[type="checkbox"] + label::before {
     margin-right: 10px;
 }
 
-input[type="checkbox"]:checked + label::before {
+input[type="checkbox"]:checked+label::before {
     background-color: var(--green);
     content: '\e908';
     color: var(--white);
@@ -1201,7 +1203,7 @@ select option {
 
 /* window styles */
 
-.titlebar, .titlebar > * {
+.titlebar, .titlebar>* {
     font-family: OpenSans;
     font-weight: 400;
 }
