@@ -7,25 +7,45 @@ const uuid = require('uuid').v4
 const path = require('path')
 const appRoot = require('app-root-path')
 const db = require('electron-db')
+const windowStateKeeper = require('electron-window-state')
 
 //db location
 const location = path.join(appRoot.toString(), 'db')
 
-//Initialize Windows
+//window globals
+let mainWindow
+
+//create a new broswerwindow when 'app' is ready
 function createWindow() {
+    // Load the previous state with fallback to defaults
+    let mainWindowState = windowStateKeeper({
+        defaultWidth: 1000, defaultHeight: 800
+    });
+
+    //load mainwindow 
     let mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        x: mainWindowState.x, y: mainWindowState.y,
+        width: mainWindowState.width, height: mainWindowState.height,
+        minWidth: 1000, minHeight: 800,
         frame: false,
         webPreferences: {
             nodeIntegration: true
         }
     })
 
+    //load the mainwindow layout
     mainWindow.loadFile('./renderer/views/layout.html')
+
+    //manage the mainwindow state
+    mainWindowState.manage(mainWindow)
+
+    //listen for window being closed
+    mainWindow.on('closed', () => {
+        mainWindow = null
+    })
 }
 
-//When the app is initialized open the windows
+//Run initial function when 'app' is ready
 app.whenReady().then(createWindow)
 
 //Close the app when all windows are closed
@@ -143,9 +163,37 @@ ipcMain.on('client-detail-request', (e, where) => {
 //data
 
 ipcMain.on('client-data-request', (e, where) => {
+    //clientData variable
+    let clientData
+
+    //request clinet
     clients.get(where, (client) => {
-        e.sender.send('client-data-retrieve', client[0])
+        clientData = client[0]
     })
+
+    //request related therapist
+    let therpistIdList = clientData.Therapy.Therapists
+    let relatedTherapists = []
+
+    if (therpistIdList) {
+        therpistIdList.forEach(unknownTherapist => {
+            where = {
+                id: unknownTherapist.id
+            }
+
+            therapists.get(where, therapist => {
+                therapist[0].Relation = unknownTherapist.relation
+
+                relatedTherapists.push(therapist[0])
+            })
+        })
+    }
+
+    //store therapist data in clientdata
+    clientData.Therapy.Therapists = relatedTherapists
+
+    //return client data
+    e.sender.send('client-data-retrieve', clientData)
 })
 
 //crud

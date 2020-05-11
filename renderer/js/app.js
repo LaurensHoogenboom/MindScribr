@@ -245,6 +245,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
             dataFields.each(function (e) {
                 let dataType = $(this).data('type')
                 let fieldValue = $(this).text().trim()
+                let fieldHTML = $(this).html()
 
                 $(this).empty()
 
@@ -303,8 +304,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                                 $("<input>").attr("type", "text").val(fieldValue[1] && fieldValue[1] !== "-" ? fieldValue[1].trim().slice(1, -1) : "").attr("placeholder", "Bijnaam")
                             )
                     }
-                }
-                else if (dataType === "WorkingDays") {
+                } else if (dataType === "WorkingDays") {
                     fieldValue = fieldValue.split(",")
 
                     $(this)
@@ -338,8 +338,13 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                         .append(
                             $("<label>").attr("for", "friday").text('Vrijdag')
                         )
-                }
-                else {
+                } else if (dataType === "therapists") {
+                    $(this).html(fieldHTML)
+
+                    $(this).append(
+                        $("<label>").addClass('button').text('Toevoegen')
+                    )
+                } else {
                     $(this).append(
                         $("<input>").attr("type", "text").val(fieldValue)
                     )
@@ -555,7 +560,7 @@ function loadPage(pageLocation) {
     })
 }
 
-loadPage('therapists/')
+loadPage('clients/')
 
 
 

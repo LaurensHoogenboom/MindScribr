@@ -215,7 +215,7 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
                 .append(
                     $('<tr>')
                         .append(
-                            $('<td>').text(`${therapist.Personal.FirstName} ${therapist.Personal.LastName}`).addClass('maxContent')
+                            $('<td>').text(`${getName.first(therapist.Personal.Name)} ${getName.last(therapist.Personal.Name)}`).addClass('maxContent')
                         )
                         .append(
                             $('<td>').text(therapist.Relation)
@@ -334,11 +334,19 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Adres").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(address).addClass('editable').attr('data-label', 'Address').attr('data-type', "Contact.Address")
+                    $("<td>").text(address).addClass('editable').attr('data-label', 'Contact.Address').attr('data-type', "Address")
                 )
         )
 
     //therapy info table
+    let therapistList = $()
+
+    client.Therapy.Therapists.forEach((therapist) => {
+        therapistList = $(therapistList).add (
+            $("<span>").text(`${getName.first(therapist.Personal.Name)} ${getName.last(therapist.Personal.Name)}`).addClass('tag').attr("data-id", therapist.id).attr('data-relation', therapist.Relation)
+        )
+    })
+
     $(therapyTable).attr('data-table', 'clients').attr('data-id', client.id)
         .append(
             $("<tr>")
@@ -373,7 +381,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Trajectnaam")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TrajectType.Title).addClass('editable').attr('data-label', 'Therapy.Title')
+                    $("<td>").text(client.Therapy.TrajectType.Title).addClass('editable').attr('data-label', 'Therapy.TrajectType.Title')
                 )
         )
         .append(
@@ -382,7 +390,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Trajectcode")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TrajectType.Code).addClass('editable').attr('data-label', 'Therapy.Code')
+                    $("<td>").text(client.Therapy.TrajectType.Code).addClass('editable').attr('data-label', 'Therapy.TrajectType.Code')
                 )
         )
         .append(
@@ -391,7 +399,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Therapeuten")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.Therapists).addClass('editable').attr('data-label', 'Therapy.Therapists')
+                    $("<td>").html(therapistList).addClass('editable').attr('data-label', 'Therapy.Therapists').attr('data-type', 'therapists')
                 )
         )
         .append(

@@ -1031,6 +1031,19 @@ main #mainContent {
     display: none;
 }
 
+.tag {
+    display: inline-block;
+    padding: 2px 20px;
+    border-radius: 13px;
+    background-color: var(--blue);
+    color: var(--white);
+    margin-right: 20px;
+}
+
+.tag:last-child {
+    margin-right: 0;
+}
+
 /*form*/
 
 form {

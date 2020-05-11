@@ -157,6 +157,9 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
         //determine name
         let name = getName.full(client.Personal.Name)
 
+        //determine birthday
+        let dateOfBirth = getDate.dmy(client.Personal.DateOfBirth)
+
         //add row to table
         $(clientsTable)
             .append(
@@ -171,7 +174,7 @@ ipcRenderer.on('therapist-detail-retrieve', (e, detail) => {
                         $("<td>").text(name)
                     )
                     .append(
-                        $("<td>").text(client.Personal.DateOfBirth ? client.Personal.DateOfBirth : "-")
+                        $("<td>").text(dateOfBirth)
                     )
                     .append(
                         $("<td>").text(client.Contact.Address.City ? client.Contact.Address.City : "-")
