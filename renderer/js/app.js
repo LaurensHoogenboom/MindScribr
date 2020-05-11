@@ -361,6 +361,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
         dataFields.each(function (e) {
             let fieldValue = $(this).find("input").val()
+            let fieldIsHTML = false
             let dataType = $(this).data('type')
             let dataToStore = $(this).find("input").val()
 
@@ -410,6 +411,26 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 fieldValue = workingDays
             }
 
+            if (dataType === "therapists") {
+                let therapists = []
+                let therapistsList = ""
+
+                $(this).find(".tag").each(function() {
+                    relatedTherapist = {}
+
+                    relatedTherapist.id = $(this).data('id')
+                    relatedTherapist.Relation = $(this).data('relation')
+
+                    therapists.push(relatedTherapist)
+
+                    therapistsList += $(this).prop('outerHTML');
+                })
+
+                dataToStore = therapists
+                fieldIsHTML = true
+                fieldValue = therapistsList
+            }
+
             let updateData = {
                 tableName: $(this).closest("tbody").data('table'),
                 itemId: $(this).closest("tbody").data('id'),
@@ -421,7 +442,11 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
             $(this).empty()
 
-            $(this).text(fieldValue)
+            if (fieldIsHTML) {
+                $(this).html(fieldValue)
+            } else {
+                $(this).text(fieldValue)
+            }
         })
 
         $(this).text('Bewerken')

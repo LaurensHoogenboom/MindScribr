@@ -343,7 +343,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
 
     client.Therapy.Therapists.forEach((therapist) => {
         therapistList = $(therapistList).add (
-            $("<span>").text(`${getName.first(therapist.Personal.Name)} ${getName.last(therapist.Personal.Name)}`).addClass('tag').attr("data-id", therapist.id).attr('data-relation', therapist.Relation)
+            $("<span>").text(`${getName.first(therapist.Personal.Name)} ${getName.last(therapist.Personal.Name)} | ${therapist.Relation}`).addClass('tag').attr("data-id", therapist.id).attr('data-relation', therapist.Relation)
         )
     })
 

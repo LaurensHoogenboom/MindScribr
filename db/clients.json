@@ -32,12 +32,12 @@
         },
         "Therapists": [
           {
-            "id": 1585549518132,
-            "relation": "Hoofdbehandelaar"
+            "id": 1586945190927,
+            "Relation": "Hoofdbehandelaar"
           },
           {
             "id": 1585542481325,
-            "relation": "Therapeut"
+            "Relation": "Therapeut"
           }
         ],
         "Status": "In behandeling",
@@ -78,12 +78,12 @@
         },
         "Therapists": [
           {
-            "id": 1585549518132,
-            "relation": "Hoofdbehandelaar"
+            "id": 1586945190927,
+            "Relation": "Hoofdbehandelaar"
           },
           {
             "id": 1585542481325,
-            "relation": "Therapeut"
+            "Relation": "Therapeut"
           }
         ],
         "Status": "In behandeling",

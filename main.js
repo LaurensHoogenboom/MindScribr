@@ -19,14 +19,14 @@ let mainWindow
 function createWindow() {
     // Load the previous state with fallback to defaults
     let mainWindowState = windowStateKeeper({
-        defaultWidth: 1000, defaultHeight: 800
+        defaultWidth: 1000, defaultHeight: 600
     });
 
     //load mainwindow 
     let mainWindow = new BrowserWindow({
         x: mainWindowState.x, y: mainWindowState.y,
         width: mainWindowState.width, height: mainWindowState.height,
-        minWidth: 1000, minHeight: 800,
+        minWidth: 1000, minHeight: 600,
         frame: false,
         webPreferences: {
             nodeIntegration: true
@@ -149,7 +149,7 @@ ipcMain.on('client-detail-request', (e, where) => {
             }
 
             therapists.get(where, therapist => {
-                therapist[0].Relation = unknownTherapist.relation
+                therapist[0].Relation = unknownTherapist.Relation
 
                 detail.therapists.push(therapist[0])
             })
@@ -182,7 +182,7 @@ ipcMain.on('client-data-request', (e, where) => {
             }
 
             therapists.get(where, therapist => {
-                therapist[0].Relation = unknownTherapist.relation
+                therapist[0].Relation = unknownTherapist.Relation
 
                 relatedTherapists.push(therapist[0])
             })
