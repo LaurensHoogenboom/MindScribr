@@ -8,7 +8,6 @@ const fs = require('fs')
 const customTitlebar = require('custom-electron-titlebar')
 const interact = require('interactjs')
 
-
 //initiate titlebar
 
 let MainTitlebar = new customTitlebar.Titlebar({
@@ -177,6 +176,22 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
     $(this).addClass('current');
 })
 
+//tagSearch
+
+$(document).on('keyup', '.tagSearch input', function() {
+    let table = $(this).closest('.tagSearch').data('table')
+    let fields = $(this).closest('.tagSearch').data('fields').split(',')
+    let searchString = $(this).val()
+
+    searchContext = {
+        Table: table,
+        Fields: fields,
+        SearchString: searchString
+    }
+
+    ipcRenderer.send('search-data-request', searchContext)
+})
+
 //input grid input description
 
 $(document).on('mouseover', '.inputGrid .input .title .actions .infoButton', function () {
@@ -341,9 +356,16 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 } else if (dataType === "therapists") {
                     $(this).html(fieldHTML)
 
-                    $(this).append(
-                        $("<label>").addClass('button').text('Toevoegen')
-                    )
+                    $(this)
+                        .prepend(
+                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.NickName")
+                                .append(
+                                    $("<input>").attr("type", "text")
+                                )
+                                .append(
+                                    $("<div>").addClass("suggestions")
+                                )
+                        )
                 } else {
                     $(this).append(
                         $("<input>").attr("type", "text").val(fieldValue)
@@ -415,7 +437,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 let therapists = []
                 let therapistsList = ""
 
-                $(this).find(".tag").each(function() {
+                $(this).find(".tag").each(function () {
                     relatedTherapist = {}
 
                     relatedTherapist.id = $(this).data('id')
@@ -454,7 +476,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
     }
 })
 
-//link
+//a element handling
 
 $(document).on('click', 'a', function (e) {
     e.preventDefault();
@@ -476,7 +498,7 @@ $(document).on('click', 'a', function (e) {
     }
 })
 
-//tabbar
+//main tabbar handing
 
 function setSectionTabbar(link) {
     var currentSection = link.split('/')[0].toLowerCase();

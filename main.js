@@ -305,3 +305,12 @@ ipcMain.on('therapist-delete-request', (e, list) => {
         })
     })
 })
+
+//misc
+//search
+
+ipcMain.on('search-data-request', (e, context) => {
+    console.log(context)
+
+    
+})

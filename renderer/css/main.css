@@ -639,7 +639,7 @@ main #mainContent {
     border: 1px solid var(--grey-light)
 }
 
-@media only screen and (max-width: 1550px) {
+@media only screen and (max-width: 1700px) {
     .mainInfoBlocks {
         display: grid;
         grid-template-columns: minmax(max-content, 1fr) minmax(max-content, 1fr);
