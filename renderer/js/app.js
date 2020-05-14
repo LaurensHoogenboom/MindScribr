@@ -358,7 +358,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
                     $(this)
                         .prepend(
-                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.NickName")
+                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName")
                                 .append(
                                     $("<input>").attr("type", "text")
                                 )
