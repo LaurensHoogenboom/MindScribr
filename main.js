@@ -107,6 +107,59 @@ ipcMain.on('update-data', (e, updateData) => {
     })
 })
 
+//search
+
+ipcMain.on('search-data-request', (e, context) => {
+    console.log(context)
+
+    //initial search result variable
+    let libraryToSearchFrom
+
+    //check if table exists and populate library
+    db.getRows(context.Table, location, {}, (succ, data) => {
+        libraryToSearchFrom = data
+    })
+
+    //netto search result variable
+    let result = []
+
+    //if there is any row found
+    if (libraryToSearchFrom.length > 0) {
+        //iterate through the context fields
+        context.Fields.forEach((field) => {
+            //get value label tree
+            let valueLabelTree = field.split('.')
+
+            console.log(valueLabelTree)
+
+            //iterate through the library
+            libraryToSearchFrom.forEach((row) => {
+                //iterate through posible key value pairs
+                const setNestedKey = (obj, path, value) => {
+                    //if deepest possible value
+                    if (path.length === 1) {
+                        let keyValue = obj[path]
+
+                        if (keyValue) {
+                            //if searchstring in keyvalue add row to result
+                            if (keyValue.includes(value)) {
+                                result.push(row)
+                            }
+                        }
+
+                        return
+                    }
+                    return setNestedKey(obj[path[0]], path.slice(1), value)
+                }
+
+                setNestedKey(row, valueLabelTree, context.SearchString)
+            })
+        })
+    }
+
+    e.sender.send('search-data-response', result)
+})
+
 //---- clients
 //get
 
@@ -306,56 +359,5 @@ ipcMain.on('therapist-delete-request', (e, list) => {
     })
 })
 
-//misc
-//search
 
-ipcMain.on('search-data-request', (e, context) => {
-    console.log(context)
 
-    //initial search result variable
-    let libraryToSearchFrom
-
-    //check if table exists and populate library
-    db.getRows(context.Table, location, {}, (succ, data) => {
-        libraryToSearchFrom = data
-    })
-
-    //netto search result variable
-    let result = []
-
-    //if there is any row found
-    if (libraryToSearchFrom.length > 0) {
-        //iterate through the context fields
-        context.Fields.forEach((field) => {
-            //get value label tree
-            let valueLabelTree = field.split('.')
-
-            console.log(valueLabelTree)
-
-            //iterate through the library
-            libraryToSearchFrom.forEach((row) => {
-                //iterate through posible key value pairs
-                const setNestedKey = (obj, path, value) => {
-                    //if deepest possible value
-                    if (path.length === 1) {
-                        let keyValue = obj[path]
-
-                        if (keyValue) {
-                            //if searchstring in keyvalue add row to result
-                            if (keyValue.includes(value)) {
-                                result.push(row)
-                            }
-                        }
-
-                        return
-                    }
-                    return setNestedKey(obj[path[0]], path.slice(1), value)
-                }
-
-                setNestedKey(row, valueLabelTree, context.SearchString)
-            })
-        })
-    }
-
-    e.sender.send('search-data-response', result)
-})
