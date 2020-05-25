@@ -100,3 +100,29 @@ const getAddress = {
     }
 }
 
+//get field
+const getField = (object, fieldPath, ifEmptyString) => {
+    let result
+    
+    const setNestedKey = (obj, path) => {
+        //if deepest possible value
+        if (path.length === 1) {
+            let keyValue = obj[path]
+
+            if (keyValue) {
+                result = keyValue
+            } else {
+                result = ifEmptyString
+            }
+
+            return
+        }
+        return setNestedKey(obj[path[0]], path.slice(1))
+    }
+
+    setNestedKey(object, fieldPath)
+
+    return result
+}
+
+

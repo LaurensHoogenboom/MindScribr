@@ -138,8 +138,18 @@ ipcMain.on('search-data-request', (e, context) => {
 
                         if (keyValue) {
                             //if searchstring in keyvalue add row to result
-                            if (keyValue.includes(value)) {
-                                result.push(row)
+                            if (keyValue.toLowerCase().includes(value.toLowerCase())) {
+                                let doesExist = false
+                                
+                                result.forEach((result) => {
+                                    if (result.id === row.id) {
+                                        doesExist = true
+                                    }
+                                })
+
+                                if (!doesExist) {
+                                    result.push(row)
+                                }
                             }
                         }
 

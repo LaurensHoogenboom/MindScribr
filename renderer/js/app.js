@@ -23,9 +23,9 @@ window.actionData = {
     pageLocation: ''
 }
 
-//toolbar 
+//button 
 
-$(document).on('click', '.toolbar .button', function () {
+$(document).on('click', '.button', function () {
     let buttonAction = $(this).data('action')
 
     if (buttonAction === "open-window") {
@@ -213,6 +213,7 @@ $(document).on('keyup', '.tagSearch input', function () {
     let searchString = $(this).val()
     let tagInput = $(this).closest('.tagSearch')
     let id = uuidv4();
+    let label = $(this).closest('.tagSearch').data('label').split(',')
 
     if (searchString) {
         searchContext = {
@@ -220,6 +221,7 @@ $(document).on('keyup', '.tagSearch input', function () {
             Fields: fields,
             SearchString: searchString,
             TagInput: tagInput,
+            TagLabel: label,
             Id: id
         }
 
@@ -237,9 +239,17 @@ ipcRenderer.on('search-data-response', (e, response) => {
             $(request.TagInput).find('.suggestions').empty()
 
             response.Result.forEach((possibleTag) => {
+                let tagLabel = []
+
+                request.TagLabel.forEach((labelPart) => {
+                    tagLabel.push(getField(possibleTag, labelPart.split('.'), ' '))
+                })
+
+                tagLabel = tagLabel.join(" ")
+
                 $(request.TagInput).find('.suggestions')
                     .append(
-                        $("<span>").addClass("tag").text(possibleTag.id)
+                        $("<span>").addClass("tag").text(tagLabel).attr('data-id', possibleTag.id)
                     )
             })
 
@@ -432,34 +442,32 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                         .append(
                             $("<div>").addClass('popup').attr('data-name', therapistPopupName).addClass('hidden')
                                 .append(
-                                    $("<section>")
-                                        .append(
-                                            $("<select>")
-                                                .append(
-                                                    $("<option>").text("Selecteer een functie")
-                                                )
-                                                .append(
-                                                    $("<option>").text("Hoofdbehandelaar")
-                                                )
-                                                .append(
-                                                    $("<option>").text("Therapeut")
-                                                )
-                                        )
+                                    $('<form>')
+                                    .append(
+                                        $("<section>")
+                                            .append(
+                                                $("<select>").attr('name', 'relation')
+                                                    .append(
+                                                        $("<option>").text("Hoofdbehandelaar")
+                                                    )
+                                                    .append(
+                                                        $("<option>").text("Therapeut")
+                                                    )
+                                            )
+                                    )
+                                    .append(
+                                        $("<section>")
+                                            .append(
+                                                $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName").attr('data-label', "Personal.Name.FirstName,Personal.Name.LastName").attr('data-properties', 'relation')
+                                                    .append(
+                                                        $("<input>").attr("type", "text").attr("placeholder", "Therapeut zoeken")
+                                                    )
+                                                    .append(
+                                                        $("<div>").addClass("suggestions")
+                                                    )
+                                            )
+                                    )
                                 )
-                                .append(
-                                    $("<section>")
-                                        .append(
-                                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName")
-                                                .append(
-                                                    $("<input>").attr("type", "text").attr("placeholder", "Therapeut zoeken")
-                                                )
-                                                .append(
-                                                    $("<div>").addClass("suggestions")
-                                                )
-                                        )
-                                )
-
-
                         )
                 } else {
                     $(this).append(
