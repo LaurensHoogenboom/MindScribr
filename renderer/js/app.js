@@ -7,6 +7,7 @@ const { ipcRenderer } = require('electron')
 const fs = require('fs')
 const customTitlebar = require('custom-electron-titlebar')
 const interact = require('interactjs')
+const { v4: uuidv4 } = require('uuid');
 
 //initiate titlebar
 
@@ -166,6 +167,32 @@ function closeModal(modalName) {
     })
 }
 
+//popup
+
+$(document).on('click', '.button', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let buttonAction = $(this).data('action')
+    let button = $(this)
+
+    if (buttonAction === "open-popup") {
+        let popupName = button.data('popupname')
+
+        $('.popup').each(function () {
+            if ($(this).data("name") === popupName) {
+                $(this).toggleClass('hidden')
+            }
+
+            if ($(this).hasClass('hidden')) {
+                button.removeClass('clicked')
+            } else {
+                button.addClass('clicked')
+            }
+        })
+    }
+})
+
 //switch
 
 $(document).on('click', '.switch:not(.subSectionNav) a', function () {
@@ -178,18 +205,47 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
 
 //tagSearch
 
-$(document).on('keyup', '.tagSearch input', function() {
+let tagSearchRequests = []
+
+$(document).on('keyup', '.tagSearch input', function () {
     let table = $(this).closest('.tagSearch').data('table')
     let fields = $(this).closest('.tagSearch').data('fields').split(',')
     let searchString = $(this).val()
+    let tagInput = $(this).closest('.tagSearch')
+    let id = uuidv4();
 
-    searchContext = {
-        Table: table,
-        Fields: fields,
-        SearchString: searchString
+    if (searchString) {
+        searchContext = {
+            Table: table,
+            Fields: fields,
+            SearchString: searchString,
+            TagInput: tagInput,
+            Id: id
+        }
+
+        tagSearchRequests.push(searchContext)
+
+        ipcRenderer.send('search-data-request', searchContext)
+    } else {
+        $(this).closest('.tagSearch').find('.suggestions').empty()
     }
+})
 
-    ipcRenderer.send('search-data-request', searchContext)
+ipcRenderer.on('search-data-response', (e, response) => {
+    tagSearchRequests.forEach((request, index) => {
+        if (request.Id === response.Id) {
+            $(request.TagInput).find('.suggestions').empty()
+
+            response.Result.forEach((possibleTag) => {
+                $(request.TagInput).find('.suggestions')
+                    .append(
+                        $("<span>").addClass("tag").text(possibleTag.id)
+                    )
+            })
+
+            tagSearchRequests.splice(index, 1)
+        }
+    })
 })
 
 //input grid input description
@@ -356,15 +412,54 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 } else if (dataType === "therapists") {
                     $(this).html(fieldHTML)
 
+                    let therapistPopupName = "popup-" + uuidv4()
+
                     $(this)
                         .prepend(
-                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName")
+
+                            $("<label>").addClass('button').addClass('square').addClass('grey').attr('data-action', 'open-popup').attr('data-popupname', therapistPopupName)
                                 .append(
-                                    $("<input>").attr("type", "text")
+                                    $("<div>").addClass('plus')
+                                        .append(
+                                            $("<span>")
+                                        )
+                                        .append(
+                                            $("<span>")
+                                        )
+                                )
+
+                        )
+                        .append(
+                            $("<div>").addClass('popup').attr('data-name', therapistPopupName).addClass('hidden')
+                                .append(
+                                    $("<section>")
+                                        .append(
+                                            $("<select>")
+                                                .append(
+                                                    $("<option>").text("Selecteer een functie")
+                                                )
+                                                .append(
+                                                    $("<option>").text("Hoofdbehandelaar")
+                                                )
+                                                .append(
+                                                    $("<option>").text("Therapeut")
+                                                )
+                                        )
                                 )
                                 .append(
-                                    $("<div>").addClass("suggestions")
+                                    $("<section>")
+                                        .append(
+                                            $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName")
+                                                .append(
+                                                    $("<input>").attr("type", "text").attr("placeholder", "Therapeut zoeken")
+                                                )
+                                                .append(
+                                                    $("<div>").addClass("suggestions")
+                                                )
+                                        )
                                 )
+
+
                         )
                 } else {
                     $(this).append(

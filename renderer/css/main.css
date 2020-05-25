@@ -130,6 +130,10 @@ table tr td input[type="checkbox"]+label {
     margin-right: 20px;
 }
 
+table tr td .button.square, table tr td .button.grey.square {
+    display: inline-flex;
+}
+
 table tr.edit td {
     border-left: 1px solid var(--grey-lighter);
 }
@@ -161,11 +165,15 @@ table tr td.select input[type="checkbox"]+label::before {
     width: 20px;
 }
 
-table tr td.editable input {
+table tr td.editable {
+    position: relative;
+}
+
+table tr td.editable input, table tr td.editable .button {
     margin-right: 20px;
 }
 
-table tr td.editable input:last-child {
+table tr td.editable input:last-child, table tr td.editable .button:last-child {
     margin-right: 0px;
 }
 
@@ -281,6 +289,17 @@ table.listTable tr td:last-child {
     position: sticky;
     left: 0;
     top: 0;
+}
+
+.tableWrapper.dropdown>.title .actions {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.tableWrapper.dropdown.visible>.title .actions {
+    opacity: 1;
+    pointer-events: all;
 }
 
 .tableWrapper.dropdown>.title .actions .section {
@@ -778,6 +797,63 @@ main #mainContent {
     margin-left: 20px;
 }
 
+/*popup*/
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    transform: translateY(calc(-100% - 10px)) scale(1);
+    height: fit-content;
+    width: fit-content;
+    background: linear-gradient(to bottom, var(--white), var(--grey-lightest));
+    border: 1px solid var(--grey-light);
+    border-radius: 4px;
+    box-shadow: 0px 10px 20px var(--shadow);
+    z-index: 10;
+    margin-bottom: 20px;
+    opacity: 1;
+    transition: all 0.2s;
+    pointer-events: all;
+}
+
+.popup.hidden {
+    display: block;
+    opacity: 0;
+    transform: translateY(-100%) scale(0.8);
+    pointer-events: none;
+}
+
+.popup:after {
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid var(--grey-lightest);
+}
+
+.popup section {
+    border-bottom: 1px solid var(--grey-light);
+    padding: 10px;
+}
+
+.popup section:last-child {
+    border-bottom: none;
+}
+
+.popup section label {
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.popup section select {
+    width: 100%;
+}
+
 /*input*/
 
 .typeNumbers {
@@ -944,6 +1020,7 @@ main #mainContent {
 
 .button {
     display: inline-block;
+    position: relative;
     min-height: 30px;
     min-width: 30px;
     border-radius: 15px;
@@ -955,6 +1032,10 @@ main #mainContent {
 }
 
 .button:hover {
+    background: var(--blue-dark);
+}
+
+.button.clicked {
     background: var(--blue-dark);
 }
 
@@ -978,6 +1059,10 @@ main #mainContent {
     background: var(--grey-lighter);
 }
 
+.button.grey.clicked {
+    background: var(--grey-lighter);
+}
+
 .button.red {
     background-color: var(--red);
     color: var(--white);
@@ -987,6 +1072,10 @@ main #mainContent {
 .button.red:hover {
     background-color: var(--red-dark);
     color: var(--white);
+}
+
+.button.red.clicked {
+    background-color: var(--red-dark);
 }
 
 .button .icon {
@@ -1033,6 +1122,14 @@ main #mainContent {
     display: none;
 }
 
+/*tagging*/
+
+.tagSearch {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-flow: row;
+}
+
 .tag {
     display: inline-block;
     padding: 4px 20px;
@@ -1044,6 +1141,10 @@ main #mainContent {
 
 .tag:last-child {
     margin-right: 0;
+}
+
+table tr td.editable .tagSearch input {
+    margin-right: 0px;
 }
 
 /*form*/

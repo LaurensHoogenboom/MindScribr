@@ -110,8 +110,6 @@ ipcMain.on('update-data', (e, updateData) => {
 //search
 
 ipcMain.on('search-data-request', (e, context) => {
-    console.log(context)
-
     //initial search result variable
     let libraryToSearchFrom
 
@@ -129,8 +127,6 @@ ipcMain.on('search-data-request', (e, context) => {
         context.Fields.forEach((field) => {
             //get value label tree
             let valueLabelTree = field.split('.')
-
-            console.log(valueLabelTree)
 
             //iterate through the library
             libraryToSearchFrom.forEach((row) => {
@@ -157,7 +153,12 @@ ipcMain.on('search-data-request', (e, context) => {
         })
     }
 
-    e.sender.send('search-data-response', result)
+    searchReponse = {
+        Result: result,
+        Id: context.Id
+    }
+
+    e.sender.send('search-data-response', searchReponse)
 })
 
 //---- clients
