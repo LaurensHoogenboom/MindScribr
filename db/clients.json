@@ -32,12 +32,8 @@
         },
         "Therapists": [
           {
-            "id": 1586945190927,
-            "Relation": "Hoofdbehandelaar"
-          },
-          {
             "id": 1585542481325,
-            "Relation": "Therapeut"
+            "Relation": "Hoofdbehandelaar"
           }
         ],
         "Status": "In behandeling",

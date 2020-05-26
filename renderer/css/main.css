@@ -991,6 +991,10 @@ main #mainContent {
     background-color: var(--red);
 }
 
+.cross.white span {
+    background-color: var(--white);
+}
+
 .plus {
     display: inline-block;
     height: 15px;
@@ -1137,14 +1141,38 @@ main #mainContent {
     background-color: var(--blue);
     color: var(--white);
     margin-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .tag:last-child {
     margin-right: 0;
 }
 
+.tag .cross {
+    margin-left: 10px;
+}
+
 table tr td.editable .tagSearch input {
     margin-right: 0px;
+}
+
+table tr td.tagEditWrapper {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+}
+
+table tr td.tagEditWrapper .tagList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+}
+
+table tr td.tagEditWrapper .tagList .tag {
+    justify-self: start;
+    margin: 5px;
 }
 
 /*form*/

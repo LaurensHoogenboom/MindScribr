@@ -200,14 +200,33 @@ $(document).on('click', '.switch:not(.subSectionNav) a', function () {
         $(this).removeClass('current')
     })
 
-    $(this).addClass('current');
+    $(this).addClass('current')
+})
+
+//tag
+
+$(document).on('click', '.tag .cross', function () {
+    let parentTag = $(this).parent()
+
+    $(parentTag).animate({
+        opacity: 0
+    }, 200)
+
+    setTimeout(() => {
+        $(parentTag).animate({
+            width: 0,
+            height: 0
+        }, 200, function () {
+            $(parentTag).remove()
+        })
+    }, 200)
 })
 
 //tagSearch
 
 let tagSearchRequests = []
 
-$(document).on('keyup', '.tagSearch input', function () {
+$(document).on('keyup change', '.tagSearch input', function () {
     let table = $(this).closest('.tagSearch').data('table')
     let fields = $(this).closest('.tagSearch').data('fields').split(',')
     let searchString = $(this).val()
@@ -256,6 +275,44 @@ ipcRenderer.on('search-data-response', (e, response) => {
             tagSearchRequests.splice(index, 1)
         }
     })
+})
+
+$(document).on('click', '.tagSearch .suggestions .tag', function () {
+    let target = `#${$(this).closest('.tagSearch').data('target')}`
+    let properties = $(this).closest('.tagSearch').data('properties').split(',')
+    let data = []
+
+    properties.forEach((property) => {
+        let propertyValue = $(this).closest('form').find(`input[name="${property}"], select[name="${property}"]`).val()
+
+        item = {
+            title: property,
+            value: propertyValue
+        }
+
+        data.push(item)
+    })
+
+    data.forEach(item => {
+        $(this).attr(`data-${item.title}`, item.value)
+
+        let text = $(this).text()
+        text += ` | ${item.value}`
+        $(this).text(text)
+    })
+
+    $(this)
+        .append(
+            $("<label>").addClass('cross').addClass('white')
+                .append(
+                    $("<span>")
+                )
+                .append(
+                    $("<span>")
+                )
+        )
+
+    $(this).appendTo(target)
 })
 
 //input grid input description
@@ -420,9 +477,26 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                             $("<label>").attr("for", "friday").text('Vrijdag')
                         )
                 } else if (dataType === "therapists") {
-                    $(this).html(fieldHTML)
-
                     let therapistPopupName = "popup-" + uuidv4()
+                    let rowId = "therapists-" + uuidv4()
+
+                    $(this).addClass('tagEditWrapper')
+
+                    $(this).append(
+                        $("<div>").attr('id', rowId).html(fieldHTML).addClass('tagList')
+                    )
+
+                    $(`#${rowId}`).find('.tag').each(function () {
+                        $(this).append(
+                            $('<label>').addClass('cross').addClass('white')
+                                .append(
+                                    $("<span>")
+                                )
+                                .append(
+                                    $("<span>")
+                                )
+                        )
+                    })
 
                     $(this)
                         .prepend(
@@ -443,30 +517,33 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                             $("<div>").addClass('popup').attr('data-name', therapistPopupName).addClass('hidden')
                                 .append(
                                     $('<form>')
-                                    .append(
-                                        $("<section>")
-                                            .append(
-                                                $("<select>").attr('name', 'relation')
-                                                    .append(
-                                                        $("<option>").text("Hoofdbehandelaar")
-                                                    )
-                                                    .append(
-                                                        $("<option>").text("Therapeut")
-                                                    )
-                                            )
-                                    )
-                                    .append(
-                                        $("<section>")
-                                            .append(
-                                                $("<div>").addClass('tagSearch').attr('data-table', 'therapists').attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName").attr('data-label', "Personal.Name.FirstName,Personal.Name.LastName").attr('data-properties', 'relation')
-                                                    .append(
-                                                        $("<input>").attr("type", "text").attr("placeholder", "Therapeut zoeken")
-                                                    )
-                                                    .append(
-                                                        $("<div>").addClass("suggestions")
-                                                    )
-                                            )
-                                    )
+                                        .append(
+                                            $("<section>")
+                                                .append(
+                                                    $("<select>").attr('name', 'relation')
+                                                        .append(
+                                                            $("<option>").text("Hoofdbehandelaar")
+                                                        )
+                                                        .append(
+                                                            $("<option>").text("Therapeut")
+                                                        )
+                                                )
+                                        )
+                                        .append(
+                                            $("<section>")
+                                                .append(
+                                                    $("<div>").addClass('tagSearch').attr('data-table', 'therapists')
+                                                        .attr('data-fields', "Personal.Name.FirstName,Personal.Name.LastName,Personal.Name.NickName")
+                                                        .attr('data-label', "Personal.Name.FirstName,Personal.Name.LastName")
+                                                        .attr('data-properties', 'relation').attr('data-target', rowId)
+                                                        .append(
+                                                            $("<input>").attr("type", "text").attr("placeholder", "Therapeut zoeken")
+                                                        )
+                                                        .append(
+                                                            $("<div>").addClass("suggestions")
+                                                        )
+                                                )
+                                        )
                                 )
                         )
                 } else {
@@ -540,11 +617,15 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 let therapists = []
                 let therapistsList = ""
 
-                $(this).find(".tag").each(function () {
-                    relatedTherapist = {}
+                $(this).find('.tagSearch .suggestions').empty()
 
-                    relatedTherapist.id = $(this).data('id')
-                    relatedTherapist.Relation = $(this).data('relation')
+                $(this).find(".tag").each(function () {
+                    relatedTherapist = {
+                        id: $(this).data('id'),
+                        Relation: $(this).data('relation')
+                    }
+
+                    $(this).find('.cross').remove()
 
                     therapists.push(relatedTherapist)
 

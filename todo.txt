@@ -1,5 +1,5 @@
-therapeuten
 status (client & therapeut)
 huisarts
 trajectnaam
 verzekeraar
+accounttype
