@@ -270,7 +270,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Status").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(therapist.Employment.Status ? therapist.Employment.Status : "-").attr('data-label', 'Employment.Status').addClass('editable')
+                    $("<td>").text(therapist.Employment.Status ? therapist.Employment.Status : "-").attr('data-label', 'Employment.Status').addClass('editable').attr('data-type', 'Status').attr('data-statusparent', 'Therapist')
                 )
         )
         .append(

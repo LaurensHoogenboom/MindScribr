@@ -1,0 +1,40 @@
+{
+  "statuses": [
+    {
+      "Title": "Aankomend",
+      "Parent": "Client",
+      "Priority": "Normaal",
+      "id": 1590485072754
+    },
+    {
+      "Title": "In behandeling",
+      "Parent": "Client",
+      "Priority": "Normaal",
+      "id": 1590485072768
+    },
+    {
+      "Title": "Aandacht vereist",
+      "Parent": "Client",
+      "Priority": "Hoog",
+      "id": 1590485072778
+    },
+    {
+      "Title": "Uitbehandeld",
+      "Parent": "Client",
+      "Priority": "Laag",
+      "id": 1590485072788
+    },
+    {
+      "Title": "Aanwezig",
+      "Parent": "Therapist",
+      "Priority": "Normaal",
+      "id": 1590485072796
+    },
+    {
+      "Title": "Afwezig",
+      "Parent": "Therapist",
+      "Priority": "Normaal",
+      "id": 1590485072805
+    }
+  ]
+}

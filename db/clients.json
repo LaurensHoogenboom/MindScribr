@@ -34,10 +34,14 @@
           {
             "id": 1585542481325,
             "Relation": "Hoofdbehandelaar"
+          },
+          {
+            "id": 1586945190927,
+            "Relation": "Hoofdbehandelaar"
           }
         ],
-        "Status": "In behandeling",
-        "MainDiagnosis": "Niet vastgesteld"
+        "MainDiagnosis": "Niet vastgesteld",
+        "Status": "In behandeling"
       },
       "Finance": {},
       "id": 1584639131903

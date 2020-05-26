@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const clients = require('./modules/clients')
 const notes = require('./modules/notes')
 const therapists = require('./modules/therapists')
+const statuses = require('./modules/statuses.js')
 const uuid = require('uuid').v4
 const path = require('path')
 const appRoot = require('app-root-path')
@@ -367,6 +368,26 @@ ipcMain.on('therapist-delete-request', (e, list) => {
         therapists.delete(where, (succ) => {
             e.sender.send('therapists-delete-response', succ)
         })
+    })
+})
+
+//---- status
+
+//get list
+ipcMain.on('status-list-request', (e, request) => {
+    let where = {
+        Parent: request.parent
+    }
+
+    statuses.get(where, (statusList) => {
+        let response = {
+            id: request.id,
+            statuses: statusList
+        }
+
+        console.log(statusList)
+
+        e.sender.send('status-list-response', response)
     })
 })
 

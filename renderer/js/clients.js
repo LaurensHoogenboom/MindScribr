@@ -354,7 +354,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Status").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Therapy.Status).addClass('editable').attr('data-label', 'Therapy.Status')
+                    $("<td>").text(client.Therapy.Status).addClass('editable').attr('data-label', 'Therapy.Status').attr('data-type', 'Status').attr('data-statusparent', 'Client')
                 )
         )
         .append(

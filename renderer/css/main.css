@@ -177,6 +177,11 @@ table tr td.editable input:last-child, table tr td.editable .button:last-child {
     margin-right: 0px;
 }
 
+table tr td.editable input, table tr td.editable select {
+    width: 100%;
+    max-width: 220px;
+}
+
 table.actionTable tbody tr {
     cursor: pointer;
 }
@@ -993,6 +998,10 @@ main #mainContent {
 
 .cross.white span {
     background-color: var(--white);
+}
+
+.cross.white:hover span {
+    background-color: var(--red);
 }
 
 .plus {

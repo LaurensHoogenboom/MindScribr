@@ -546,6 +546,42 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                                         )
                                 )
                         )
+                } else if (dataType === "Status") {
+                    let inputId = 'statusInput-' + uuidv4()
+                    let statusParent = $(this).data('statusparent')
+                    let currentStatus = fieldValue
+
+                    let statusRequest = {
+                        id: uuidv4(),
+                        parent: statusParent
+                    }
+
+                    ipcRenderer.send('status-list-request', statusRequest)
+
+                    $(this)
+                        .append(
+                            $("<select>").attr('id', inputId)
+                        )
+
+                    if (currentStatus) {
+                        $(`#${inputId}`)
+                            .append(
+                                $("<option>").text(fieldValue).attr('selected', 'selected')
+                            )
+                    }
+
+                    ipcRenderer.on('status-list-response', (e, response) => {
+                        if (response.id === statusRequest.id) {
+                            response.statuses.forEach((status) => {
+                                if (status.Title !== fieldValue) {
+                                    $(`#${inputId}`)
+                                    .append(
+                                        $("<option>").text(status.Title)
+                                    )
+                                }  
+                            })
+                        }
+                    })
                 } else {
                     $(this).append(
                         $("<input>").attr("type", "text").val(fieldValue)
@@ -583,8 +619,6 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                     PostalCode: postalCode,
                     City: city
                 }
-
-                console.log($(this).find('input'))
             }
 
             if (dataType === "Name") {
@@ -618,6 +652,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 let therapistsList = ""
 
                 $(this).find('.tagSearch .suggestions').empty()
+                $(this).removeClass('tagEditWrapper')
 
                 $(this).find(".tag").each(function () {
                     relatedTherapist = {
@@ -635,6 +670,13 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                 dataToStore = therapists
                 fieldIsHTML = true
                 fieldValue = therapistsList
+            }
+
+            if (dataType === "Status") {
+                let status = $(this).find("select").val()
+
+                fieldValue = status
+                dataToStore = status
             }
 
             let updateData = {

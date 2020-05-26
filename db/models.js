@@ -99,8 +99,17 @@ class Note {
         this.Title = title,
         this.Description = description
     }
-} 
+}
+
+class Status {
+    constructor(title, parent, priority) {
+        this.Title = title,
+        this.Parent = parent,
+        this.Priority = priority
+    }
+}
 
 exports.Client = Client
 exports.Note = Note
 exports.Therapist = Therapist
+exports.Status = Status
