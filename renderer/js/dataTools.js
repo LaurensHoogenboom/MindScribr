@@ -125,4 +125,47 @@ const getField = (object, fieldPath, ifEmptyString) => {
     return result
 }
 
+//careplan
+const getCarePlan = {
+    titleAndIntensity: (carePlan) => {
+        if (carePlan.Title && carePlan.Intensity) {
+            return `${carePlan.Title} | ${carePlan.Intensity}`
+        } else {
+            return ""
+        }
+    },
+
+    title: (carePlan) => {
+        if (carePlan.Title) {
+            return carePlan.Title
+        } else {
+            return ""
+        }
+    },
+
+    intensity: (carePlan) => {
+        if (carePlan.Intensity) {
+            return carePlan.Intensity
+        } else {
+            return ""
+        }
+    },
+
+    code: (carePlan) => {
+        if (carePlan.Code) {
+            return carePlan.Code
+        } else {
+            return ""
+        }
+    },
+
+    numberOfSessions: (carePlan) => {
+        if (carePlan.NumberOfSessions) {
+            return carePlan.NumberOfSessions
+        } else {
+            return ""
+        }
+    }
+}
+
 

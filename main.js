@@ -3,7 +3,8 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const clients = require('./modules/clients')
 const notes = require('./modules/notes')
 const therapists = require('./modules/therapists')
-const statuses = require('./modules/statuses.js')
+const statuses = require('./modules/statuses')
+const careplans = require('./modules/careplans')
 const uuid = require('uuid').v4
 const path = require('path')
 const appRoot = require('app-root-path')
@@ -385,9 +386,23 @@ ipcMain.on('status-list-request', (e, request) => {
             statuses: statusList
         }
 
-        console.log(statusList)
-
         e.sender.send('status-list-response', response)
+    })
+})
+
+//---- careplans
+
+//get list
+ipcMain.on('careplan-list-request', (e, request) => {
+    careplans.get({}, (careplanList) => {
+        let response = {
+            id: request.id,
+            careplans: careplanList
+        }
+
+        console.log(response)
+
+        e.sender.send('careplan-list-response', response)
     })
 })
 

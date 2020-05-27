@@ -1,4 +1,3 @@
 huisarts
-trajectnaam
 verzekeraar
 accounttype

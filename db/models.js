@@ -109,7 +109,17 @@ class Status {
     }
 }
 
+class CarePlan {
+    constructor(title, performance, code, numberOfSessions) {
+        this.Title = title,
+        this.Intensity = performance,
+        this.Code = code,
+        this.NumberOfSessions = numberOfSessions
+    }
+}
+
 exports.Client = Client
 exports.Note = Note
 exports.Therapist = Therapist
 exports.Status = Status
+exports.CarePlan = CarePlan

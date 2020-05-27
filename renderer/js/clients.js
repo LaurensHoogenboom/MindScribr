@@ -104,8 +104,13 @@ ipcRenderer.on('client-detail-retrieve', (e, detail) => {
     $('.mainInfoBlocks #client-info-name').text(name)
 
     $('.mainInfoBlocks #client-info-sessions').text(`${detail.client.Therapy.UsedSessions ? detail.client.Therapy.UsedSessions : '-'} / ${detail.client.Therapy.TotalSessions ? detail.client.Therapy.TotalSessions : '-'}`)
-    $('.mainInfoBlocks #therapy-info-code').text(`${detail.client.Therapy.TrajectType.Code ? detail.client.Therapy.TrajectType.Code : '-'}`)
-    $('.mainInfoBlocks #therapy-info-title').text(`${detail.client.Therapy.TrajectType.Title ? detail.client.Therapy.TrajectType.Title : 'Bandelingscode'}`)
+
+    //determine plan and set plan name
+    let carePlan = getCarePlan.titleAndIntensity(detail.client.Therapy.CarePlan)
+    $('.mainInfoBlocks #therapy-info-code').text(carePlan ? carePlan : '-')
+
+    let carePlanCode = getCarePlan.code(detail.client.Therapy.CarePlan)
+    $('.mainInfoBlocks #therapy-info-title').text(carePlanCode ? carePlanCode : '-')
     $('.mainInfoBlocks #therapy-info-status').text(`${detail.client.Therapy.Status}`)
     $('.mainInfoBlocks #therapy-info-diagnosis').text(`${detail.client.Therapy.MainDiagnosis ? detail.client.Therapy.MainDiagnosis : '-'}`)
 
@@ -363,7 +368,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Aantal Sessies").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TotalSessions).addClass('editable').attr('data-label', 'Therapy.TotalSessions')
+                    $("<td>").text(client.Therapy.TotalSessions).addClass('editable').attr('data-label', 'Therapy.TotalSessions').attr('data-type', 'Number')
                 )
         )
         .append(
@@ -372,25 +377,16 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Aantal gebruikte sessies")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.UsedSessions).addClass('editable').attr('data-label', 'Therapy.UsedSessions')
+                    $("<td>").text(client.Therapy.UsedSessions).addClass('editable').attr('data-label', 'Therapy.UsedSessions').attr('data-type', 'Number')
                 )
         )
         .append(
             $("<tr>")
                 .append(
-                    $("<td>").text("Trajectnaam")
+                    $("<td>").text("Traject")
                 )
                 .append(
-                    $("<td>").text(client.Therapy.TrajectType.Title).addClass('editable').attr('data-label', 'Therapy.TrajectType.Title')
-                )
-        )
-        .append(
-            $("<tr>")
-                .append(
-                    $("<td>").text("Trajectcode")
-                )
-                .append(
-                    $("<td>").text(client.Therapy.TrajectType.Code).addClass('editable').attr('data-label', 'Therapy.TrajectType.Code')
+                    $("<td>").text(`${getCarePlan.titleAndIntensity(client.Therapy.CarePlan)}`).addClass('editable').attr('data-label', 'Therapy.CarePlan').attr('data-type', 'CarePlan').attr('data-careplan', JSON.stringify(client.Therapy.CarePlan))
                 )
         )
         .append(

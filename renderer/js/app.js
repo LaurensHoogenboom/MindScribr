@@ -387,7 +387,11 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
                 $(this).empty()
 
-                if (dataType === "Date") {
+                if (dataType === "Number") {
+                    $(this).append(
+                        $("<input>").attr('type', 'number').val(fieldValue)
+                    )
+                } else if (dataType === "Date") {
                     $(this).append(
                         $("<input>").attr("type", "date").val(getDate.datePicker(fieldValue))
 
@@ -575,10 +579,46 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                             response.statuses.forEach((status) => {
                                 if (status.Title !== fieldValue) {
                                     $(`#${inputId}`)
-                                    .append(
-                                        $("<option>").text(status.Title)
-                                    )
-                                }  
+                                        .append(
+                                            $("<option>").text(status.Title)
+                                        )
+                                }
+                            })
+                        }
+                    })
+                } else if (dataType === "CarePlan") {
+                    let inputId = 'StatusInput' + uuidv4()
+                    let currentPlan = fieldValue
+                    let currentPlanObject = $(this).data('careplan')
+
+                    let carePlanRequest = {
+                        id: uuidv4(),
+                        where: {}
+                    }
+
+                    ipcRenderer.send('careplan-list-request', carePlanRequest)
+
+                    $(this)
+                        .append(
+                            $("<select>").attr('id', inputId)
+                        )
+
+                    if (currentPlan) {
+                        $(`#${inputId}`)
+                            .append(
+                                $("<option>").text(fieldValue).attr('data-careplan', JSON.stringify(currentPlanObject))
+                            )
+                    }
+
+                    ipcRenderer.on('careplan-list-response', (e, response) => {
+                        if (response.id === carePlanRequest.id) {
+                            response.careplans.forEach((careplan) => {
+                                if (careplan.id !== currentPlanObject.id) {
+                                    $(`#${inputId}`)
+                                        .append(
+                                            $("<option>").text(`${careplan.Title} | ${careplan.Intensity}`).attr('data-careplan', JSON.stringify(careplan))
+                                        )
+                                }
                             })
                         }
                     })
@@ -677,6 +717,15 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
                 fieldValue = status
                 dataToStore = status
+            }
+
+            if (dataType === "CarePlan") {
+                let careplan = $(this).find("select option:selected").data('careplan')
+
+                $(this).attr('data-careplan', JSON.stringify(careplan))
+
+                fieldValue = $(this).find("select option:selected").text()
+                dataToStore = careplan
             }
 
             let updateData = {

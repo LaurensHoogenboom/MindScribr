@@ -24,12 +24,6 @@
       },
       "Therapy": {
         "FileId": "D-987.654.321",
-        "TotalSessions": "75",
-        "UsedSessions": "35",
-        "TrajectType": {
-          "Title": "Basis | Intensief",
-          "Code": "108.302"
-        },
         "Therapists": [
           {
             "id": 1585542481325,
@@ -41,7 +35,16 @@
           }
         ],
         "MainDiagnosis": "Niet vastgesteld",
-        "Status": "In behandeling"
+        "Status": "Aankomend",
+        "TotalSessions": "75",
+        "UsedSessions": "30",
+        "CarePlan": {
+          "Title": "Basis",
+          "Intensity": "Middel",
+          "Code": "108.301",
+          "NumberOfSessions": "35",
+          "id": 1590564019444
+        }
       },
       "Finance": {},
       "id": 1584639131903
@@ -72,9 +75,12 @@
         "FileId": "D-123.456.789",
         "TotalSessions": "75",
         "UsedSessions": "35",
-        "TrajectType": {
-          "Title": "Basis | Intensief",
-          "Code": "108.302"
+        "CarePlan": {
+          "Title": "Basis",
+          "Intensity": "Middel",
+          "Code": "108.301",
+          "NumberOfSessions": "35",
+          "id": 1590564019444
         },
         "Therapists": [
           {

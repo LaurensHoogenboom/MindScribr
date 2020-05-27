@@ -1,0 +1,32 @@
+{
+  "careplans": [
+    {
+      "Title": "Basis",
+      "Intensity": "Kort",
+      "Code": "108.300",
+      "NumberOfSessions": "30",
+      "id": 1590564019432
+    },
+    {
+      "Title": "Basis",
+      "Intensity": "Middel",
+      "Code": "108.301",
+      "NumberOfSessions": "35",
+      "id": 1590564019444
+    },
+    {
+      "Title": "Basis",
+      "Intensity": "Intensief",
+      "Code": "108.302",
+      "NumberOfSessions": "40",
+      "id": 1590564019450
+    },
+    {
+      "Title": "Basis",
+      "Intensity": "Chronisch",
+      "Code": "108.303",
+      "NumberOfSessions": "45",
+      "id": 1590564019458
+    }
+  ]
+}
