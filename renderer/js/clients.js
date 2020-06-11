@@ -309,7 +309,7 @@ ipcRenderer.on('client-data-retrieve', (e, client) => {
                     $("<td>").text("Huisarts").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(client.Personal.GeneralPractitioner).addClass('editable').attr('data-label', 'Personal.GeneralPractitioner')
+                    $("<td>").text(client.Personal.GeneralPractitioner).addClass('editable').attr('data-label', 'Personal.GeneralPractitioner').attr('data-type', 'GeneralPractioner')
                 )
         )
 

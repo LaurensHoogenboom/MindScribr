@@ -1,3 +1,4 @@
 huisarts
 verzekeraar
-accounttype
+
+automatisch aantal sessies

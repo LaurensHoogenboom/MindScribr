@@ -550,6 +550,57 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                                         )
                                 )
                         )
+                } else if (dataType === "GeneralPractioner") {
+                    let generalPractionerPopupName = 'popup-' + uuidv4()
+
+                    $(this)
+                        .append(
+                            $("<div>").addClass('buttonInput')
+                                .append(
+                                    $("<select>")
+                                        .append(
+                                            $("<option>").text('Smith')
+                                        )
+                                )
+                                .append(
+                                    $("<label>").addClass('button square').attr('data-action', 'open-popup').attr('data-popupname', generalPractionerPopupName)
+                                        .append(
+                                            $("<label>").addClass('plus')
+                                                .append(
+                                                    $("<span>")
+                                                )
+                                                .append(
+                                                    $("<span>")
+                                                )
+                                        )
+                                )
+                        )
+
+                        .append(
+                            $("<div>").addClass('popup').attr('data-name', generalPractionerPopupName).addClass('hidden')
+                                .append(
+                                    $('<form>')
+                                        .append(
+                                            $("<section>")
+                                                .append(
+                                                    $('<input>').attr('type', 'text').attr('placeholder', 'Naam')
+                                                )
+                                                .append(
+                                                    $('<input>').attr('type', 'text').attr('placeholder', 'Plaats')
+                                                )
+                                                .append(
+                                                    $('<input>').attr('type', 'tel').attr('placeholder', 'Telefoonnummer')
+                                                )
+                                        )
+                                        .append(
+                                            $("<section>")
+                                                .append(
+                                                    $("<label>").addClass("button").text('Opslaan en toewijzen')
+                                                )
+                                        )
+
+                                )
+                        )
                 } else if (dataType === "Status") {
                     let inputId = 'statusInput-' + uuidv4()
                     let statusParent = $(this).data('statusparent')
@@ -653,9 +704,9 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                             response.accountTypes.forEach((type) => {
                                 if (type.Title !== fieldValue) {
                                     $(`#${inputId}`)
-                                    .append(
-                                        $("<option>").text(type.Title)
-                                    )
+                                        .append(
+                                            $("<option>").text(type.Title)
+                                        )
                                 }
                             })
                         }

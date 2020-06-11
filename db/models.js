@@ -87,6 +87,29 @@ class Therapist {
     }
 }
 
+class GeneralPractioner {
+    constructor(firstName, lastName, street, postalCode, city, agbCode, phone, email) {
+        this.Personal = {
+            Name: {
+                FirstName: firstName,
+                LastName: lastName
+            }
+        }
+        this.Service = {
+            AGBCode: agbCode
+        }
+        this.Contact = {
+            Email: email,
+            Phone: phone,
+            Address: {
+                Street: street,
+                PostalCode: postalCode,
+                City: city
+            }
+        }
+    }
+}
+
 class Note {
     constructor(dateTime, createdBy, type, attachedTo, receiver, priority, status, title, description) {
         this.DateTime = dateTime,
@@ -129,6 +152,7 @@ class CarePlan {
 exports.Client = Client
 exports.Note = Note
 exports.Therapist = Therapist
+exports.GeneralPractioner = GeneralPractioner
 exports.Status = Status
 exports.AccountType = AccountType
 exports.CarePlan = CarePlan
