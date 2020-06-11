@@ -109,6 +109,14 @@ class Status {
     }
 }
 
+class AccountType {
+    constructor(title, parent, description) {
+        this.Title = title,
+        this.Parent = parent,
+        this.Description = description
+    }
+}
+
 class CarePlan {
     constructor(title, performance, code, numberOfSessions) {
         this.Title = title,
@@ -122,4 +130,5 @@ exports.Client = Client
 exports.Note = Note
 exports.Therapist = Therapist
 exports.Status = Status
+exports.AccountType = AccountType
 exports.CarePlan = CarePlan

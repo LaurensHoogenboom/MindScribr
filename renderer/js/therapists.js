@@ -308,7 +308,7 @@ ipcRenderer.on('therapist-data-retrieve', (e, therapist) => {
                     $("<td>").text("Type").addClass('maxContent')
                 )
                 .append(
-                    $("<td>").text(therapist.Account.Type ? therapist.Account.Type : "-").attr('data-label', 'Account.Type').addClass('editable')
+                    $("<td>").text(therapist.Account.Type ? therapist.Account.Type : "-").attr('data-label', 'Account.Type').addClass('editable').attr('data-type', 'AccountType').attr('data-accounttypeparent', 'Therapist')
                 )
         )
 

@@ -1,0 +1,19 @@
+{
+  "accountTypes": [
+    {
+      "Title": "Administrator",
+      "Parent": "Therapist",
+      "id": 1591869113633
+    },
+    {
+      "Title": "Supervisor",
+      "Parent": "Therapist",
+      "id": 1591869113643
+    },
+    {
+      "Title": "Standaard",
+      "Parent": "Therapist",
+      "id": 1591869113652
+    }
+  ]
+}

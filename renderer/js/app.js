@@ -587,7 +587,7 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                         }
                     })
                 } else if (dataType === "CarePlan") {
-                    let inputId = 'StatusInput' + uuidv4()
+                    let inputId = 'CarePlanInput-' + uuidv4()
                     let currentPlan = fieldValue
                     let currentPlanObject = $(this).data('careplan')
 
@@ -618,6 +618,44 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
                                         .append(
                                             $("<option>").text(`${careplan.Title} | ${careplan.Intensity}`).attr('data-careplan', JSON.stringify(careplan))
                                         )
+                                }
+                            })
+                        }
+                    })
+                } else if (dataType === "AccountType") {
+                    let inputId = 'accountTypeInput-' + uuidv4()
+                    let accountTypeParent = $(this).data('accounttypeparent')
+                    let currentAccountType = fieldValue
+
+                    let accountTypeRequest = {
+                        id: uuidv4(),
+                        parent: accountTypeParent
+                    }
+
+                    ipcRenderer.send('accountType-list-request', accountTypeRequest)
+
+                    $(this)
+                        .append(
+                            $("<select>").attr('id', inputId)
+                        )
+
+                    if (currentAccountType) {
+                        console.log('fire')
+
+                        $(`#${inputId}`)
+                            .append(
+                                $("<option>").text(fieldValue).attr('selected', 'selected')
+                            )
+                    }
+
+                    ipcRenderer.on('accountType-list-response', (e, response) => {
+                        if (response.id === accountTypeRequest.id) {
+                            response.accountTypes.forEach((type) => {
+                                if (type.Title !== fieldValue) {
+                                    $(`#${inputId}`)
+                                    .append(
+                                        $("<option>").text(type.Title)
+                                    )
                                 }
                             })
                         }
@@ -726,6 +764,13 @@ $(document).on('click', '.tableWrapper.dropdown .title .actions .button', functi
 
                 fieldValue = $(this).find("select option:selected").text()
                 dataToStore = careplan
+            }
+
+            if (dataType === "AccountType") {
+                let accountType = $(this).find("select").val()
+
+                fieldValue = accountType
+                dataToStore = accountType
             }
 
             let updateData = {

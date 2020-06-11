@@ -5,6 +5,7 @@ const notes = require('./modules/notes')
 const therapists = require('./modules/therapists')
 const statuses = require('./modules/statuses')
 const careplans = require('./modules/careplans')
+const accountTypes = require('./modules/accountTypes')
 const uuid = require('uuid').v4
 const path = require('path')
 const appRoot = require('app-root-path')
@@ -399,10 +400,26 @@ ipcMain.on('careplan-list-request', (e, request) => {
             id: request.id,
             careplans: careplanList
         }
-
-        console.log(response)
-
+        
         e.sender.send('careplan-list-response', response)
+    })
+})
+
+//---- accountTypes
+
+//get list
+ipcMain.on('accountType-list-request', (e, request) => {
+    let where = {
+        Parent: request.parent
+    }
+
+    accountTypes.get(where, (accountTypeList) => {
+        let response = {
+            id: request.id,
+            accountTypes: accountTypeList
+        }
+
+        e.sender.send('accountType-list-response', response)
     })
 })
 
